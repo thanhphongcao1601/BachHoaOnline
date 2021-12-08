@@ -1,4 +1,7 @@
 ﻿@model PTHShopping.Models.Sanpham_Danhmuc;
+@{
+    int index = ViewBag.idctsp;
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +24,7 @@
         *:not(.fa) {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         }
+
         .pgiamgia {
             height: 45px;
             width: 45px;
@@ -246,7 +250,7 @@
                             <div class="product__details__pic">
                                 <div class="product__details__pic__item">
                                     <img class="product__details__pic__item--large"
-                                         src="~/Userassets/img/product/details/product-details-1.jpg" alt="">
+                                         src="/@Model.ListSanpham[index].Thumb" alt="">
                                 </div>
                                 <div class="product__details__pic__slider owl-carousel">
                                     <img data-imgbigurl="~/Userassets/img/product/details/product-details-2.jpg"
@@ -261,9 +265,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            @{
-                                int index = ViewBag.idctsp;
-                            }
+
                             <div class="product__details__text">
                                 <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.ListSanpham[index].IdsanPham">
                                     <h3>@Model.ListSanpham[index].TenSanPham</h3>
@@ -485,7 +487,6 @@
         <!-- Related Product Section End -->
     </div>
     <!-- Breadcrumb Section End -->
-
     <!-- Js Plugins -->
     @await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
     <!-- Footer Section End -->

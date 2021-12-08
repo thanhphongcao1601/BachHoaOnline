@@ -35,7 +35,7 @@ namespace PTHShopping.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-LS2HU2P;Database=PTHShopping;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-7P911SC5;Database=PTHShopping;Integrated Security=true;");
             }
         }
 
