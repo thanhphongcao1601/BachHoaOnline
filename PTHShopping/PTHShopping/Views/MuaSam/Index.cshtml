@@ -1,0 +1,53 @@
+﻿@model PTHShopping.Models.Sanpham_Danhmuc;
+@{
+    Layout = "_MuaSamLayout";
+}
+<div class="col-lg-9 col-md-7">
+    <div class="product__discount">
+        <div class="section-title product__discount__title">
+            <h2>Sale Off</h2>
+        </div>
+        <div class="row">
+            <div class="product__discount__slider owl-carousel">
+                @foreach (var item in Model.ListSanpham)
+                {
+                    int index = Model.ListSanpham.ToList().IndexOf(item);
+                    if (ViewBag.idspdm == item.CatId)
+                    {
+                        <div class="col-lg-4">
+                            <div class="product__discount__item">
+                                <div class="product__discount__item__pic set-bg"
+                                     data-setbg="https://iweb.tatthanh.com.vn/pic/12/news/images/4(3).jpg">
+                                    @if (item.KhuyenMai != null)
+                                    {
+                                        <div class="product__discount__percent">@item.KhuyenMai%</div>
+                                    }
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__discount__item__text">
+                                    <span>@item.CatId</span>
+                                    <h5><a href="@Url.Action("Index", "ChiTietSP",new { id = index})">@item.TenSanPham</a></h5>
+                                    @if (item.KhuyenMai != null)
+                                    {
+                                        <div class="product__item__price">@(item.Gia*(100-item.KhuyenMai)/100) VND <span>@item.Gia VND</span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product__item__price">@(item.Gia) VND</div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

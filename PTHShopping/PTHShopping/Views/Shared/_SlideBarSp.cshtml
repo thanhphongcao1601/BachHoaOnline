@@ -1,0 +1,71 @@
+﻿@model PTHShopping.Models.Sanpham_Danhmuc;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="col-lg-3 col-md-5">
+    <div class="sidebar">
+        <div class="sidebar__item">
+            <h4>Bộ lọc tìm kiếm</h4>
+            <ul>
+                <li><label><input type="checkbox" value=""> Đang khuyến mãi</label></li>
+                <li><label><input type="checkbox" value=""> Mới nhất</label></li>
+                <li><label><input type="checkbox" value=""> Mua nhiều nhất</label></li>
+            </ul> 
+        </div>
+        <div class="sidebar__item">
+            <h4>Giá</h4>
+            <div class="price-range-wrap">
+                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                     data-min="0" data-max="10000000">
+                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                </div>
+                <div class="range-slider">
+                    <div class="price-input">
+                        <input type="text" id="minamount">
+                        <input type="text" id="maxamount">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar__item">
+            <div class="latest-product__text">
+                <h4>Sản phẩm mới</h4>
+                <div class="latest-product__slider owl-carousel">
+                    <div class="latest-prdouct__slider__item">
+                        @{
+                            //var sortls = Model.ListSanpham.ToList().Where(x => x.CatId.ToString() == "cat002");
+                            var sortls = Model.ListSanpham;
+                        }
+                        @foreach (var item in sortls)
+                        {
+                            int index = sortls.ToList().IndexOf(item);
+                            int count = sortls.ToList().Count;
+                            <a href="#" class="latest-product__item">
+                                @if (@item.KhuyenMai != null)
+                                {
+                                    <div class="pgiamgia">@item.KhuyenMai%</div>
+                                }
+                                <div class="latest-product__item__pic">
+                                    <img src="https://internetviettel.vn/wp-content/uploads/2017/05/4-1.jpg" alt=""> @*thumb*@
+                                </div>
+                                <div class="latest-product__item__text">
+                                    <h6>@item.TenSanPham</h6>
+                                    <span>@item.Gia VND</span>
+                                </div>
+                            </a>
+                            if (index % 3 == 2 && index != count - 1)
+                            {
+                            @:</div>
+                            @: <div class="latest-prdouct__slider__item">
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿
+
+@using System;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Login/Views/Shared/_LoginLayout.cshtml";
+
+}
+
+<section class="login-block">
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-4 login-sec pl-5">
+                <h2 class="text-center">Wellcome</h2>
+                <form class="login-form" method="POST" asp-action="Index">
+                    <div class="form-group">
+                        <label >Số điện thoại</label>
+                        <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" name="sdt">
+
+                    </div>
+                    <div class="form-group">
+                        <label >Mật khẩu</label>
+                        <input  type="password" class="form-control" placeholder="Nhập mật khẩu của bạn" name="Password">
+                    </div>
+
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label">
+                            <small>Nhớ mật khẩu<a href="#" style="float:right;">Quên mật khẩu</a></small>
+                        </label>
+
+                        <button type="submit" class="btn btn-login float-right">Đăng nhập</button>
+                    </div>
+                </form>
+                <div class="copy-text"><i class="fa fa-heart"></i><a href="#"> Đăng ký ngay</a></div>
+            </div>
+            <div class="col-md-8 banner-sec">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img class="d-block img-slide" src="https://vnn-imgs-f.vgcloud.vn/2020/09/24/18/tranh-cai-an-hoa-qua-truoc-hay-sau-bua-an-da-co-cau-tra-loi.jpg" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div class="banner-text">
+                                    <h2>This is Heaven</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-slide" src="https://icdn.dantri.com.vn/thumb_w/640/2018/do-hop-1515983456164.jpeg" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div class="banner-text">
+                                    <h2>This is Heaven</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-slide" src="https://cdn.tgdd.vn/2021/04/content/xred-meat-vs-white-meat.jpg.pagespeed.ic.FDaubWNNo--800x533.jpg" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div class="banner-text">
+                                    <h2>This is Heaven</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

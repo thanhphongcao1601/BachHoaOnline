@@ -1,0 +1,79 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+@model IEnumerable<PTHShopping.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h5 class="text-info">Danh sách tài khoản quản trị</h5>
+
+
+<div class="mt-4">
+    <select class="" style="min-width:150px; height:25px; font-size:small;" asp-items="ViewBag.QuyenTruyCap">
+        <option  value="" disabled selected>Quyền truy cập</option>
+    </select>
+    <select class="" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai">
+        <option value="" disabled selected>Trạng thái</option>
+    </select>
+    <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Mật khẩu (mã hóa)
+            </th>
+            <th>
+                Lần đăng nhập cuối
+            </th>
+            <th>
+                Hoạt động
+            </th>
+            <th>
+                Tác vụ
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+
+            <td>
+                <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Edit" asp-route-id="@item.AccountId"><i class="mdi mdi-lead-pencil"></i></a>
+                <a class="btn-gradient-info btn-rounded btn btn-sm" asp-action="Details" asp-route-id="@item.AccountId"><i class="mdi mdi-account-card-details"></i></a>
+                <a class="btn-gradient-danger btn-rounded btn btn-sm" asp-action="Delete" asp-route-id="@item.AccountId"><i class="mdi mdi-delete-forever"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

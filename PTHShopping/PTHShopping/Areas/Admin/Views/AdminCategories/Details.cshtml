@@ -1,0 +1,69 @@
+﻿@model PTHShopping.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .avt {
+        max-width: 500px;
+        max-height: 400px;
+    }
+</style>
+<h5 class="text-info">Chi tiết danh mục - @Html.DisplayFor(model => model.CatName) (@Html.DisplayFor(model => model.CatId))</h5>
+
+<div>
+    <hr />
+    <table class="">
+        <tr>
+            <td class="col-6" valign="top">
+                <img class="avt card shadow-lg" id="thumd" src="/@Model.Thumb" />
+            </td>
+            <td class="col-6 rounded bg-light shadow-lg" >
+                <span class="font-weight-bold"> Mô tả: </span> @Html.DisplayFor(model => model.MoTa)
+
+                <hr />
+                <span class="font-weight-bold"> Parent ID: </span> @Html.DisplayFor(model => model.ParrentId)
+
+                <hr />
+                <span class="font-weight-bold"> Cấp độ: </span> @Html.DisplayFor(model => model.Levels)
+
+                <hr />
+                <span class="font-weight-bold"> Ordering: </span> @Html.DisplayFor(model => model.Ordering)
+
+                <hr />
+                <span class="font-weight-bold"> Published: </span>
+                @if (Model.Published == null)
+                {
+                    <span>Chưa thiết lập</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Published)
+                }
+
+                <hr />
+                <span class="font-weight-bold"> Tiêu đề: </span> @Html.DisplayFor(model => model.TieuDe)
+
+                <hr />
+                <span class="font-weight-bold"> Ký hiệu: </span> @Html.DisplayFor(model => model.KyHieu)
+
+                <hr />
+                <span class="font-weight-bold"> MetaDesc: </span> @Html.DisplayFor(model => model.MetaDesc)
+
+                <hr />
+                <span class="font-weight-bold"> MetaKey: </span> @Html.DisplayFor(model => model.MetaKey)
+
+                <hr />
+                <span class="font-weight-bold"> Cover: </span> @Html.DisplayFor(model => model.Cover)
+
+                <hr />
+                <span class="font-weight-bold"> SchemaMarkup: </span> @Html.DisplayFor(model => model.SchemaMarkup)
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a  asp-action="Edit" asp-route-id="@Model.CatId">Sửa</a> |
+    <a asp-action="Index">Trở lại</a>
+</div>

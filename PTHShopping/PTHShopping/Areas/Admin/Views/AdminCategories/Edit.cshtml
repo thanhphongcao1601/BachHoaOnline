@@ -1,0 +1,124 @@
+﻿@model PTHShopping.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts{
+    <script type="text/javascript">
+        var a = document.getElementById("thumd");
+        function readURL(input) {
+            if (input.files) {
+                var reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.onload = (e) => {
+                    a.src = e.target.result;
+                }
+            }
+        }
+    </script>
+}
+
+<style>
+    .avt {
+        width: 250px;
+        height: 250px;
+    }
+</style>
+<h5 class="text-info">Chỉnh sửa danh mục sản phẩm</h5>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-12 ">
+        <form asp-action="Edit" class="d-flex flex-wrap" enctype="multipart/form-data">
+            <div class="col-12 col-md-5">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CatId" />
+                <div class="form-group">
+                    <label asp-for="CatName" class="control-label">Tên danh mục</label>
+                    <input asp-for="CatName" class="form-control" />
+                    <span asp-validation-for="CatName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MoTa" class="control-label">Mô tả</label>
+                    <input asp-for="MoTa" class="form-control" />
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ParrentId" class="control-label">Parent ID</label>
+                    <input asp-for="ParrentId" class="form-control" />
+                    <span asp-validation-for="ParrentId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Levels" class="control-label"> Cấp độ</label>
+                    <input asp-for="Levels" class="form-control" />
+                    <span asp-validation-for="Levels" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ordering" class="control-label"></label>
+                    <input asp-for="Ordering" class="form-control" />
+                    <span asp-validation-for="Ordering" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ảnh đại diện sản phẩm</label>
+                    <br />
+                    <input asp-for="Thumb" value="@Model.Thumb" hidden/> @*lay path thumb*@
+                    <input id="file" type="file" name="file" onchange="readURL(this);" hidden />
+                    <label class="btn btn-primary mt-1" for="file">Chọn ảnh</label>
+                </div>
+                <div class="form-group">
+                    <img class="avt ml-3" id="thumd" src="/@Model.Thumb" />
+                </div>
+            </div>
+            <div class="col-12 col-md-5">
+                <div class="form-group">
+                    <label asp-for="Published" class="control-label"></label>
+                    <select asp-for="Published" class="form-control">
+                        <option>true</option>
+                        <option>false</option>
+                    </select>
+                    <span asp-validation-for="Published" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TieuDe" class="control-label">Tiêu đề</label>
+                    <input asp-for="TieuDe" class="form-control" />
+                    <span asp-validation-for="TieuDe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="KyHieu" class="control-label">Ký hiệu</label>
+                    <input asp-for="KyHieu" class="form-control" />
+                    <span asp-validation-for="KyHieu" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MetaDesc" class="control-label"></label>
+                    <input asp-for="MetaDesc" class="form-control" />
+                    <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MetaKey" class="control-label"></label>
+                    <input asp-for="MetaKey" class="form-control" />
+                    <span asp-validation-for="MetaKey" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cover" class="control-label"></label>
+                    <input asp-for="Cover" class="form-control" />
+                    <span asp-validation-for="Cover" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SchemaMarkup" class="control-label"></label>
+                    <input asp-for="SchemaMarkup" class="form-control" />
+                    <span asp-validation-for="SchemaMarkup" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <input type="submit" value=" Lưu " class="btn-gradient-primary btn-rounded btn-sm btn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

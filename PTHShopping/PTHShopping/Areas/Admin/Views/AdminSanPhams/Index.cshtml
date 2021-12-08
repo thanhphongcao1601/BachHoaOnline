@@ -1,0 +1,213 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<PTHShopping.Models.SanPham>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+
+    ViewData["Title"] = "Danh sách sản phẩm" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+    .False {
+        background-color: #009966 !important;
+        opacity: 0.5;
+        display:none;
+    }
+    th {
+        font-weight: bold !important;
+        text-align: center;
+    }
+
+    td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    .img {
+        width: 100px !important;
+        height: 100px !important;
+        border-radius: 0 !important;
+    }
+</style>
+<h5 class="text-info">Danh sách sản phẩm - page:@CurrentPage</h5>
+<br />
+<div class="mt-4">
+    <select class="cus-select" style="min-width:140px; height:25px; font-size:small;" asp-items="ViewBag.Cat" id="CatID" name="txtCatID">
+        <option value="all">Tất cả danh mục</option>
+    </select>
+    <select class="" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai" id="trangthai">
+        <option value="all">Tất cả trạng thái</option>
+    </select>
+    <input class="ml-5 mr-2" id="hide" type="checkbox"/>
+    <span style="font-size: 14px;">Bao gồm các sản phẩm ẩn khỏi cửa hàng</span>
+    <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
+</div>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                Ảnh đại diện
+            </th>
+            <th>
+                Tên sản phấm
+            </th>
+            <th>
+                Danh mục
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Khuyến mãi
+            </th>
+            <th>
+                Bán chạy
+            </th>
+            <th>
+                Tồn kho
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Tác vụ
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string tmp="";
+            if (item.Active!=null) {
+                tmp = item.Active.Value.ToString();
+            }
+            <tr class="@tmp">
+                <td>
+                    @if (item.Thumb != null && item.Thumb != "")
+                    {
+                        <img class="img" src="/@item.Thumb" />
+                    }
+                    else
+                    {
+                        <img class="img" src="https://via.placeholder.com/100" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cat.CatName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhuyenMai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BestSellers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitsInStock)
+                </td>
+                <td>
+                    @if (item.UnitsInStock == null)
+                    {
+                        <div class="text-warning"> Chưa có số lượng </div>
+                    }
+                    else if (item.UnitsInStock.Value > 0)
+                    {
+                        <div class="text-primary">Còn hàng</div>
+                    }
+                    else
+                    {
+                        <div class="text-danger">Hết hàng</div>
+                    }
+                </td>
+                <td>
+                    <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Edit" asp-route-id="@item.IdsanPham"><i class="mdi mdi-lead-pencil"></i></a>
+                    <a class="btn-gradient-info btn-rounded btn btn-sm" asp-action="Details" asp-route-id="@item.IdsanPham"><i class="mdi mdi-account-card-details"></i></a>
+                    <a class="btn-gradient-danger btn-rounded btn btn-sm" asp-action="Delete" asp-route-id="@item.IdsanPham"><i class="mdi mdi-delete-forever"></i></a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<div aria-label="Page navigation example">
+    <ul class="pagination">
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminSanPhams" asp-route-CatID="@ViewBag.CurrentCatID" asp-route-trangthai="@ViewBag.Currenttrangthai" asp-action="Index" />
+    </ul>
+</div>
+
+
+@section scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#hide").change(function () {
+                if (this.checked) {
+                    $('.False').show();
+                } else {
+                    $('.False').hide();
+                }
+            });
+            jQuery("#trangthai").change(function () {
+                var page = @CurrentPage;
+                var catID = jQuery("#CatID").children(":selected").attr("value");
+                var trangthain = jQuery(this).children(":selected").attr("value");
+                $("#trangthai option").removeAttr('selected');
+                $("#trangthai option[value=" + trangthain + "]").attr("selected", "selected");
+                $.ajax({
+                    url: '/Admin/AdminSanphams/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                      //  page:page,
+                        CatID: catID,
+                        trangthai: trangthain,
+                    },
+                    async: true,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            window.location.href = result.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error')
+                    }
+                });
+            });
+            jQuery("#CatID").change(function () {
+                 var page = @CurrentPage;
+                var trangthain = jQuery("#trangthai").children(":selected").attr("value");
+                var catID = jQuery(this).children(":selected").attr("value");
+                $("#CatID option").removeAttr('selected');
+                $("#CatID option[value=" + catID + "]").attr("selected", "selected");
+                $.ajax({
+                    url: '/Admin/AdminSanphams/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                      //  page: page,
+                        CatID: catID,
+                        trangthai: trangthain,
+                    },
+                    async: true,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            window.location.href = result.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error')
+                    }
+                });
+            });
+        });
+    </script>
+}

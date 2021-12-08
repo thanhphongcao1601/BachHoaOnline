@@ -1,0 +1,27 @@
+﻿@model PTHShopping.Models.Category
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .avt{
+        max-width:500px;
+        max-height:400px;
+    }
+</style>
+
+<h5 class="text-danger">Chắc chắn xóa danh mục - @Html.DisplayFor(model => model.CatName) (@Html.DisplayFor(model => model.CatId)) ?</h5>
+<div>
+    <hr />
+    <div class="d-flex justify-content-center ">
+        <img class="avt card shadow-lg" id="thumd" src="/@Model.Thumb" />
+    </div>
+    <hr />
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CatId" />
+        <a class="btn text-primary" asp-action="Index"> &lt Trở lại</a>|
+        <input type="submit" value="Xóa" class="btn-danger btn-rounded btn btn-sm" />
+
+    </form>
+</div>

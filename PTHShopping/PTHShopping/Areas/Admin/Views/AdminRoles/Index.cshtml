@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PTHShopping.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<h1>Quản lý quyền truy cập</h1>
+
+<p>
+    <a asp-action="Create" class="btn-gradient-primary btn-rounded btn">Thêm mới</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Tên quyền truy cập
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Edit" asp-route-id="@item.RoleId"><i class="mdi mdi-lead-pencil"></i></a>
+                <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Details" asp-route-id="@item.RoleId"><i class="mdi mdi-account-card-details"></i></a>
+                <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Delete" asp-route-id="@item.RoleId"><i class="mdi mdi-delete-forever"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

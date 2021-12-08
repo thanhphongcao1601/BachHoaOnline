@@ -1,0 +1,90 @@
+﻿@model PTHShopping.Models.SanPham
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .avt {
+        max-width: 500px;
+        max-height: 400px;
+    }
+</style>
+<h5 class="text-info">Chi tiết sản phẩm - @Html.DisplayFor(model => model.TenSanPham) (@Html.DisplayFor(model => model.IdsanPham))</h5>
+
+<div>
+    <hr />
+    <table class="">
+        <tr>
+            <td class="col-6" valign="top">
+                <img class="avt card shadow-lg" id="thumd" src="/@Model.Thumb" />
+                <video class="avt card shadow-lg" id="thumd" src="/@Model.Video" />
+            </td>
+            <td class="col-6 rounded bg-light shadow-lg">
+                <span class="font-weight-bold"> Mô tả ngắn: </span> @Html.DisplayFor(model => model.ShortDesc)
+
+                <hr />
+                <span class="font-weight-bold"> Mô tả: </span> @Html.DisplayFor(model => model.MoTa)
+
+                <hr />
+                <span class="font-weight-bold"> Giá sản phầm: </span> @Html.DisplayFor(model => model.Gia) <span>VND</span>
+
+                <hr />
+                <span class="font-weight-bold"> Khuyến mãi: </span> @Html.DisplayFor(model => model.KhuyenMai) <span>%</span>
+
+                <hr />
+                <span class="font-weight-bold"> Ngày tạo sản phẩm: </span> @Html.DisplayFor(model => model.NgayTao)
+
+                <hr />
+                <span class="font-weight-bold"> Bán chạy: </span>
+                @if (Model.BestSellers == null)
+                {
+                    <span>Chưa thiết lập</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.BestSellers)
+                }
+                <span class="font-weight-bold"> Active: </span>
+                @if (Model.Active == null)
+                {
+                    <span>Chưa thiết lập</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Active)
+                }
+                <span class="font-weight-bold"> Hiện ở trang home: </span>
+                @if (Model.HomeFlag == null)
+                {
+                    <span>Chưa thiết lập</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.HomeFlag)
+                }
+
+                <hr />
+                <span class="font-weight-bold"> Tags: </span> @Html.DisplayFor(model => model.Tags)
+                <hr />
+                <span class="font-weight-bold"> Tiêu đề: </span> @Html.DisplayFor(model => model.TieuDe)
+                <hr />
+                <span class="font-weight-bold"> Số lượng đã bán: </span> @Html.DisplayFor(model => model.Slban)
+
+                <hr />
+                <span class="font-weight-bold"> MetaDesc: </span> @Html.DisplayFor(model => model.MetaDesc)
+
+                <hr />
+                <span class="font-weight-bold"> MetaKey: </span> @Html.DisplayFor(model => model.MetaKey)
+
+                <hr />
+                <span class="font-weight-bold"> Còn tồn kho: </span> @Html.DisplayFor(model => model.UnitsInStock)
+
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdsanPham">Sửa</a> |
+    <a asp-action="Index">Trở lại</a>
+</div>

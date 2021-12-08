@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PTH Shopping Admin</title>
+
+    <link rel="stylesheet" href="~/Adminassets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Adminassets/vendors/css/vendor.bundle.base.css">
+
+
+    <link rel="stylesheet" href="~/Adminassets/css/style.css">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Userassets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/style.css" type="text/css">
+
+    <link rel="shortcut icon" href="~/Adminassets/images/favicon.ico" />
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        @await Html.PartialAsync("_NavBarPartialView.cshtml")
+        <!-- partial -->
+        <div class="page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            @await Html.PartialAsync("_SideBarPartialView.cshtml")
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                @await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/Adminassets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="~/Adminassets/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/Adminassets/js/off-canvas.js"></script>
+    <script src="~/Adminassets/js/hoverable-collapse.js"></script>
+    <script src="~/Adminassets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="~/Adminassets/js/dashboard.js"></script>
+    <script src="~/Adminassets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required:false)
+</body>
+</html>

@@ -1,0 +1,176 @@
+﻿@model PTHShopping.Models.SanPham
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@section scripts{
+    <script type="text/javascript">
+        var a = document.getElementById("thumd");
+        var video = document.getElementById("video");
+        function readURL(input) {
+            if (input.files) {
+                var reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.onload = (e) => {
+                    a.src = e.target.result;
+                }
+            }
+        }
+        function readURLVideo(input) {
+            if (input.files) {
+                var reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.onload = (e) => {
+                    video.src = e.target.result;
+                }
+            }
+        }
+    </script>
+}
+
+<style>
+    .avt {
+        width: 250px;
+        height: 250px;
+    }
+</style>
+
+<h5 class="text-info">Thêm sản phẩm mới</h5>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" class="d-flex" enctype="multipart/form-data">
+            <div class="col-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="IdsanPham" class="control-label">Mã sản phẩm</label>
+                    <input asp-for="IdsanPham" class="form-control" placeholder="Ví dụ: sp1, sp2, ..." />
+                    <span asp-validation-for="IdsanPham" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TenSanPham" class="control-label">Tên sản phẩm</label>
+                    <input asp-for="TenSanPham" class="form-control" placeholder="Ví dụ: Cà chua, Cà tím, ..."/>
+                    <span asp-validation-for="TenSanPham" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortDesc" class="control-label">Mô tả ngắn</label>
+                    <input asp-for="ShortDesc" class="form-control"/>
+                    <span asp-validation-for="ShortDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MoTa" class="control-label">Mô tả chi tiết</label>
+                    <textarea asp-for="MoTa" class="form-control"></textarea>
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ảnh đại diện sản phẩm</label>
+                    <br />
+                    <input id="file" type="file" name="file" onchange="readURL(this);" hidden />
+                    <label class="btn btn-primary mt-1" for="file">Chọn ảnh</label>
+                    <span asp-validation-for="Thumb" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <img class="avt ml-3" id="thumd" src="https://via.placeholder.com/1" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Video giới thiệu sản phẩm</label>
+                    <br />
+                    <input id="fileVideo" type="file" name="fileVideo"  onchange="readURLVideo(this);" hidden />
+                    <label class="btn btn-primary mt-1" for="fileVideo">Chọn video</label>
+                    <span asp-validation-for="Video" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <video id="video" height="240" controls class="col-10" src =""></video>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group">
+                    <label asp-for="CatId" class="control-label">Mã danh mục</label>
+                    <select asp-for="CatId" class="form-control" asp-items="ViewBag.CatId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gia" class="control-label">Giá</label>
+                    <input asp-for="Gia" class="form-control" />
+                    <span asp-validation-for="Gia" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="KhuyenMai" class="control-label">Khuyến mãi</label>
+                    <input asp-for="KhuyenMai" class="form-control"  placeholder="Nhập số % khuyến mãi, ví dụ: 5, 10, ..."/>
+                    <span asp-validation-for="KhuyenMai" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NgayTao" class="control-label">Ngày tạo</label>
+                    <input asp-for="NgayTao" class="form-control" />
+                    <span asp-validation-for="NgayTao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BestSellers" class="control-label">Bán chạy</label>
+                    <select asp-for="BestSellers" class="form-control" placeholder="true/false">
+                        <option>true</option>
+                        <option>false</option>
+                    </select>
+                    <span asp-validation-for="BestSellers" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeFlag" class="control-label">Hiện ở trang chủ</label>
+                    <select asp-for="HomeFlag" class="form-control" placeholder="true/false">
+                        <option>true</option>
+                        <option>false</option>
+                    </select>
+                    <span asp-validation-for="HomeFlag" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Active" class="control-label"></label>
+                    <select asp-for="Active" class="form-control" placeholder="true/false">
+                        <option>true</option>
+                        <option>false</option>
+                    </select>
+                    <span asp-validation-for="Active" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tags" class="control-label"></label>
+                    <input asp-for="Tags" class="form-control" />
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TieuDe" class="control-label">Tiêu đề</label>
+                    <input asp-for="TieuDe" class="form-control" />
+                    <span asp-validation-for="TieuDe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Slban" class="control-label">Số lượng đã bán</label>
+                    <input asp-for="Slban" class="form-control" value="0"/>
+                    <span asp-validation-for="Slban" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MetaDesc" class="control-label"></label>
+                    <input asp-for="MetaDesc" class="form-control" />
+                    <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MetaKey" class="control-label"></label>
+                    <input asp-for="MetaKey" class="form-control" />
+                    <span asp-validation-for="MetaKey" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnitsInStock" class="control-label">Tồn kho</label>
+                    <input asp-for="UnitsInStock" class="form-control" value="0" />
+                    <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-1">
+                <input type="submit" value=" Tạo " class="btn-gradient-primary btn-rounded btn-sm btn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index"> Trở lại</a>
+</div>
+
+
