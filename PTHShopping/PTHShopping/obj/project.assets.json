@@ -7658,11 +7658,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\dotNetMVC\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
+      "projectUniqueName": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
       "projectName": "PTHShopping",
-      "projectPath": "E:\\dotNetMVC\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
+      "projectPath": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
       "packagesPath": "C:\\Users\\thanh\\.nuget\\packages\\",
-      "outputPath": "E:\\dotNetMVC\\PTHShopping\\PTHShopping\\obj\\",
+      "outputPath": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

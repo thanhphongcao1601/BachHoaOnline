@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XaHreZm4ptpigJNHWpg+jk2+VkV4B0XSJZTUW79+ip2z0idLT6FjdSiLY4SVjAeLFlG2F32eLsxqHquq2tYOlw==",
+  "dgSpecHash": "9pQUul4BT5CG/9LdH7Tl3NaY5iaJDEuX6wzJkFaJyfI60wbQ1zQDPwCg/J5F1vWPcGb+0w4z7MOrs75m7+sdmw==",
   "success": true,
-  "projectFilePath": "E:\\dotNetMVC\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
+  "projectFilePath": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thanh\\.nuget\\packages\\aspnetcorehero.toastnotification\\1.1.0\\aspnetcorehero.toastnotification.1.1.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
