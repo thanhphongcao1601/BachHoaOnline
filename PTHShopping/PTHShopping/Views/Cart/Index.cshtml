@@ -80,7 +80,7 @@
                     <ul class="header__menu__dropdown">
                         <li><a href="./shop-details.html">Shop Details</a></li>
                         <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./ThanhToan">Check Out</a></li>
                         <li><a href="./blog-details.html">Blog Details</a></li>
                     </ul>
                 </li>
@@ -156,7 +156,7 @@
                                 <a href="#">Trang khác</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./Cart">Giỏ hàng</a></li>
-                                    <li><a href="./checkout.html">Thanh toán</a></li>
+                                    <li><a href="./ThanhToan">Thanh toán</a></li>
                                 </ul>
                             </li>
                             <li><a href="./LienHe">Liên hệ</a></li>
@@ -222,7 +222,7 @@
                                 {
                                     <tr>
                                         <td class="shoping__cart__item">
-                                            <img src="~/Userassets/img/cart/cart-1.jpg" alt="">
+                                            <img src="/@item.Hinh" alt="">
                                             <h5>@item.TenSp</h5>
                                         </td>
                                         <td class="shoping__cart__price">
@@ -239,7 +239,10 @@
                                             @item.ThanhTien
                                         </td>
                                         <td class="shoping__cart__item__close">
-                                            <i class="fa fa-times"></i>
+                                            <form asp-action="RemoveFromCart" asp-controller="Cart" asp-route-id="@item.MaSp">
+                                                <button style="border:none !important;"><i class="fa fa-times"></i></button>
+                                            </form>
+
                                         </td>
                                     </tr>
                                 }
@@ -263,8 +266,8 @@
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Nhập Mã Giảm Giá</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Nhập mã ở đây">
+                            <form asp-action="AddMaKM" asp-controller="Cart">
+                                <input type="text" name="magg" placeholder="Nhập mã ở đây">
                                 <button type="submit" class="site-btn">Áp dụng</button>
                             </form>
                         </div>
@@ -274,10 +277,10 @@
                     <div class="shoping__checkout">
                         <h5>Tổng giá trị đơn hàng</h5>
                         <ul>
-                            <li>Giá gốc <span>$454.98</span></li>
-                            <li>Giá đã giảm <span>$454.98</span></li>
+                            <li>Giá gốc <span>@ViewBag.totalprice VND</span></li>
+                            <li>Giá đã giảm <span>@(ViewBag.totalprice * (100 - ViewBag.phantram)/100) VND</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">THANH TOÁN</a>
+                        <a href="@Url.Action("Index", "ThanhToan", new {phantram = ViewBag.phantram})" class="primary-btn">THANH TOÁN</a>
                     </div>
                 </div>
             </div>

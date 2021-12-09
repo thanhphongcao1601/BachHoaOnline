@@ -3668,3 +3668,4 @@ E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\ref\PTHS
 E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.pdb
 E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.genruntimeconfig.cache
 E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.csproj.CopyComplete
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\ThanhToan\Index.cshtml.g.cs

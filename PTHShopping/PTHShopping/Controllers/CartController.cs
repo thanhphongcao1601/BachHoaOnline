@@ -30,7 +30,7 @@ namespace PTHShopping.Controllers
             }
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int phantram)
         {
             var myCart = Carts;
             double total = 0;
@@ -40,6 +40,7 @@ namespace PTHShopping.Controllers
                 total = total + i.ThanhTien;
             }
             ViewBag.totalprice = total;
+            ViewBag.phantram = phantram;
             return View(Carts);
         }
 
@@ -50,12 +51,17 @@ namespace PTHShopping.Controllers
 
             if (item == null)//chưa có
             {
+                var km = 0;
                 var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == id);
+                if (sanPham.KhuyenMai != null)
+                {
+                    km = (int)sanPham.KhuyenMai.Value;
+                }
                 item = new CartItem
                 {
                     MaSp = id,
                     TenSp = sanPham.TenSanPham,
-                    DonGia = (sanPham.Gia * (100 - sanPham.KhuyenMai) / 100).Value,
+                    DonGia = (sanPham.Gia * (100 - km) / 100).Value,
                     SoLuong = sl,
                     Hinh = sanPham.Thumb
                 };
@@ -69,6 +75,33 @@ namespace PTHShopping.Controllers
             HttpContext.Session.Set("GioHang", myCart);
             return RedirectToAction("Index");
             //return Content(item.SoLuong.ToString());
+        }
+
+        public IActionResult RemoveFromCart(string id)
+        {
+            var myCart = Carts;
+            var item = myCart.SingleOrDefault(p => p.MaSp == id);
+
+            if (item != null)//chưa có
+            {
+                myCart.Remove(item);
+            }
+            HttpContext.Session.Set("GioHang", myCart);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult AddMaKM(string magg)
+        {
+            var phantram = 0;
+            if (magg == "giam50")
+            {
+                phantram = 50;
+            }
+            else if (magg == "giam20")
+            {
+                phantram = 20;
+            }
+            return RedirectToAction("Index", new { phantram });
         }
     }
 }
