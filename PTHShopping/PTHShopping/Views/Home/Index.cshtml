@@ -177,7 +177,11 @@
                     <ul>
                         @foreach (var item in Model.ListDanhmuc)
                         {
-                            <li><a href="@Url.Action("Index", "MuaSam",new { id = item.CatId.ToString() })">@item.CatName</a></li>
+                            if (item.Published.Value)
+                            {
+                                <li><a href="@Url.Action("Index", "MuaSam",new { id = item.CatId.ToString() })">@item.CatName</a></li>
+                            }
+
                         }
                     </ul>
                 </div>
@@ -221,11 +225,15 @@
                 <div class="categories__slider owl-carousel">
                     @foreach (var item in Model.ListDanhmuc)
                     {
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="https://internetviettel.vn/wp-content/uploads/2017/05/4-1.jpg">
-                                <h5><a href="#">@item.CatName.ToString()</a></h5>
+                        if (item.Published.Value)
+                        {
+                            <div class="col-lg-3 mb-5">
+                                <div class="categories__item set-bg" data-setbg="./@item.Thumb">
+                                    <h5><a href="#">@item.CatName.ToString()</a></h5>
+                                </div>
                             </div>
-                        </div>
+                        }
+
                     }
                 </div>
             </div>
