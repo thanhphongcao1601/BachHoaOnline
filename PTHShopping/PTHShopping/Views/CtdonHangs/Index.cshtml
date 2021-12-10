@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PTHShopping.Models.CtdonHang>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SoDonHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KhuyenMai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayGiaoHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IddonHangNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdsanPhamNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDonHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhuyenMai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayGiaoHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IddonHangNavigation.IddonHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdsanPhamNavigation.IdsanPham)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdctdonHang">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdctdonHang">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdctdonHang">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,61 @@
+﻿@model PTHShopping.Models.CtdonHang
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CtdonHang</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SoDonHang)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SoDonHang)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.KhuyenMai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KhuyenMai)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tong)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tong)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayGiaoHang)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgayGiaoHang)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IddonHangNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IddonHangNavigation.IddonHang)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdsanPhamNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdsanPhamNavigation.IdsanPham)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdctdonHang">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

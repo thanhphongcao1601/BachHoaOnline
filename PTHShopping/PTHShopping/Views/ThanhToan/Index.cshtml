@@ -119,8 +119,12 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__auth d-flex float-right">
+                                @{ 
+                                    var userSDT = "";
+                                }
                                 @if (User.Identity.IsAuthenticated)
                                 {
+                                    userSDT = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(c => c.Type == "SDT").Value.ToString();
                                     var roles = ((ClaimsIdentity)User.Identity).Claims
                                     .Where(c => c.Type == ClaimTypes.Role)
                                     .Select(c => c.Value).ToList()[0];
@@ -205,7 +209,16 @@
         <div class="container">
             <div class="checkout__form">
                 <h4>Chi tiết hoá đơn</h4>
-                <form action="#">
+                <form asp-action="Create" asp-controller="DonHangs" 
+                      asp-route-NgayDatHang=@DateTime.Now
+                      asp-route-IddonHang="@userSDT"
+                      asp-route-IdkhachHang=""
+                      asp-route-NgayGiaoHang="" 
+                      asp-route-IdtrangThaiGiaoDich=""
+                      asp-route-Deleted=""
+                      asp-route-DaThanhToan=""
+                      asp-route-NgayThanhToan=""
+                      asp-route-GhiChu="Don hang tri gia @(ViewBag.totalprice * (100 - ViewBag.phantram)/100)">
                         <div class="">
                             <div class="checkout__order">
                                 <h4>Order của bạn</h4>
