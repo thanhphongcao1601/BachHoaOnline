@@ -58,7 +58,7 @@ namespace PTHShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IddonHang,IdkhachHang,NgayDatHang,NgayGiaoHang,IdtrangThaiGiaoDich,Deleted,DaThanhToan,NgayThanhToan,IdthanhToan,GhiChu")] DonHang donHang)
+        public async Task<IActionResult> Create([Bind("IddonHang,IdkhachHang,NgayDatHang,NgayGiaoHang,IdtrangThaiGiaoDich,Deleted,DaThanhToan,NgayThanhToan,IdthanhToan,GhiChu")] DonHang donHang, int phantram)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace PTHShopping.Controllers
                 await _context.SaveChangesAsync();
 
 
-                return RedirectToAction("TaoCT", "CtdonHangs",new { iddh=donHang.IddonHang });
+                return RedirectToAction("TaoCT", "CtdonHangs",new { iddh=donHang.IddonHang, pt = phantram });
 
                 //return RedirectToAction(nameof(Index));
             }

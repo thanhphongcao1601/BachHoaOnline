@@ -74,8 +74,8 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "MuaSam")">Shop</a></li>
                 <li>
                     <a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
@@ -151,7 +151,7 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="/">Trang chủ</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
                             <li class="active"><a href="@Url.Action("Index", "MuaSam")">Mua sắm</a></li>
                             <li>
                                 <a href="#">Trang khác</a>

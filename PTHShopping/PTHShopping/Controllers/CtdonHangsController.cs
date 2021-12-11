@@ -33,21 +33,22 @@ namespace PTHShopping.Controllers
             }
         }
 
-        public async Task<IActionResult> TaoCT(string iddh)
+        public async Task<IActionResult> TaoCT(string iddh, int pt)
         {
             int i = 0;
             string k = "";
             var myCart = Carts;
             foreach (var item in myCart)
             {
+                var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp);
                 var ct = new CtdonHang
                 {
-                    IdctdonHang = "tt" + i,
+                    IdctdonHang = iddh+"_"+ i,
                     IddonHang = iddh,
                     IdsanPham = item.MaSp,
                     SoLuong = item.SoLuong,
                     Tong = item.DonGia * item.SoLuong,
-                    KhuyenMai = null,
+                    KhuyenMai = pt,
                     NgayGiaoHang = null
                 };
                 _context.Add(ct);
