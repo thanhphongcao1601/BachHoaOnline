@@ -38,12 +38,13 @@ namespace PTHShopping.Controllers
             int i = 0;
             string k = "";
             var myCart = Carts;
+
             foreach (var item in myCart)
             {
                 var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp);
                 var ct = new CtdonHang
                 {
-                    IdctdonHang = iddh+"_"+ i,
+                    IdctdonHang = iddh+"_"+i,
                     IddonHang = iddh,
                     IdsanPham = item.MaSp,
                     SoLuong = item.SoLuong,

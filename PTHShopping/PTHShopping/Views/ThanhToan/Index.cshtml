@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<CartItem>;
+@using PTHShopping.Models;
+@using PTHShopping.Helper;
 
 <!DOCTYPE html>
 <html>
@@ -209,9 +211,10 @@
         <div class="container">
             <div class="checkout__form">
                 <h4>Chi tiết hoá đơn</h4>
+
                 <form asp-action="Create" asp-controller="DonHangs" 
                       asp-route-NgayDatHang=@DateTime.Now
-                      asp-route-IddonHang=@DateTime.Now.ToShortTimeString()
+                      asp-route-IddonHang=""
                       asp-route-IdkhachHang=""
                       asp-route-NgayGiaoHang="" 
                       asp-route-IdtrangThaiGiaoDich=""
