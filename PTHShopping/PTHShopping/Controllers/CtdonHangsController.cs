@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PTHShopping.Helper;
 using PTHShopping.Models;
 
 namespace PTHShopping.Controllers
@@ -16,6 +18,44 @@ namespace PTHShopping.Controllers
         public CtdonHangsController(PTHShoppingContext context)
         {
             _context = context;
+        }
+
+        public List<CartItem> Carts
+        {
+            get
+            {
+                var data = HttpContext.Session.Get<List<CartItem>>("GioHang");
+                if (data == null)
+                {
+                    data = new List<CartItem>();
+                }
+                return data;
+            }
+        }
+
+        public async Task<IActionResult> TaoCT(string iddh)
+        {
+            int i = 0;
+            string k = "";
+            var myCart = Carts;
+            foreach (var item in myCart)
+            {
+                var ct = new CtdonHang
+                {
+                    IdctdonHang = "tt" + i,
+                    IddonHang = iddh,
+                    IdsanPham = item.MaSp,
+                    SoLuong = item.SoLuong,
+                    Tong = item.DonGia * item.SoLuong,
+                    KhuyenMai = null,
+                    NgayGiaoHang = null
+                };
+                _context.Add(ct);
+                await _context.SaveChangesAsync();
+                k = k + ct.IdsanPham + "-" + ct.SoLuong + "-" + ct.IddonHang +"\n";
+                i = i + 1;
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: CtdonHangs

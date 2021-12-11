@@ -44,7 +44,7 @@ namespace PTHShopping.Controllers
             return View(Carts);
         }
 
-        public IActionResult AddToCart(string id,int sl)
+        public IActionResult AddToCart(string id,int sl,int current)
         {
             var myCart = Carts;
             var item = myCart.SingleOrDefault(p => p.MaSp == id);
@@ -73,7 +73,7 @@ namespace PTHShopping.Controllers
             }
 
             HttpContext.Session.Set("GioHang", myCart);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","ChiTietSP",new { id = current});
             //return Content(item.SoLuong.ToString());
         }
 

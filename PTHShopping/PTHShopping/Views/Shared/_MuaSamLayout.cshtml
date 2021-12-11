@@ -152,12 +152,12 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="/">Trang chủ</a></li>
-                            <li class="active"><a href="./MuaSam">Mua sắm</a></li>
+                            <li class="active"><a href="@Url.Action("Index", "MuaSam")">Mua sắm</a></li>
                             <li>
                                 <a href="#">Trang khác</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./Cart">Giỏ hàng</a></li>
-                                    <li><a href="./checkout.html">Thanh toán</a></li>
+                                    <li><a href="@Url.Action("Index", "Cart")">Giỏ hàng</a></li>
+                                    <li><a href="@Url.Action("Index", "ThanhToan")">Thanh toán</a></li>
                                 </ul>
                             </li>
                             <li><a href="./LienHe">Liên hệ</a></li>

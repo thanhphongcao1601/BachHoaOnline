@@ -211,12 +211,12 @@
                 <h4>Chi tiết hoá đơn</h4>
                 <form asp-action="Create" asp-controller="DonHangs" 
                       asp-route-NgayDatHang=@DateTime.Now
-                      asp-route-IddonHang="@userSDT"
+                      asp-route-IddonHang=@DateTime.Now.ToShortTimeString()
                       asp-route-IdkhachHang=""
                       asp-route-NgayGiaoHang="" 
                       asp-route-IdtrangThaiGiaoDich=""
-                      asp-route-Deleted=""
-                      asp-route-DaThanhToan=""
+                      asp-route-Deleted=@false
+                      asp-route-DaThanhToan=@false
                       asp-route-NgayThanhToan=""
                       asp-route-GhiChu="Don hang tri gia @(ViewBag.totalprice * (100 - ViewBag.phantram)/100)">
                         <div class="">

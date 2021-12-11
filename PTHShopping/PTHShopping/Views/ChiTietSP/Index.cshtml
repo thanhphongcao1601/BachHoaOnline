@@ -153,12 +153,12 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="/">Trang chủ</a></li>
-                            <li><a href="./MuaSam">Mua sắm</a></li>
+                            <li><a href="@Url.Action("Index", "MuaSam")">Mua sắm</a></li>
                             <li>
                                 <a href="#">Trang khác</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shoping-cart.html">Giỏ hàng</a></li>
-                                    <li><a href="./checkout.html">Thanh toán</a></li>
+                                    <li><a href="./Cart">Giỏ hàng</a></li>
+                                    <li><a href="./ThanhToan">Thanh toán</a></li>
                                 </ul>
                             </li>
                             <li><a href="./LienHe">Liên hệ</a></li>
@@ -267,7 +267,7 @@
                         <div class="col-lg-6 col-md-6">
 
                             <div class="product__details__text">
-                                <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.ListSanpham[index].IdsanPham">
+                                <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.ListSanpham[index].IdsanPham" asp-route-current=@index>
                                     <h3>@Model.ListSanpham[index].TenSanPham</h3>
                                     <div class="product__details__rating">
                                         <i class="fa fa-star"></i>

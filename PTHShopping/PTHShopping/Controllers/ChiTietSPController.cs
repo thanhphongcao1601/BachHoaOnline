@@ -34,7 +34,6 @@ namespace PTHShopping.Controllers
             }
             ViewBag.totalprice = total;
 
-
             if (modelz == null) return Content("Errrrrrrrr");
             var lstSanpham = modelz.SanPhams.ToList();
             var lstCategory = modelz.Categories.ToList();

@@ -24,7 +24,7 @@ namespace PTHShopping.Controllers
                 return data;
             }
         }
-        public IActionResult Index(PTHShoppingContext modelz, String id)
+        public IActionResult Index(PTHShoppingContext modelz, string id)
         {
             var myCart = Carts;
             double total = 0;
