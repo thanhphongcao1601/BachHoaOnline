@@ -24,7 +24,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         public IActionResult Index(int? page)
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
-            var pageSize = 20;
+            var pageSize = 10;
             var lsCustomer = _context.KhachHangs.AsNoTracking()
                 .Include(x=>x.IdvitriNavigation)
                 .OrderByDescending(x => x.NgayTao);
@@ -66,6 +66,16 @@ namespace PTHShopping.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var lis_IdKH = _context.KhachHangs.Select(x => x.IdkhachHang).ToList();
+                foreach(var x in lis_IdKH)
+                {
+                    var xn = x.Trim();
+                    if (khachHang.IdkhachHang.Equals(xn))
+                    {
+                        ViewBag.TrungID = xn;
+                        return View(khachHang);
+                    }
+                }
                 _context.Add(khachHang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

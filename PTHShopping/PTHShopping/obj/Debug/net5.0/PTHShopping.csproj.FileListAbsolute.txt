@@ -3592,7 +3592,6 @@ E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.csproj.AssemblyReference.cache
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.GeneratedMSBuildEditorConfig.editorconfig
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.AssemblyInfoInputs.cache
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.AssemblyInfo.cs
@@ -3668,3 +3667,16 @@ E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\ref\PTHShopping.dll
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.pdb
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.genruntimeconfig.cache
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Create.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Delete.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Details.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Edit.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Index.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.csproj.AssemblyReference.cache
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\BCrypt.Net.dll
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Shared\_HeaderPartialView.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\TinTuc\Index.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\HtmlAgilityPack.NetCore.dll
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\JetBrains.Annotations.dll
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\X.PagedList.dll
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\X.PagedList.Mvc.Core.dll

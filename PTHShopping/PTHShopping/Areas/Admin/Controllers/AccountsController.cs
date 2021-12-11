@@ -68,6 +68,19 @@ namespace PTHShopping.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var id = _context.Accounts.Where(x => x.AccountId == account.AccountId).ToList();
+                if (id.Count()!=0)
+                {
+                    ViewBag.IDTrung = account.AccountId;
+                    return View(account);
+                }
+                var sdt = _context.Accounts.Where(x => x.Sdt == account.Sdt).ToList();
+                if (sdt.Count()!=0)
+                {
+                    ViewBag.SDTTrung = account.Sdt;
+                    return View(account);
+                }
+                account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password, account.Salt);
                 _context.Add(account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

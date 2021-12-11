@@ -275,7 +275,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                     {
                         PathDB = saveImg(file);
                         sanPham.Thumb = PathDB;
-                        if (thumbOld != string.Empty)
+                        if (thumbOld != string.Empty && thumbOld != null)
                         {
                             if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, thumbOld)))
                             {
@@ -290,7 +290,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                     {
                         PathDBVD = saveVideo(fileVideo);
                         sanPham.Video = PathDBVD;
-                        if (videoOld != string.Empty)
+                        if (videoOld != string.Empty && videoOld != null)
                         {
                             if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, videoOld)))
                             {
@@ -342,7 +342,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var sanPham = await _context.SanPhams.FindAsync(id);
-            if (sanPham.Thumb != string.Empty)
+            if (sanPham.Thumb != string.Empty && sanPham.Thumb!=null)
             {
                 if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, sanPham.Thumb.ToString())))
                 {
@@ -350,7 +350,7 @@ namespace PTHShopping.Areas.Admin.Controllers
       
                 }
             }
-            if (sanPham.Video != string.Empty)
+            if (sanPham.Video != string.Empty && sanPham.Video!=null)
             {
                 if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, sanPham.Video.ToString())))
                 {

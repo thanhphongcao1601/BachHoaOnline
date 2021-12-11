@@ -13,8 +13,9 @@
     .False {
         background-color: #009966 !important;
         opacity: 0.5;
-        display:none;
+        display: none;
     }
+
     th {
         font-weight: bold !important;
         text-align: center;
@@ -30,6 +31,16 @@
         height: 100px !important;
         border-radius: 0 !important;
     }
+
+    .scroll {
+        overflow-x: scroll;
+        width: 100%;
+    }
+
+    td {
+        max-width: 200px;
+        overflow-x: hidden;
+    }
 </style>
 <h5 class="text-info">Danh sách sản phẩm - page:@CurrentPage</h5>
 <br />
@@ -40,10 +51,11 @@
     <select class="" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai" id="trangthai">
         <option value="all">Tất cả trạng thái</option>
     </select>
-    <input class="ml-5 mr-2" id="hide" type="checkbox"/>
+    <input class="ml-5 mr-2" id="hide" type="checkbox" />
     <span style="font-size: 14px;">Bao gồm các sản phẩm ẩn khỏi cửa hàng</span>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </div>
+<div class="scroll">
 <table class="table table-hover table-striped">
     <thead>
         <tr>
@@ -80,8 +92,9 @@
     <tbody>
         @foreach (var item in Model)
         {
-            string tmp="";
-            if (item.Active!=null) {
+            string tmp = "";
+            if (item.Active != null)
+            {
                 tmp = item.Active.Value.ToString();
             }
             <tr class="@tmp">
@@ -137,6 +150,7 @@
         }
     </tbody>
 </table>
+</div>
 
 <div aria-label="Page navigation example">
     <ul class="pagination">
