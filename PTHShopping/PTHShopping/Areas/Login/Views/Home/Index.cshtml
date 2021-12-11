@@ -5,6 +5,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Login/Views/Shared/_LoginLayout.cshtml";
 
+
 }
 
 <section class="login-block">
@@ -14,15 +15,26 @@
                 <h2 class="text-center">Wellcome</h2>
                 <form class="login-form" method="POST" asp-action="Index">
                     <div class="form-group">
-                        <label >Số điện thoại</label>
+                        <label>Số điện thoại</label>
                         <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" name="sdt">
 
                     </div>
                     <div class="form-group">
-                        <label >Mật khẩu</label>
-                        <input  type="password" class="form-control" placeholder="Nhập mật khẩu của bạn" name="Password">
+                        <label>Mật khẩu</label>
+                        <input type="password" class="form-control" placeholder="Nhập mật khẩu của bạn" name="Password">
                     </div>
-
+                    @if (ViewBag.notFound != null)
+                    {
+                        if (ViewBag.notFound =="0")
+                        {
+                            <div class="text-danger">Số điện thoại và mật khẩu không được trống!</div>
+                        }
+                        if(ViewBag.notFound == "1")
+                        {
+                            <div class="text-danger">Số điện thoại hoặc mật khẩu không đúng!</div>
+                        }
+                        
+                    }
 
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">

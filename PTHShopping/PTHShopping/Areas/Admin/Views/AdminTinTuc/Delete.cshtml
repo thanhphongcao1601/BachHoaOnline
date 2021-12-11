@@ -1,0 +1,46 @@
+﻿@model PTHShopping.Models.Trang
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .avt {
+        max-width: 500px;
+        max-height: 400px;
+    }
+</style>
+<h5 class="text-danger">Chắc chắn xóa tin: @Html.DisplayFor(model => model.TieuDe)</h5>
+<p>Đăng ngày:  @Html.DisplayFor(model => model.NgayTao) </p>
+<span>Public: @Model.Published.Value </span>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Thể loại
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TenTrang)
+        </dd>
+        <dt class="col-sm-2">
+            Nội dung
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt class="col-sm-2">
+            Ảnh
+        </dt>
+        <dd class="col-sm-10 d-flex justify-content-center">
+            <img class="avt card shadow-lg" id="thumd" src="/@Model.Thumb" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Idtrang" />
+        <a asp-action="Index">&lt Trở lại</a> |
+        <input type="submit" value="Xóa" class="btn btn-danger btn-sm btn-rounded"/> 
+    </form>
+</div>

@@ -34,7 +34,8 @@ namespace PTHShopping.Areas.Login.Controllers
         {
             if(sdt == null || Password == null)
             {
-                 return View();
+                ViewBag.notFound = "0";
+                return View();
             }
             //xet trong tai khoan quan tri
             var result = (from a in _context.Accounts
@@ -49,6 +50,7 @@ namespace PTHShopping.Areas.Login.Controllers
                               select a).ToList();
                 if (kh.Count() == 0)
                 {
+                    ViewBag.notFound = "1";
                      return View();
                 }
                 else

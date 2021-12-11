@@ -50,6 +50,14 @@
               "target": "Package",
               "version": "[1.1.0, )"
             },
+            "BCrypt.Net": {
+              "target": "Package",
+              "version": "[0.1.0, )"
+            },
+            "HtmlAgilityPack.NetCore": {
+              "target": "Package",
+              "version": "[1.5.0.1, )"
+            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.12, )"
@@ -83,6 +91,10 @@
             "PagedList.Core.Mvc": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "X.PagedList.Mvc.Core": {
+              "target": "Package",
+              "version": "[8.1.0, )"
             }
           },
           "imports": [

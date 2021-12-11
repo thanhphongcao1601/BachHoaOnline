@@ -1,0 +1,110 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<PTHShopping.Models.Trang>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh sách tin tức" + +CurrentPage; ;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .False {
+        background-color: #009966 !important;
+        opacity: 0.5;
+        display: none;
+    }
+    .scroll {
+        overflow-x: scroll;
+        width: 100%;
+    }
+
+    td {
+        max-width: 200px;
+        overflow-x: hidden;
+    }
+
+    th {
+        font-weight: bold !important;
+    }
+
+    .tieu-de {
+        font-weight: bold !important;
+    }
+</style>
+<h5 class="text-info">Danh sách tin tức - page: @CurrentPage</h5>
+
+<p>
+    <input class="ml-5 mr-2" id="hide" type="checkbox" />
+    <span style="font-size: 14px;">Bao gồm các tin tức bị ẩn</span>
+    <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
+</p>
+<div class="scroll">
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tiêu đề
+                </th>
+                <th>
+                    Ngày tạo
+                </th>
+                <th>
+                    Published
+                </th>
+                <th>
+                    Tác vụ
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string tmp = "";
+                if (item.Published != null)
+                {
+                    tmp = item.Published.Value.ToString();
+                }
+                <tr class="@tmp">
+                    <td class="tieu-de">
+                        @Html.DisplayFor(modelItem => item.TieuDe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayTao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Published)
+                    </td>
+                    <td>
+                        <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Edit" asp-route-id="@item.Idtrang"><i class="mdi mdi-lead-pencil"></i></a>
+                        <a class="btn-gradient-info btn-rounded btn btn-sm" asp-action="Details" asp-route-id="@item.Idtrang"><i class="mdi mdi-account-card-details"></i></a>
+                        <a class="btn-gradient-danger btn-rounded btn btn-sm" asp-action="Delete" asp-route-id="@item.Idtrang"><i class="mdi mdi-delete-forever"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div aria-label="Page navigation example">
+    <ul class="pagination">
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminTinTuc" asp-action="Index" />
+    </ul>
+</div>
+
+
+@section scripts{
+    <script>
+    $(document).ready(() => {
+        $("#hide").change(function () {
+            if (this.checked) {
+                $('.False').show();
+            } else {
+                $('.False').hide();
+            }
+        });
+    })
+
+    </script>
+}

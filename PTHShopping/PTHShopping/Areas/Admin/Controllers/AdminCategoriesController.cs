@@ -116,7 +116,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                     {
                         PathDB=saveImg(file);
                         category.Thumb = PathDB;
-                        if (thumbOld != string.Empty)
+                        if (thumbOld != string.Empty && thumbOld!=null)
                         {
                             if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, thumbOld)))
                             {
@@ -194,7 +194,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var category = await _context.Categories.FindAsync(id);
-            if (category.Thumb != string.Empty)
+            if (category.Thumb != string.Empty && category.Thumb!=null)
             {
                 if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, category.Thumb.ToString())))
                 {

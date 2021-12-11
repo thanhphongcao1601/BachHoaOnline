@@ -1,0 +1,114 @@
+﻿@model PTHShopping.Models.Trang
+
+@{
+    var ID = ViewBag.TrungID;
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+@section scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+    <script type="text/javascript">
+        var a = document.getElementById("thumd");
+        function readURL(input) {
+            if (input.files) {
+                var reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.onload = (e) => {
+                    a.src = e.target.result;
+                }
+            }
+        }
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}
+<style>
+    .avt {
+        width: 500px;
+        height: 250px;
+    }
+    input,select{
+        max-width:400px;
+    }
+</style>
+<h5 class="text-info">Tạo tin tức mới</h5>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Idtrang" class="control-label">Đặt ID tin tức</label>
+                <input asp-for="Idtrang" class="form-control" placeholder="Vd: News00001, News00002, ..." />
+                @if (ID != null)
+                {
+                    <span class="text-danger">@ID đã tồn tại hãy nhập ID khác </span>
+                }
+                <span asp-validation-for="Idtrang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenTrang" class="control-label">Tên loại tin tức</label>
+                <select asp-for="TenTrang" class="form-control">
+                    <option>Tin tức về sản phẩm mới</option>
+                    <option>Tin tức về khuyến mãi</option>
+                    <option>Tin tức về thị trường</option>
+                    <option>Tin tức về cửa hàng</option>
+                </select>
+                <span asp-validation-for="TenTrang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TieuDe" class="control-label">Tiêu đề</label>
+                <input asp-for="TieuDe" class="form-control" placeholder="Vd: Sale sập sàn 50%, ..." />
+                <span asp-validation-for="TieuDe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ảnh minh họa</label>
+                <br />
+                <input id="file" type="file" name="file" onchange="readURL(this);" hidden />
+                <label class="btn btn-primary mt-1" for="file">Chọn ảnh</label>
+                <span asp-validation-for="Thumb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img class="avt" id="thumd" src="https://via.placeholder.com/1" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NoiDung" class="control-label">Nội dung</label>
+                <textarea asp-for="NoiDung" class="form-control" id="editor"></textarea>
+                <span asp-validation-for="NoiDung" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Published" class="control-label"></label>
+                <select asp-for="Published" class="form-control">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+                <span asp-validation-for="Published" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NgayTao" class="control-label">Ngày tạo</label>
+                <input asp-for="NgayTao" class="form-control" />
+                <span asp-validation-for="NgayTao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value=" Tạo " class="btn-gradient-primary btn-rounded btn-sm btn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">&lt Trở lại</a>
+</div>
+

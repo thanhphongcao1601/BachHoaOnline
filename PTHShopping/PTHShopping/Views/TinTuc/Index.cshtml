@@ -1,0 +1,213 @@
+﻿@model PTHShopping.Models.Sanpham_Danhmuc;
+@using PagedList;
+@using PagedList.Core.Mvc;
+@using X.PagedList;
+@using System.Web;
+@using HtmlAgilityPack;
+@using PTHShopping.Helper;
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    string Cat = ViewBag.Cat;
+    string Search = ViewBag.Search;
+
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Tin tức</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Userassets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/style.css" type="text/css">
+
+    <style>
+        *:not(.fa,.fas) {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
+
+        .pgiamgia {
+            height: 45px;
+            width: 45px;
+            background: #dd2222;
+            border-radius: 50%;
+            font-size: 14px;
+            color: #ffffff;
+            line-height: 45px;
+            text-align: center;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+        }
+        .thumb {
+            max-height: 230px;
+            object-position: center;
+            object-fit: cover;
+        }
+        .mini-thumb {
+            max-height: 70px;
+            max-width: 80px;
+            object-position: center;
+            object-fit: cover;
+            margin-top:5px;
+        }
+        #nhap{
+            max-width:250px
+        }
+    </style>
+</head>
+
+<body>
+    @await Html.PartialAsync("/Views/Shared/_HeaderPartialView.cshtml")
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="https://img4.thuthuatphanmem.vn/uploads/2019/12/28/hinh-nen-cau-thu-bong-da-ronaldo-cuc-dep_014217069.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Tin Tức</h2>
+                        <div class="breadcrumb__option">
+                            <a href="/">Trang chủ</a>
+                            <span>Tin tức</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="blog__sidebar">
+                        <div class="blog__sidebar__search">
+                            <div class="d-flex">
+                                <input class="form-control form-control-sm" type="text" placeholder="Tìm kiếm tin tức..." id="nhap" value="@Search">
+                                <a class="btn-sm btn-rounded btn bg-secondary text-white float-right" id="tim">Tìm</a>
+                            </div>
+                        </div>
+                        <div class="blog__sidebar__item">
+                            <h4>Danh mục</h4>
+                            <ul>
+                                <li><a id="all" href="/TinTuc/1/all/@Search">Tất cả</a></li>
+                                <li><a id="new" href="/TinTuc/1/new/@Search">Sản phẩm mới</a></li>
+                                <li><a id="sale" href="/TinTuc/1/sale/@Search">Khuyến mãi</a></li>
+                                <li><a id="market" href="/TinTuc/1/market/@Search">Thị trường</a></li>
+                                <li><a id="shop" href="/TinTuc/1/shop/@Search">Cửa hàng</a></li>
+                            </ul>
+                        </div>
+                        <div class="blog__sidebar__item">
+                            <h4>Tin gần đây</h4>
+                            @if (Model.ListTintuc.Count() >= 3)
+                            {
+                                for (int i=0;i<3;i++)
+                                {
+                                    <div class="blog__sidebar__recent">
+                                        <a href="#" class="blog__sidebar__recent__item">
+                                            <div class="blog__sidebar__recent__item__pic">
+                                                <img class="mini-thumb" src="/@Model.ListTintuc[i].Thumb" alt="">
+                                            </div>
+                                            <div class="blog__sidebar__recent__item__text">
+                                                <h6> @Model.ListTintuc[i].TieuDe</h6>
+                                                <span>@Model.ListTintuc[i].NgayTao</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                 }
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-7">
+                    <div class="row box">
+                        @foreach (var item in Model.ListTintuc)
+                        {
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="blog__item mt-3">
+                                    <div class="blog__item__pic">
+                                        <img class="thumb" src="/@item.Thumb" alt="">
+                                    </div>
+                                    <div class="blog__item__text">
+                                        <ul>
+                                            <li><i class="fa fa-calendar-o"></i> @item.NgayTao</li>
+                                        </ul>
+                                        <h5><a href="#">@item.TieuDe</a></h5>
+                                        <div class="" style="overflow-y:hidden; max-height:110px">
+                                            @Html.Raw(item.NoiDung)
+                                        </div>
+                                        ...
+                                        <a href="#" class="">xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-lg-12">
+
+                        <div>
+                            <p>
+                                Trang @CurrentPage / <strong>@Model.ListTintuc.PageCount</strong> 
+                            </p>
+                            <a href="/TinTuc/@(CurrentPage-1)/@Cat/@Search" class="btn btn-dark btn-sm">
+                                <
+                            </a>
+                            @for (int i = 1; i <= Model.ListTintuc.PageCount; i++)
+                            {
+                                <a href="/TinTuc/@i/@Cat/@Search" class="btn btn-dark btn-sm" id="@i">
+                                    @i
+                                </a>
+                            }
+                            <a href="/TinTuc/@(CurrentPage+1)/@Cat/@Search" class="btn btn-dark btn-sm">
+                                >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+    <!-- Footer Section Begin -->
+    @await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/Userassets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Userassets/js/bootstrap.min.js"></script>
+    <script src="~/Userassets/js/jquery.nice-select.min.js"></script>
+    <script src="~/Userassets/js/jquery-ui.min.js"></script>
+    <script src="~/Userassets/js/jquery.slicknav.js"></script>
+    <script src="~/Userassets/js/mixitup.min.js"></script>
+    <script src="~/Userassets/js/owl.carousel.min.js"></script>
+    <script src="~/Userassets/js/main.js"></script>
+
+</body>
+
+</html>
+
+@section scripts{ 
+    <script>
+        $(document).ready(() => {
+            $("#tim").click(function () {
+                $("#tim").attr("href", "/TinTuc/1/@Cat/" + $('#nhap').val().trim());
+            })
+            $('#' +@CurrentPage).css("background-color", "#B5B5B5");
+            $('#trangkhac').addClass('active');
+            $('#trangchu').removeClass('active');
+
+        });
+    </script>
+}

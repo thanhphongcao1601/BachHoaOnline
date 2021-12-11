@@ -26,6 +26,15 @@
         height: 70px !important;
         border-radius: 0 !important;
     }
+    .scroll {
+        overflow-x: scroll;
+        width: 100%;
+    }
+
+    td {
+        max-width: 200px;
+        overflow-x: hidden;
+    }
 </style>
 
 <h5 class="text-info">Danh sách danh mục</h5>
@@ -35,66 +44,70 @@
     <span style="font-size: 14px;">Bao gồm các danh mục ẩn khỏi cửa hàng</span>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </p>
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th>
-                Ảnh đại diện
-            </th>
-            <th>
-                Mã danh mục
-            <th>
-                Tên danh mục
-            </th>
+<div class="scroll">
 
-            <th>
-                @Html.DisplayNameFor(model => model.Published)
-            </th>
 
-            <th>
-                Tác vụ
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            string tmp="";
-            if (item.Published!=null) {
-                tmp = item.Published.Value.ToString();
-            }
-            <tr class="@tmp">
-                <td>
-                    @if (item.Thumb != null && item.Thumb != "")
-                    {
-                        <img class="img" src="../@item.Thumb" />
-                    }
-                    else
-                    {
-                        <img class="img" src="https://via.placeholder.com/100" />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CatId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CatName)
-                </td>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Ảnh đại diện
+                </th>
+                <th>
+                    Mã danh mục
+                <th>
+                    Tên danh mục
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Published)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Published)
+                </th>
 
-                <td>
-                    <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Edit" asp-route-id="@item.CatId"><i class="mdi mdi-lead-pencil"></i></a>
-                    <a class="btn-gradient-info btn-rounded btn btn-sm" asp-action="Details" asp-route-id="@item.CatId"><i class="mdi mdi-account-card-details"></i></a>
-                    <a class="btn-gradient-danger btn-rounded btn btn-sm" asp-action="Delete" asp-route-id="@item.CatId"><i class="mdi mdi-delete-forever"></i></a>
-                </td>
+                <th>
+                    Tác vụ
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string tmp = "";
+                if (item.Published != null)
+                {
+                    tmp = item.Published.Value.ToString();
+                }
+                <tr class="@tmp">
+                    <td>
+                        @if (item.Thumb != null && item.Thumb != "")
+                        {
+                            <img class="img" src="../@item.Thumb" />
+                        }
+                        else
+                        {
+                            <img class="img" src="https://via.placeholder.com/100" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CatId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CatName)
+                    </td>
 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Published)
+                    </td>
+
+                    <td>
+                        <a class="btn-gradient-primary btn-rounded btn btn-sm" asp-action="Edit" asp-route-id="@item.CatId"><i class="mdi mdi-lead-pencil"></i></a>
+                        <a class="btn-gradient-info btn-rounded btn btn-sm" asp-action="Details" asp-route-id="@item.CatId"><i class="mdi mdi-account-card-details"></i></a>
+                        <a class="btn-gradient-danger btn-rounded btn btn-sm" asp-action="Delete" asp-route-id="@item.CatId"><i class="mdi mdi-delete-forever"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section scripts{ 
 <script>
