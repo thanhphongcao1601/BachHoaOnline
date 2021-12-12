@@ -1,13 +1,14 @@
 ﻿
-
+@using PTHShopping.Helper;
 @using System;
+@inject PTHShoppingContext Db
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Login/Views/Shared/_LoginLayout.cshtml";
 
 
 }
-
+<div>@RandomID.generateID()</div>
 <section class="login-block">
     <div class="container login-container">
         <div class="row">
@@ -25,15 +26,15 @@
                     </div>
                     @if (ViewBag.notFound != null)
                     {
-                        if (ViewBag.notFound =="0")
+                        if (ViewBag.notFound == "0")
                         {
                             <div class="text-danger">Số điện thoại và mật khẩu không được trống!</div>
                         }
-                        if(ViewBag.notFound == "1")
+                        if (ViewBag.notFound == "1")
                         {
                             <div class="text-danger">Số điện thoại hoặc mật khẩu không đúng!</div>
                         }
-                        
+
                     }
 
                     <div class="form-check">
