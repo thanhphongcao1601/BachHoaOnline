@@ -2,20 +2,24 @@
 @{
     Layout = "_MuaSamLayout";
 }
+@{
+    int index = 0;
+    var pageindex = 0;
+    int currentPage = ViewBag.currentPage;
+    int pageSize = ViewBag.pageSize;
+}
 <div class="col-lg-9 col-md-7">
     <div class="product__discount">
         <div class="section-title product__discount__title">
             <h2>Đang khuyến mãi</h2>
         </div>
+        <!--Hien thi cac sp khuyen mai-->
         <div class="row">
             <div class="product__discount__slider owl-carousel">
-                @{ 
-                    int index = 0;
-                }
                 @foreach (var item in Model.ListSanpham)
                 {
                     index = Model.ListSanpham.ToList().IndexOf(item);
-                    if (ViewBag.idspdm == item.CatId && item.KhuyenMai!=null)
+                    if (ViewBag.idspdm == item.CatId && item.KhuyenMai != null)
                     {
                         <div class="col-lg-4">
                             <div class="product__discount__item">
@@ -27,15 +31,15 @@
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="@Url.Action("Index", "ChiTietSP",new { id = index})"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__discount__item__text">
                                     <span>@item.CatId</span>
-                                    <h5><a href="@Url.Action("Index", "ChiTietSP",new { id = index})">@item.TenSanPham</a></h5>
+                                    <h5><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h5>
                                     @if (item.KhuyenMai != null)
                                     {
-                                        <div class="product__item__price">@(item.Gia*(100-item.KhuyenMai)/100) VND <span>@item.Gia VND</span></div>
+                                        <div class="product__item__price">@(item.Gia * (100 - item.KhuyenMai) / 100) VND <span>@item.Gia VND</span></div>
                                     }
                                     else
                                     {
@@ -46,7 +50,37 @@
                             </div>
                         </div>
                     }
+                    if (ViewBag.idspdm == null && item.KhuyenMai != null)
+                    {
+                        <div class="col-lg-4">
+                            <div class="product__discount__item">
+                                <div class="product__discount__item__pic set-bg" data-setbg="/@item.Thumb">
+                                    @if (item.KhuyenMai != null)
+                                    {
+                                        <div class="product__discount__percent">@item.KhuyenMai%</div>
+                                    }
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__discount__item__text">
+                                    <span>@item.CatId</span>
+                                    <h5><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h5>
+                                    @if (item.KhuyenMai != null)
+                                    {
+                                        <div class="product__item__price">@(item.Gia * (100 - item.KhuyenMai) / 100) VND <span>@item.Gia VND</span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product__item__price">@(item.Gia) VND</div>
+                                    }
 
+                                </div>
+                            </div>
+                        </div>
+                    }
                 }
             </div>
         </div>
@@ -56,16 +90,22 @@
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="filter__found">
-                    <h6><span>@index</span> sản phẩm được tìm thấy</h6>
+                    <h6><span></span>Các sản phẩm được tìm thấy</h6>
                 </div>
             </div>
         </div>
     </div>
+    <!--Hien thi ds sp theo phan trang-->
     <div class="row">
-        @foreach (var item in Model.ListSanpham)
+        @{
+            var lstSp = from d in Model.ListSanpham
+                        where d.CatId == ViewBag.idspdm
+                        select d;
+        }
+        @foreach (var item in lstSp)
         {
-            index = Model.ListSanpham.ToList().IndexOf(item);
-            if (ViewBag.idspdm == item.CatId)
+            index = lstSp.ToList().IndexOf(item) + 1;
+            if (index <= currentPage * pageSize && index > currentPage * pageSize - pageSize)
             {
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="product__item">
@@ -73,11 +113,11 @@
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="@Url.Action("Index", "ChiTietSP",new { id = index})"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="@Url.Action("Index", "ChiTietSP",new { id = index})">@item.TenSanPham</a></h6>
+                            <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
                             <h5>@item.Gia VND</h5>
                         </div>
                     </div>
@@ -85,11 +125,112 @@
             }
         }
     </div>
-    <div class="product__pagination">
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+    <!--Phan trang-->
+    <div class="product__pagination centered">
+        @{
+            var maxPage = 0;
+        }
+        @foreach (var item in lstSp)
+        {
+            pageindex = lstSp.ToList().IndexOf(item) + 1;
+            if (pageindex % pageSize == 0 && pageindex != 0)
+            {
+                if (currentPage != pageindex / pageSize)
+                {
+                    <a href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize})">@(pageindex / pageSize)</a>
+                }
+                else
+                {
+                    <a style="background-color: #7FAD39" href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize})">@(pageindex / pageSize)</a>
+                }
+                maxPage = pageindex / pageSize;
+            }
+        }
+        @if (pageindex % pageSize != 0 && pageindex != 0)
+        {
+            if (currentPage != pageindex / pageSize)
+            {
+                <a href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize + 1})">@(pageindex / pageSize + 1)</a>
+            }
+            else
+            {
+                <a style="background-color: #7FAD39" href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize + 1})">@(pageindex / pageSize + 1)</a>
+            }
+            maxPage = pageindex / pageSize + 1;
+        }
+        @if (currentPage < maxPage)
+        {
+            <a href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=currentPage+1})"><i class="fa fa-long-arrow-right"></i></a>
+        }
     </div>
-    </div>
+
+    <!--Trang Home Mua Sam-->
+    @if (ViewBag.idspdm == null)
+    {
+        <!--Hien thi ds sp theo phan trang-->
+        <div class="row">
+            @foreach (var item in Model.ListSanpham)
+            {
+                index = Model.ListSanpham.ToList().IndexOf(item) + 1;
+                if (index <= currentPage * pageSize && index > currentPage * pageSize - pageSize)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="/@item.Thumb">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
+                                <h5>@item.Gia VND</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <!--Phan trang-->
+        <div class="product__pagination centered">
+            @foreach (var item in Model.ListSanpham)
+            {
+                pageindex = Model.ListSanpham.ToList().IndexOf(item) + 1;
+                if (pageindex % pageSize == 0 && pageindex != 0)
+                {
+                    <!--Tao 1 trang-->
+                    if (currentPage != pageindex / pageSize)
+                    {
+                        <a href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize})">@(pageindex / pageSize)</a>
+                    }
+                    else
+                    {
+                        <!--Kiem tra trang hien tai co o day-->
+                        <a style="background-color: #7FAD39" href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize})">@(pageindex / pageSize)</a>
+                    }
+                    maxPage = pageindex / pageSize;
+                }
+            }
+
+            @if (pageindex % pageSize != 0 && pageindex != 0)
+            {
+                if (currentPage != pageindex / pageSize + 1)
+                {
+                    <a href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize + 1})">@(pageindex / pageSize + 1)</a>
+                }
+                else
+                {
+                    <a style="background-color: #7FAD39" href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=pageindex / pageSize + 1})">@(pageindex / pageSize + 1)</a>
+                }
+                maxPage = pageindex / pageSize + 1;
+            }
+            @if (currentPage < maxPage)
+            {
+                <a href="@Url.Action("Index", "MuaSam",new { id = ViewBag.idspdm, currentPage=currentPage+1})"><i class="fa fa-long-arrow-right"></i></a>
+            }
+        </div>
+    }
+
+</div>
 

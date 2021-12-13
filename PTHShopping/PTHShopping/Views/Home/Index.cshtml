@@ -182,62 +182,32 @@
                         <h4>Được ưa chuộng</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="~/Userassets/img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="~/Userassets/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="~/Userassets/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="~/Userassets/img/latest-product/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="~/Userassets/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="~/Userassets/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
+                                @{
+                                    var sortls2 = Model.ListSanpham.ToList().OrderByDescending(s => s.Slban);
+                                }
+
+                                @foreach (var item in sortls2)
+                                {
+                                    if (item.KhuyenMai == null) { break; }
+                                    int index = sortls2.ToList().IndexOf(item);
+                                    int count = sortls2.ToList().Count;
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="/@item.Thumb" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>@item.TenSanPham</h6>
+                                            <span>@item.Gia VND</span>
+                                            <div class="pgiamgia">@item.KhuyenMai%</div>
+                                        </div>
+                                    </a>
+
+                                    if (index % 3 == 2 && index != count - 1)
+                                    {
+                                    @:</div>
+                                    @: <div class="latest-prdouct__slider__item">
+                                    }
+                                }
                             </div>
                         </div>
                     </div>

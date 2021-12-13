@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "A7o3+XyyAxs2d8oB+rXBaOYOuDvlp2sNOGSkrMV6KmvKmujOqpmM2i4NaC6PfBd2cM1TgHv7pUIFSLDfDFpxOg==",
+  "dgSpecHash": "EEEtmP/7D0gg2ohuU8VAnXSKFkqSd2J7p1fuzPamADokGkNDPnrwk5goEdVpq/wvw94chDQ4SFpbTml1+/XijQ==",
   "success": true,
   "projectFilePath": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
   "expectedPackageFiles": [
@@ -70,8 +70,10 @@
     "C:\\Users\\thanh\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\thanh\\.nuget\\packages\\pagedlist\\1.17.0\\pagedlist.1.17.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\pagedlist.core\\1.17.4\\pagedlist.core.1.17.4.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\pagedlist.core.mvc\\3.0.0\\pagedlist.core.mvc.3.0.0.nupkg.sha512",
+    "C:\\Users\\thanh\\.nuget\\packages\\pagedlist.mvc\\4.5.0\\pagedlist.mvc.4.5.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\thanh\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
@@ -158,6 +160,26 @@
       "warningLevel": 1,
       "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
       "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PagedList 1.17.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PagedList",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PagedList.Mvc 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PagedList.Mvc",
       "targetGraphs": [
         "net5.0"
       ]

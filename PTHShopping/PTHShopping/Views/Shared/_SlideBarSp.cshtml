@@ -20,16 +20,13 @@
                             int index = sortls.ToList().IndexOf(item);
                             int count = sortls.ToList().Count;
                             <a href="@Url.Action("Index", "ChiTietSP",new { id = index})" class="latest-product__item">
-                                @if (@item.KhuyenMai != null)
-                                {
-                                    <div class="pgiamgia">@item.KhuyenMai%</div>
-                                }
                                 <div class="latest-product__item__pic">
                                     <img style="max-width:100px" src="/@item.Thumb" alt=""> @*thumb*@
                                 </div>
                                 <div class="latest-product__item__text">
                                     <h6>@item.TenSanPham</h6>
                                     <span>@item.Gia VND</span>
+                                    <div class="pgiamgia">New</div>
                                 </div>
                             </a>
                             if (index % 3 == 2 && index != count - 1)

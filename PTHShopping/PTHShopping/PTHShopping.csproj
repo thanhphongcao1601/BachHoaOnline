@@ -18,7 +18,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.Core" Version="1.17.4" />
     <PackageReference Include="PagedList.Core.Mvc" Version="3.0.0" />
+    <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
 
