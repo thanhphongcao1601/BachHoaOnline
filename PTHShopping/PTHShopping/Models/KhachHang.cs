@@ -27,6 +27,7 @@ namespace PTHShopping.Models
         public string Salt { get; set; }
         public DateTime? LastLogin { get; set; }
         public bool? Active { get; set; }
+        public bool? Giotinh { get; set; }
 
         public virtual Location IdvitriNavigation { get; set; }
         public virtual ICollection<DonHang> DonHangs { get; set; }

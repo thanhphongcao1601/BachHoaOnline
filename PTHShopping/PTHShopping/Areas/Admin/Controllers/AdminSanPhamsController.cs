@@ -139,7 +139,9 @@ namespace PTHShopping.Areas.Admin.Controllers
         // GET: Admin/AdminSanPhams/Create
         public IActionResult Create()
         {
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId");
+            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatName");
+  
+
             return View();
         }
 

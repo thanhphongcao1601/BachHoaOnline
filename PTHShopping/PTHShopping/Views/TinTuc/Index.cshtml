@@ -5,11 +5,39 @@
 @using System.Web;
 @using HtmlAgilityPack;
 @using PTHShopping.Helper;
+@using System.Collections.Generic;
+
 
 @{
     int CurrentPage = ViewBag.CurrentPage;
     string Cat = ViewBag.Cat;
     string Search = ViewBag.Search;
+    var listNew = ViewBag.listNew;
+    var spnew = 0;
+    var sale = 0;
+    var market = 0;
+    var shop = 0;
+    for(int i=0; i < listNew.Count; i++)
+    {
+        if(listNew[i].TenTrang.Contains("Tin tức về sản phẩm mới"))
+        {
+            spnew += 1;
+        }
+        if (listNew[i].TenTrang.Contains("Tin tức về khuyến mãi"))
+        {
+            sale += 1;
+        }
+        if (listNew[i].TenTrang.Contains("Tin tức về thị trường"))
+        {
+            market += 1;
+        }
+        if (listNew[i].TenTrang.Contains("Tin tức về của hàng"))
+        {
+            shop += 1;
+        }
+    }
+
+
 
 }
 <!DOCTYPE html>
@@ -49,20 +77,23 @@
             left: 2px;
             top: 2px;
         }
+
         .thumb {
             max-height: 230px;
             object-position: center;
             object-fit: cover;
         }
+
         .mini-thumb {
             max-height: 70px;
             max-width: 80px;
             object-position: center;
             object-fit: cover;
-            margin-top:5px;
+            margin-top: 5px;
         }
-        #nhap{
-            max-width:250px
+
+        #nhap {
+            max-width: 250px
         }
     </style>
 </head>
@@ -101,31 +132,31 @@
                         <div class="blog__sidebar__item">
                             <h4>Danh mục</h4>
                             <ul>
-                                <li><a id="all" href="/TinTuc/1/all/@Search">Tất cả</a></li>
-                                <li><a id="new" href="/TinTuc/1/new/@Search">Sản phẩm mới</a></li>
-                                <li><a id="sale" href="/TinTuc/1/sale/@Search">Khuyến mãi</a></li>
-                                <li><a id="market" href="/TinTuc/1/market/@Search">Thị trường</a></li>
-                                <li><a id="shop" href="/TinTuc/1/shop/@Search">Cửa hàng</a></li>
+                                <li><a id="all" href="/TinTuc/1/all/@Search">Tất cả (@listNew.Count)</a></li>
+                                <li><a id="new" href="/TinTuc/1/new/@Search">Sản phẩm mới (@spnew)</a></li>
+                                <li><a id="sale" href="/TinTuc/1/sale/@Search">Khuyến mãi (@sale)</a></li>
+                                <li><a id="market" href="/TinTuc/1/market/@Search">Thị trường (@market)</a></li>
+                                <li><a id="shop" href="/TinTuc/1/shop/@Search">Cửa hàng (@shop)</a></li>
                             </ul>
                         </div>
                         <div class="blog__sidebar__item">
                             <h4>Tin gần đây</h4>
-                            @if (Model.ListTintuc.Count() >= 3)
+                            @if (listNew.Count >= 3)
                             {
-                                for (int i=0;i<3;i++)
+                                for (int i = 0; i < 3; i++)
                                 {
                                     <div class="blog__sidebar__recent">
-                                        <a href="#" class="blog__sidebar__recent__item">
+                                        <a href="/CtTinTuc/@listNew[i].Idtrang" class="blog__sidebar__recent__item">
                                             <div class="blog__sidebar__recent__item__pic">
-                                                <img class="mini-thumb" src="/@Model.ListTintuc[i].Thumb" alt="">
+                                                <img class="mini-thumb" src="/@listNew[i].Thumb" alt="">
                                             </div>
                                             <div class="blog__sidebar__recent__item__text">
-                                                <h6> @Model.ListTintuc[i].TieuDe</h6>
-                                                <span>@Model.ListTintuc[i].NgayTao</span>
+                                                <h6> @listNew[i].TieuDe</h6>
+                                                <span>@listNew[i].NgayTao</span>
                                             </div>
                                         </a>
                                     </div>
-                                 }
+                                }
 
                             }
 
@@ -150,7 +181,7 @@
                                             @Html.Raw(item.NoiDung)
                                         </div>
                                         ...
-                                        <a href="#" class="">xem thêm</a>
+                                        <a href="/CtTinTuc/@item.Idtrang" class="">xem thêm</a>
                                     </div>
                                 </div>
                             </div>
@@ -160,20 +191,28 @@
 
                         <div>
                             <p>
-                                Trang @CurrentPage / <strong>@Model.ListTintuc.PageCount</strong> 
+                                Trang @CurrentPage / <strong>@Model.ListTintuc.PageCount</strong>
                             </p>
-                            <a href="/TinTuc/@(CurrentPage-1)/@Cat/@Search" class="btn btn-dark btn-sm">
-                                <
-                            </a>
+                            @if (CurrentPage > 1)
+                            {
+                                <a href="/TinTuc/@(CurrentPage - 1)/@Cat/@Search" class="btn btn-dark btn-sm">
+                                    &lt;
+                                </a>
+                            }
+
+
                             @for (int i = 1; i <= Model.ListTintuc.PageCount; i++)
                             {
                                 <a href="/TinTuc/@i/@Cat/@Search" class="btn btn-dark btn-sm" id="@i">
                                     @i
                                 </a>
                             }
-                            <a href="/TinTuc/@(CurrentPage+1)/@Cat/@Search" class="btn btn-dark btn-sm">
-                                >
-                            </a>
+                            @if (CurrentPage < @Model.ListTintuc.PageCount)
+                            {
+                                <a href="/TinTuc/@(CurrentPage+1)/@Cat/@Search" class="btn btn-dark btn-sm">
+                                    &gt;
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -198,9 +237,10 @@
 
 </html>
 
-@section scripts{ 
+@section scripts{
     <script>
         $(document).ready(() => {
+            $('#tim').css('color', 'red');
             $("#tim").click(function () {
                 $("#tim").attr("href", "/TinTuc/1/@Cat/" + $('#nhap').val().trim());
             })

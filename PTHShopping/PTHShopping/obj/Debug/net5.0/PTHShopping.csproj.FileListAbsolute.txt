@@ -3672,7 +3672,6 @@ E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Details.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Edit.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminTinTuc\Index.cshtml.g.cs
-E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.csproj.AssemblyReference.cache
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\BCrypt.Net.dll
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Shared\_HeaderPartialView.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\TinTuc\Index.cshtml.g.cs
@@ -4216,3 +4215,6 @@ E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\DonHangs\Edit.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\DonHangs\Index.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\ThanhToan\Index.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\CtTinTuc\Index.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\PTHShopping.csproj.AssemblyReference.cache
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Login\Views\Home\SignUp.cshtml.g.cs
