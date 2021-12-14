@@ -7,9 +7,38 @@
     var pageindex = 0;
     int currentPage = ViewBag.currentPage;
     int pageSize = ViewBag.pageSize;
+
 }
 <div class="col-lg-9 col-md-7">
     <div class="product__discount">
+
+        <!--Tim kiem san pham - hien thi san pham-->
+        @if (ViewBag.timkiem != null)
+        {
+            var lstTimKiem = Model.ListSanpham.Where(c => c.TenSanPham != null && c.TenSanPham.ToLower().Contains(ViewBag.timkiem.ToLower()));
+            <div class="section-title product__discount__title">
+                <h3>Kết quả tìm kiếm của: @ViewBag.timkiem</h3>
+            </div>
+            <div class="row">
+                @foreach (var item in lstTimKiem)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="/@item.Thumb">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
+                                <h5>@item.Gia VND</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
         <div class="section-title product__discount__title">
             <h2>Đang khuyến mãi</h2>
         </div>

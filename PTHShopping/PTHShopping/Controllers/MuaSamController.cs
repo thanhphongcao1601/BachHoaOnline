@@ -28,9 +28,10 @@ namespace PTHShopping.Controllers
                 return data;
             }
         }
-        public IActionResult Index(PTHShoppingContext modelz, string id, int? currentPage)
+        public IActionResult Index(PTHShoppingContext modelz, string id, int? currentPage, string timkiem)
         {
-            ViewBag.pageSize = 2;
+            ViewBag.timkiem = timkiem;
+            ViewBag.pageSize = 3;
             if (currentPage == null)
             {
                 currentPage = 1;

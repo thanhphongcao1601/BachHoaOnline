@@ -61,8 +61,8 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Bạn muốn mua gì?">
+                            <form asp-action="Index" asp-controller="MuaSam">
+                                <input name="timkiem" type="text" placeholder="Bạn muốn mua gì?">
                                 <button type="submit" class="site-btn">TÌM</button>
                             </form>
                         </div>
@@ -105,7 +105,6 @@
                                 </div>
                             </div>
                         }
-
                     }
                 </div>
             </div>
@@ -161,10 +160,8 @@
                                             {
                                                 <div class="pgiamgia">@item.KhuyenMai%</div>
                                             }
-
                                         </div>
                                     </a>
-
                                     if (index % 3 == 2 && index != count - 1)
                                     {
                                     @:</div>
@@ -172,7 +169,6 @@
                                     }
                                 }
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -183,12 +179,12 @@
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @{
-                                    var sortls2 = Model.ListSanpham.ToList().OrderByDescending(s => s.Slban);
+                                    var sortls2 = Model.ListSanpham.ToList().Where(s => s.Slban > 0).OrderByDescending(s => s.Slban);
                                 }
 
                                 @foreach (var item in sortls2)
                                 {
-                                    if (item.KhuyenMai == null) { break; }
+                                    //if (item.Slban == null) { break; }
                                     int index = sortls2.ToList().IndexOf(item);
                                     int count = sortls2.ToList().Count;
                                     <a href="#" class="latest-product__item">
@@ -198,7 +194,10 @@
                                         <div class="latest-product__item__text">
                                             <h6>@item.TenSanPham</h6>
                                             <span>@item.Gia VND</span>
-                                            <div class="pgiamgia">@item.KhuyenMai%</div>
+                                            @if (@item.KhuyenMai != null)
+                                            {
+                                                <div class="pgiamgia">@item.KhuyenMai%</div>
+                                            }
                                         </div>
                                     </a>
 
@@ -215,16 +214,15 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
-                        <h4>Đang khuyến mãi</h4>
+                        <h4>Được khuyến mãi</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 @{
-                                    var sortls3 = Model.ListSanpham.ToList().OrderByDescending(s => s.KhuyenMai);
+                                    var sortls3 = Model.ListSanpham.ToList().Where(s => s.KhuyenMai > 0).OrderByDescending(s => s.KhuyenMai);
                                 }
 
                                 @foreach (var item in sortls3)
                                 {
-                                    if (item.KhuyenMai == null) { break; }
                                     int index = sortls3.ToList().IndexOf(item);
                                     int count = sortls3.ToList().Count;
                                     <a href="#" class="latest-product__item">
@@ -234,7 +232,10 @@
                                         <div class="latest-product__item__text">
                                             <h6>@item.TenSanPham</h6>
                                             <span>@item.Gia VND</span>
-                                            <div class="pgiamgia">@item.KhuyenMai%</div>
+                                            @if (@item.KhuyenMai != null)
+                                            {
+                                                <div class="pgiamgia">@item.KhuyenMai%</div>
+                                            }
                                         </div>
                                     </a>
 
