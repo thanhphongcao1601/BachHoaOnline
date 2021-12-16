@@ -35,7 +35,8 @@ namespace PTHShopping.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-LS2HU2P;Database=PTHShopping;Integrated Security=true;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=LAPTOP-7P911SC5;Database=PTHShopping;Integrated Security=true;");
             }
         }
 
@@ -272,17 +273,11 @@ namespace PTHShopping.Models
 
                 entity.Property(e => e.LastLogin).HasColumnType("datetime");
 
-                entity.Property(e => e.MatKhau).HasMaxLength(50);
-
                 entity.Property(e => e.NgayTao).HasColumnType("datetime");
 
                 entity.Property(e => e.Phuong).HasMaxLength(50);
 
                 entity.Property(e => e.Quan).HasMaxLength(50);
-
-                entity.Property(e => e.Salt)
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
 
                 entity.Property(e => e.Sdt)
                     .HasMaxLength(12)

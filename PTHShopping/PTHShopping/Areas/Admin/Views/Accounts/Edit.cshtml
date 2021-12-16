@@ -1,22 +1,28 @@
 ﻿@model PTHShopping.Models.Account
-
+@using PTHShopping.Helper
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Edit</h1>
-
-<h4>Account</h4>
+<h5 class="text-info">Chỉnh sửa tài khoản quản trị - @Model.AccountId</h5>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AccountId" />
+            <input type="hidden" asp-for="AccountId"/>
             <div class="form-group">
-                <label asp-for="Sdt" class="control-label"></label>
-                <input asp-for="Sdt" class="form-control" />
+                <label asp-for="HoTen" class="control-label">Họ tên</label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+                @if (ViewBag.name != null)
+                {
+                    <div class="text-danger">Họ tên không được trống</div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Sdt" class="control-label">Số điện thoại</label>
+                <input asp-for="Sdt" class="form-control" readonly />
                 <span asp-validation-for="Sdt" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -25,48 +31,32 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <label asp-for="Password" class="control-label">Mậu khẩu</label>
+                <input asp-for="Password" class="form-control" readonly/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Đổi mật khẩu?</label>
+                <input name="pass2" class="form-control" />
+            </div>
+            <div class="form-group" hidden>
                 <label asp-for="Salt" class="control-label"></label>
                 <input asp-for="Salt" class="form-control" />
                 <span asp-validation-for="Salt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Active" class="control-label"></label>
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoTen" class="control-label"></label>
-                <input asp-for="HoTen" class="form-control" />
-                <span asp-validation-for="HoTen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
+                <label asp-for="RoleId" class="control-label">Quyền</label>
                 <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
-                <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="LastLogin" class="control-label"></label>
-                <input asp-for="LastLogin" class="form-control" />
-                <span asp-validation-for="LastLogin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayTao" class="control-label"></label>
-                <input asp-for="NgayTao" class="form-control" />
-                <span asp-validation-for="NgayTao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value=" Lưu " class="btn-gradient-primary btn-rounded btn-sm btn">
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">&lt; Trở lại</a>
 </div>
 

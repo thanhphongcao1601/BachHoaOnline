@@ -19,15 +19,9 @@
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
             <i class="mdi mdi-home"></i>
-        </span> Dashboard
+        </span> Tổng quan
     </h3>
-    <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-                <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-            </li>
-        </ul>
-    </nav>
+    
 </div>
 <div class="row">
     <div class="col-md-4 stretch-card grid-margin">
@@ -35,7 +29,7 @@
             <div class="card-body">
                 <img src="~/Adminassets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                 <h4 class="font-weight-normal mb-3">
-                    Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    Doanh số trong tuần <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-5">$ 15,0000</h2>
                 <h6 class="card-text">Increased by 60%</h6>
@@ -47,7 +41,7 @@
             <div class="card-body">
                 <img src="~/Adminassets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                 <h4 class="font-weight-normal mb-3">
-                    Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    Đơn hàng trong tuần <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-5">45,6334</h2>
                 <h6 class="card-text">Decreased by 10%</h6>
@@ -59,15 +53,15 @@
             <div class="card-body">
                 <img src="~/Adminassets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                 <h4 class="font-weight-normal mb-3">
-                    Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                    Số lượng khách hàng <i class="mdi mdi-diamond mdi-24px float-right"></i>
                 </h4>
-                <h2 class="mb-5">95,5741</h2>
+                <h2 class="mb-5">@ViewBag.SLKH</h2>
                 <h6 class="card-text">Increased by 5%</h6>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
+@*<div class="row">
     <div class="col-md-7 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -88,68 +82,41 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div class="row">
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Recent Tickets</h4>
+                <h4 class="card-title">sản phẩm bán chạy</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th> Assignee </th>
-                                <th> Subject </th>
-                                <th> Status </th>
-                                <th> Last Update </th>
-                                <th> Tracking ID </th>
+                                <th> Sản phẩm  </th>
+                                <th> Loại </th>
+                                <th> Tình trạng </th>
+                                <th> Số lượng bán </th>
+                                <th> Còn lại </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="~/Adminassets/images/faces/face1.jpg" class="mr-2" alt="image"> David Grey
-                                </td>
-                                <td> Fund is not recieved </td>
-                                <td>
-                                    <label class="badge badge-gradient-success">DONE</label>
-                                </td>
-                                <td> Dec 5, 2017 </td>
-                                <td> WD-12345 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="~/Adminassets/images/faces/face2.jpg" class="mr-2" alt="image"> Stella Johnson
-                                </td>
-                                <td> High loading time </td>
-                                <td>
-                                    <label class="badge badge-gradient-warning">PROGRESS</label>
-                                </td>
-                                <td> Dec 12, 2017 </td>
-                                <td> WD-12346 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="~/Adminassets/images/faces/face3.jpg" class="mr-2" alt="image"> Marina Michel
-                                </td>
-                                <td> Website down for one week </td>
-                                <td>
-                                    <label class="badge badge-gradient-info">ON HOLD</label>
-                                </td>
-                                <td> Dec 16, 2017 </td>
-                                <td> WD-12347 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="~/Adminassets/images/faces/face4.jpg" class="mr-2" alt="image"> John Doe
-                                </td>
-                                <td> Loosing control on server </td>
-                                <td>
-                                    <label class="badge badge-gradient-danger">REJECTED</label>
-                                </td>
-                                <td> Dec 3, 2017 </td>
-                                <td> WD-12348 </td>
-                            </tr>
+                            @if (ViewBag.sp.Count > 0) {
+                                var count = ViewBag.sp.Count > 5 ? 5 : ViewBag.sp.Count;
+                                @for (int i = 0; i < count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="/@ViewBag.sp[i].Thumb" class="mr-2" alt="image"> @ViewBag.sp[i].TenSanPham
+                                        </td>
+                                        <td> @ViewBag.sp[i].Cat.CatName </td>
+                                        <td>
+                                            <label class="badge badge-gradient-success">Bán chạy</label>
+                                        </td>
+                                        <td> @ViewBag.sp[i].Slban </td>
+                                        <td> @ViewBag.sp[i].UnitsInStock </td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -200,78 +167,43 @@
     <div class="col-md-7 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Project Status</h4>
+                <h4 class="card-title">khách hàng mới</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th> # </th>
-                                <th> Name </th>
-                                <th> Due Date </th>
-                                <th> Progress </th>
+                                <th> Khách hàng </th>
+                                <th> Ngày tạo </th>
+                                <th> </th>
+                                <th> Đăng nhập gần đây </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> 1 </td>
-                                <td> Herman Beck </td>
-                                <td> May 15, 2015 </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 2 </td>
-                                <td> Messsy Adam </td>
-                                <td> Jul 01, 2015 </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 3 </td>
-                                <td> John Richards </td>
-                                <td> Apr 12, 2015 </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 4 </td>
-                                <td> Peter Meggik </td>
-                                <td> May 15, 2015 </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 5 </td>
-                                <td> Edward </td>
-                                <td> May 03, 2015 </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 5 </td>
-                                <td> Ronald </td>
-                                <td> Jun 05, 2015 </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @if (ViewBag.kh.Count > 0)
+                            {
+                                var count = ViewBag.kh.Count > 5 ? 5 : ViewBag.kh.Count;
+                                @for (int i = 0; i < count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (ViewBag.kh[i].Avatar != null && ViewBag.kh[i].Avatar != string.Empty)
+                                            {
+                                                <img src="/@ViewBag.kh[i].Avatar" class="mr-2" alt="image"> @ViewBag.kh[i].HoTen
+                                            }
+                                            else
+                                            {
+                                                <img src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png" class="mr-2" alt="image"> @ViewBag.kh[i].HoTen
+                                                
+                                            }
+                                        </td>
+                                        <td> @ViewBag.kh[i].NgayTao </td>
+                                        <td>
+                                            <label class="badge badge-gradient-info">New</label>
+                                        </td>
+                                        <td> @ViewBag.kh[i].LastLogin </td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>

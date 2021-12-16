@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PTHShopping.Models.Category>
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<PTHShopping.Models.Category>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,8 +10,9 @@
     .False {
         background-color: #009966 !important;
         opacity: 0.5;
-        display:none;
+        display: none;
     }
+
     th {
         font-weight: bold !important;
         text-align: center;
@@ -26,6 +28,7 @@
         height: 70px !important;
         border-radius: 0 !important;
     }
+
     .scroll {
         overflow-x: scroll;
         width: 100%;
@@ -45,8 +48,6 @@
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </p>
 <div class="scroll">
-
-
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -60,7 +61,7 @@
                 </th>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.Published)
+                   Published
                 </th>
 
                 <th>
@@ -80,7 +81,7 @@
                     <td>
                         @if (item.Thumb != null && item.Thumb != "")
                         {
-                            <img class="img" src="../@item.Thumb" />
+                            <img class="img" src="/@item.Thumb" />
                         }
                         else
                         {
@@ -109,17 +110,24 @@
     </table>
 </div>
 
-@section scripts{ 
-<script>
-    $(document).ready(() => {
-        $("#hide").change(function () {
-            if (this.checked) {
-                $('.False').show();
-            } else {
-                $('.False').hide();
-            }
-        });
-    })
+<div aria-label="Page navigation example">
+    <ul class="pagination">
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminCategories"  asp-action="Index" />
+    </ul>
+</div>
 
-</script>
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $("#hide").change(function () {
+                if (this.checked) {
+                    $('.False').show();
+                } else {
+                    $('.False').hide();
+                }
+            });
+        })
+
+    </script>
 }

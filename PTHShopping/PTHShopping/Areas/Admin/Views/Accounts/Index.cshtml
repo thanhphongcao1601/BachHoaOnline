@@ -1,30 +1,43 @@
 ﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-@model IEnumerable<PTHShopping.Models.Account>
+@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<PTHShopping.Models.Account>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <style>
-    .scroll{
-        overflow-x:scroll;
-        width:100%;
+    .scroll {
+        overflow-x: scroll;
+        width: 100%;
     }
+
     td {
         max-width: 200px;
         overflow-x: hidden;
     }
+
+    th {
+        font-weight: bold !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
 </style>
 
-<h5 class="text-info">Danh sách tài khoản quản trị</h5>
+<h5 class="text-info">Danh sách tài khoản quản trị -page:@ViewBag.CurrentPage</h5>
 
 <div class="mt-4">
-    <select class="" style="min-width:150px; height:25px; font-size:small;" asp-items="ViewBag.QuyenTruyCap">
-        <option value="" disabled selected>Quyền truy cập</option>
+    <select class="cus-select" style="min-width:150px; height:25px; font-size:small;" asp-items="ViewBag.QuyenTruyCap" id="RoleID">
+        <option value="all">Tất cả quyền</option>
     </select>
-    <select class="" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai">
-        <option value="" disabled selected>Trạng thái</option>
+    <select class="cus-select" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai" id="trangthai">
+        <option value="all">Tất cả trạng thái</option>
     </select>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </div>
@@ -90,3 +103,65 @@
     </table>
 
 </div>
+
+
+<div aria-label="Page navigation example">
+    <ul class="pagination">
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="Accounts" asp-route-RoleID="@ViewBag.CurrentRoleID" asp-route-trangthai="@ViewBag.Currenttrangthai" asp-action="Index" />
+    </ul>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            jQuery("#trangthai").change(function () {
+                var roleID = jQuery("#RoleID").children(":selected").attr("value");
+                var trangthain = jQuery(this).children(":selected").attr("value");
+                $("#trangthai option").removeAttr('selected');
+                $("#trangthai option[value=" + trangthain + "]").attr("selected", "selected");
+                $.ajax({
+                    url: '/Admin/Accounts/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        RoleID: roleID,
+                        trangthai: trangthain,
+                    },
+                    async: true,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            window.location.href = result.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error')
+                    }
+                });
+            });
+            jQuery("#RoleID").change(function () {
+                var trangthain = jQuery("#trangthai").children(":selected").attr("value");
+                var roleID = jQuery(this).children(":selected").attr("value");
+                $("#RoleID option").removeAttr('selected');
+                $("#RoleID option[value=" + roleID + "]").attr("selected", "selected");
+                $.ajax({
+                    url: '/Admin/Accounts/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        RoleID: roleID,
+                        trangthai: trangthain,
+                    },
+                    async: true,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            window.location.href = result.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error')
+                    }
+                });
+            });
+        });
+    </script>
+}

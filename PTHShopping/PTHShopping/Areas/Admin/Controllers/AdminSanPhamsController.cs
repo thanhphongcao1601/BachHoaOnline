@@ -47,7 +47,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             }
             ViewData["lsTrangThai"] = lsTrangThai;
             var pageNumber = page;
-            var pageSize = 5;
+            var pageSize = 10;
             List<SanPham> lsProduct = new List<SanPham>();
 
             if (CatID != "all" && trangthai == "1")
@@ -104,7 +104,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             ViewBag.CurrentPage = pageNumber;
             ViewBag.CurrentCatID = CatID;
             ViewBag.Currenttrangthai = trangthai;
-            ViewData["Cat"] = new SelectList(_context.Categories, "CatId", "CatName", CatID);
+            ViewData["Cat"] = new SelectList(_context.Categories.Where(x=>x.Published==true), "CatId", "CatName", CatID);
             return View(models);
         }
 
@@ -139,7 +139,9 @@ namespace PTHShopping.Areas.Admin.Controllers
         // GET: Admin/AdminSanPhams/Create
         public IActionResult Create()
         {
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId");
+            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatName");
+  
+
             return View();
         }
 

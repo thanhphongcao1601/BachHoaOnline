@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
 using PTHShopping.Models;
 
 namespace PTHShopping.Areas.Admin.Controllers
@@ -27,9 +28,16 @@ namespace PTHShopping.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCategories
-        public async Task<IActionResult> Index()
+        [Route("Admin/AdminCategories/{page?}")]
+
+        public async Task<IActionResult> Index(int page=1)
         {
-            return View(await _context.Categories.OrderByDescending(x=>x.Published).ToListAsync());
+            var pageNumber = page;
+            var pageSize = 10;
+            var lsCat = _context.Categories.OrderByDescending(x => x.Published);
+            PagedList<Category> models = new PagedList<Category>(lsCat, pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            return View(models);
         }
 
         // GET: Admin/AdminCategories/Details/5

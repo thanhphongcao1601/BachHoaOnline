@@ -45,14 +45,14 @@
 <h5 class="text-info">Danh sách sản phẩm - page:@CurrentPage</h5>
 <br />
 <div class="mt-4">
-    <select class="cus-select" style="min-width:140px; height:25px; font-size:small;" asp-items="ViewBag.Cat" id="CatID" name="txtCatID">
+    <select class="cus-select" style="min-width:140px; height:25px; font-size:small;" asp-items="ViewBag.Cat" id="CatID">
         <option value="all">Tất cả danh mục</option>
     </select>
     <select class="" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai" id="trangthai">
         <option value="all">Tất cả trạng thái</option>
     </select>
     <input class="ml-5 mr-2" id="hide" type="checkbox" />
-    <span style="font-size: 14px;">Bao gồm các sản phẩm ẩn khỏi cửa hàng</span>
+    <span  style="font-size: 14px;">Bao gồm các sản phẩm ẩn khỏi cửa hàng</span>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </div>
 <div class="scroll">
@@ -197,7 +197,7 @@
                 });
             });
             jQuery("#CatID").change(function () {
-                 var page = @CurrentPage;
+                var page = @CurrentPage;
                 var trangthain = jQuery("#trangthai").children(":selected").attr("value");
                 var catID = jQuery(this).children(":selected").attr("value");
                 $("#CatID option").removeAttr('selected');

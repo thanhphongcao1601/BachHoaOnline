@@ -54,7 +54,7 @@ namespace PTHShopping.Controllers
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var pageSize = 4;
             var lsNews = _context.Trangs.Where(x => x.Published == true);
-
+            ViewBag.listNew = lsNews.ToList();
             if (Cat == null || Cat == string.Empty)
             {
                 Cat = "all";

@@ -1,5 +1,4 @@
 ﻿
-
 @using System;
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +6,6 @@
 
 
 }
-
 <section class="login-block">
     <div class="container login-container">
         <div class="row">
@@ -16,7 +14,7 @@
                 <form class="login-form" method="POST" asp-action="Index">
                     <div class="form-group">
                         <label>Số điện thoại</label>
-                        <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" name="sdt">
+                        <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" name="sdt" value="@ViewBag.sdt" maxlength="11">
 
                     </div>
                     <div class="form-group">
@@ -25,15 +23,15 @@
                     </div>
                     @if (ViewBag.notFound != null)
                     {
-                        if (ViewBag.notFound =="0")
+                        if (ViewBag.notFound == "0")
                         {
                             <div class="text-danger">Số điện thoại và mật khẩu không được trống!</div>
                         }
-                        if(ViewBag.notFound == "1")
+                        if (ViewBag.notFound == "1")
                         {
                             <div class="text-danger">Số điện thoại hoặc mật khẩu không đúng!</div>
                         }
-                        
+
                     }
 
                     <div class="form-check">
@@ -45,7 +43,7 @@
                         <button type="submit" class="btn btn-login float-right">Đăng nhập</button>
                     </div>
                 </form>
-                <div class="copy-text"><i class="fa fa-heart"></i><a href="#"> Đăng ký ngay</a></div>
+                <div class="copy-text"><i class="fa fa-heart"></i><a href="Login/Home/SignUp"> Đăng ký ngay</a></div>
             </div>
             <div class="col-md-8 banner-sec">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

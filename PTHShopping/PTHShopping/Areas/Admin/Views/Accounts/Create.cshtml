@@ -1,27 +1,45 @@
 ﻿@model PTHShopping.Models.Account
-
+@using PTHShopping.Helper
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Create</h1>
-
-<h4>Account</h4>
+<h5 class="text-info">Thêm tài khoản quản trị mới</h5>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AccountId" class="control-label"></label>
-                <input asp-for="AccountId" class="form-control" />
+                <label asp-for="AccountId" class="control-label">ID</label>
+                <input asp-for="AccountId" class="form-control" value="@RandomID.generateID()" />
                 <span asp-validation-for="AccountId" class="text-danger"></span>
+                @if (ViewBag.IDTrung != null)
+                {
+                    <div class="text-danger">ID đã bị trùng</div>
+                }
             </div>
             <div class="form-group">
-                <label asp-for="Sdt" class="control-label"></label>
+                <label asp-for="HoTen" class="control-label">Họ tên</label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+                @if (ViewBag.name != null)
+                {
+                    <div class="text-danger">Họ tên không được trống</div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Sdt" class="control-label">Số điện thoại</label>
                 <input asp-for="Sdt" class="form-control" />
                 <span asp-validation-for="Sdt" class="text-danger"></span>
+                @if (ViewBag.SDTTrung != null)
+                {
+                    <div class="text-danger">Số điện thoại đã bị trùng</div>
+                }
+                @if (ViewBag.sdt != null)
+                {
+                    <div class="text-danger">Số điện thoại không được trống</div>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -29,47 +47,33 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">Mậu khẩu</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
+                @if (ViewBag.pass != null)
+                {
+                    <div class="text-danger">Mật khẩu không được trống</div>
+                }
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Salt" class="control-label"></label>
-                <input asp-for="Salt" class="form-control" value="@BCrypt.Net.BCrypt.GenerateSalt(12)"/>
+                <input asp-for="Salt" class="form-control" value="@BCrypt.Net.BCrypt.GenerateSalt(12)" />
                 <span asp-validation-for="Salt" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Active" class="control-label"></label>
-                <input asp-for="Active" class="form-control" />
-                <span asp-validation-for="Active" class="text-danger"></span>
+                <label asp-for="RoleId" class="control-label">Quyền</label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
             </div>
+
             <div class="form-group">
-                <label asp-for="HoTen" class="control-label"></label>
-                <input asp-for="HoTen" class="form-control" />
-                <span asp-validation-for="HoTen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastLogin" class="control-label"></label>
-                <input asp-for="LastLogin" class="form-control" />
-                <span asp-validation-for="LastLogin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayTao" class="control-label"></label>
-                <input asp-for="NgayTao" class="form-control" />
-                <span asp-validation-for="NgayTao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value=" Tạo " class="btn-gradient-primary btn-rounded btn-sm btn">
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">&lt; Trở lại</a>
 </div>
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
 using PTHShopping.Models;
 
 namespace PTHShopping.Areas.Admin.Controllers
@@ -22,17 +23,70 @@ namespace PTHShopping.Areas.Admin.Controllers
         }
 
         // GET: Admin/Accounts
-        public async Task<IActionResult> Index()
+        [Route("Admin/Accounts")]
+        [Route("Admin/Accounts/{page}/{RoleID}/{trangthai}")]
+        public async Task<IActionResult> Index(int page = 1, string RoleID="all", string trangthai="all")
         {
-            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "MoTa");
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "MoTa",RoleID);
             List<SelectListItem> lsTrangThai = new List<SelectListItem>();
             lsTrangThai.Add(new SelectListItem { Text = "Active", Value="1"});
             lsTrangThai.Add(new SelectListItem { Text = "Inactive", Value="0"});
+            foreach (var item in lsTrangThai)
+            {
+                if (item.Value == trangthai.ToString())
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
             ViewData["lsTrangThai"] = lsTrangThai;
-            var pTHShoppingContext = _context.Accounts.Include(a => a.Role);
-            return View(await pTHShoppingContext.ToListAsync());
+            List<Account> pTHShoppingContext = new List<Account>();
+
+            if (RoleID != "all" && trangthai=="all")
+            {
+                 pTHShoppingContext = _context.Accounts.Where(x=>x.RoleId==RoleID).Include(a => a.Role).ToList();
+            }
+            else if(RoleID != "all" && trangthai == "1")
+            {
+                 pTHShoppingContext = _context.Accounts.Where(x => x.RoleId == RoleID && x.Active==true).Include(a => a.Role).ToList();
+            }
+            else if (RoleID == "all" && trangthai == "1")
+            {
+                pTHShoppingContext = _context.Accounts.Where(x => x.Active == true).Include(a => a.Role).ToList();
+            }
+            else if (RoleID == "all" && trangthai == "0")
+            {
+                pTHShoppingContext = _context.Accounts.Where(x => x.Active == false).Include(a => a.Role).ToList();
+            }
+            else if (RoleID != "all" && trangthai == "0")
+            {
+                 pTHShoppingContext = _context.Accounts.Where(x => x.RoleId == RoleID && x.Active == false).Include(a => a.Role).ToList();
+            }
+            else if (RoleID == "all" && trangthai == "all")
+            {
+                 pTHShoppingContext = _context.Accounts.Include(a => a.Role).ToList();
+            }
+
+            var pageNumber = page;
+            var pageSize = 10;
+            PagedList<Account> models = new PagedList<Account>(pTHShoppingContext.AsQueryable(), pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentRoleID = RoleID;
+            ViewBag.Currenttrangthai = trangthai;
+            return View(models);
         }
 
+
+        [Route("Admin/Accounts/Filter/{page?}/{RoleID?}/{trangthai?}")]
+        public IActionResult Filter(int page=1,string RoleID = "all", string trangthai = "all")
+        {
+            var url = $"/Admin/Accounts/{page}/{RoleID}/{trangthai}";
+            if (RoleID == "all" && trangthai == "all")
+            {
+                url = $"/Admin/Accounts";
+            }
+            return Json(new { status = "success", redirectUrl = url });
+        }
         // GET: Admin/Accounts/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -55,7 +109,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         // GET: Admin/Accounts/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId");
+            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
             return View();
         }
 
@@ -68,19 +122,42 @@ namespace PTHShopping.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
+                var err = 0;
                 var id = _context.Accounts.Where(x => x.AccountId == account.AccountId).ToList();
-                if (id.Count()!=0)
+                if (id.Count!=0)
                 {
                     ViewBag.IDTrung = account.AccountId;
-                    return View(account);
+                    err = 1;
                 }
                 var sdt = _context.Accounts.Where(x => x.Sdt == account.Sdt).ToList();
-                if (sdt.Count()!=0)
+                if (sdt.Count!=0)
                 {
                     ViewBag.SDTTrung = account.Sdt;
+                    err = 1;
+                }
+                 if(account.Sdt==null || account.Sdt == string.Empty)
+                {
+                    ViewBag.sdt = "nullSdt";
+                    err = 1;
+                }
+                if(account.HoTen==null || account.HoTen == string.Empty)
+                {
+                    ViewBag.name = "nullName";
+                    err = 1;
+                }
+                if (account.Password == null || account.Password == string.Empty)
+                {
+                    ViewBag.pass = "nullPass";
+                    err = 1;
+                }
+                if (err == 1)
+                {
                     return View(account);
                 }
                 account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password, account.Salt);
+                account.NgayTao = DateTime.Now;
+                account.Active = true;
                 _context.Add(account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -102,7 +179,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
             return View(account);
         }
 
@@ -111,7 +188,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("AccountId,Sdt,Email,Password,Salt,Active,HoTen,RoleId,LastLogin,NgayTao")] Account account)
+        public async Task<IActionResult> Edit(string id, [Bind("AccountId,Sdt,Email,Password,Salt,Active,HoTen,RoleId,LastLogin,NgayTao")] Account account, string pass2)
         {
             if (id != account.AccountId)
             {
@@ -122,6 +199,21 @@ namespace PTHShopping.Areas.Admin.Controllers
             {
                 try
                 {
+                    ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
+                    var err = 0;
+                    if (account.HoTen == null || account.HoTen == string.Empty)
+                    {
+                        ViewBag.name = "nullName";
+                        err = 1;
+                    }
+                    if (err == 1)
+                    {
+                        return View(account);
+                    }
+                    if(pass2!=string.Empty && pass2 != null)
+                    {
+                        account.Password = BCrypt.Net.BCrypt.HashPassword(pass2, account.Salt);
+                    }
                     _context.Update(account);
                     await _context.SaveChangesAsync();
                 }
@@ -138,7 +230,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
+           
             return View(account);
         }
 

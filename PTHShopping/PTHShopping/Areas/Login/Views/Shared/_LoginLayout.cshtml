@@ -145,6 +145,7 @@
 <body>
     @RenderBody()
     @await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>

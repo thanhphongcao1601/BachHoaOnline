@@ -83,7 +83,7 @@
                                 var roles = ((ClaimsIdentity)User.Identity).Claims
                                 .Where(c => c.Type == ClaimTypes.Role)
                                 .Select(c => c.Value).ToList()[0];
-                                if (roles == "Admin")
+                                if (roles == "Admin" || roles == "Staff")
                                 {
                                     <a class="mr-3" href="/Admin">Vào trang quản trị </a>
                                 }
