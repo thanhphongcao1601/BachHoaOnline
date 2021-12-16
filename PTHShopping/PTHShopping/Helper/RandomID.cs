@@ -14,12 +14,13 @@ namespace PTHShopping.Helper
 {
     public static class RandomID
     {
-        public static string generateID(){
+        public static string generateID()
+        {
             StringBuilder builder = new StringBuilder();
             Enumerable
                .Range(65, 26)
-                .Select(e => ((char) e).ToString())
-                .Concat(Enumerable.Range(97, 26).Select(e => ((char) e).ToString()))
+                .Select(e => ((char)e).ToString())
+                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
                 .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
                 .OrderBy(e => Guid.NewGuid())
                 .Take(10)

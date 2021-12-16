@@ -72,6 +72,7 @@ namespace PTHShopping.Areas.Login.Controllers
                         userIdentity.AddClaim(new Claim(ClaimTypes.Name, account.HoTen));
                         userIdentity.AddClaim(new Claim("SDT", account.Sdt));
                         userIdentity.AddClaim(new Claim("Email", account.Email));
+                        userIdentity.AddClaim(new Claim("IdKH",account.IdkhachHang));
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
                         return Redirect("/Home/");
                     }

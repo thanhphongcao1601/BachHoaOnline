@@ -23,17 +23,11 @@
         }
 
         .pgiamgia {
-            height: 45px;
-            width: 45px;
-            background: #dd2222;
+            background-color: red;
+            color: white;
             border-radius: 50%;
-            font-size: 14px;
-            color: #ffffff;
-            line-height: 45px;
+            width: 80px;
             text-align: center;
-            position: absolute;
-            left: 2px;
-            top: 2px;
         }
     </style>
 </head>
@@ -61,8 +55,8 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Bạn muốn mua gì?">
+                            <form asp-action="Index" asp-controller="MuaSam">
+                                <input name="timkiem" type="text" placeholder="Bạn muốn mua gì?">
                                 <button type="submit" class="site-btn">TÌM</button>
                             </form>
                         </div>

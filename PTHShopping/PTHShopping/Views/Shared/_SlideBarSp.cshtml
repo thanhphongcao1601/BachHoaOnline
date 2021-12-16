@@ -4,6 +4,8 @@
 *@
 @{
 }
+<style>
+</style>
 <div class="col-lg-3 col-md-5">
     <div class="sidebar">
         <div class="sidebar__item">
@@ -20,16 +22,13 @@
                             int index = sortls.ToList().IndexOf(item);
                             int count = sortls.ToList().Count;
                             <a href="@Url.Action("Index", "ChiTietSP",new { id = index})" class="latest-product__item">
-                                @if (@item.KhuyenMai != null)
-                                {
-                                    <div class="pgiamgia">@item.KhuyenMai%</div>
-                                }
                                 <div class="latest-product__item__pic">
                                     <img style="max-width:100px" src="/@item.Thumb" alt=""> @*thumb*@
                                 </div>
                                 <div class="latest-product__item__text">
                                     <h6>@item.TenSanPham</h6>
                                     <span>@item.Gia VND</span>
+                                    <div class="pgiamgia">New</div>
                                 </div>
                             </a>
                             if (index % 3 == 2 && index != count - 1)
@@ -43,27 +42,74 @@
             </div>
         </div>
         <div class="sidebar__item">
-            <h4>Bộ lọc tìm kiếm</h4>
-            <ul>
-                <li><label><input type="checkbox" value=""> Đang khuyến mãi</label></li>
-                <li><label><input type="checkbox" value=""> Mới nhất</label></li>
-                <li><label><input type="checkbox" value=""> Mua nhiều nhất</label></li>
-            </ul>
-        </div>
-        <div class="sidebar__item">
-            <h4>Giá</h4>
-            <div class="price-range-wrap">
-                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                     data-min="1000" data-max="1000000">
-                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+            <form asp-action="Index" asp-controller="MuaSam">
+                <h4>Bộ lọc tìm kiếm</h4>
+                <ul>
+                    <li><label><input type="checkbox" value="s.KhuyenMai" name="loc_km"> Đang khuyến mãi</label></li>
+                    <li><label><input type="checkbox" value="s.NgayTao" name="loc_new"> Mới nhất</label></li>
+                    <li><label><input type="checkbox" value="s.Slban" name="loc_slban"> Mua nhiều nhất</label></li>
+                </ul>
+                <h5 style="font-weight:bold;">Giá</h5>
+                <center>
+                    <div id="price_slider_value" style="width: 100%"></div>
+                </center>
+                <div class="form-group">
+                    <div id="price_slider" style="margin-top:10px" name="vminmax"></div>
+                    <table style="margin-top:10px;">
+                        <tr>
+                            <td style="width:100px; display:inline-block;">Giá thấp:</td>
+                            <td><input id="vmin" name="vmin" type="number" min="1000"></td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px; display:inline-block;">Giá cao:</td>
+                            <td><input id="vmax" name="vmax" type="number" max="1000000"></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="range-slider">
-                    <div class="price-input">
-                        <input type="text" id="minamount">
-                        <input type="text" id="maxamount">
-                    </div>
-                </div>
-            </div>
+                <center>
+                    <button class="site-btn" type="submit" style="width:80%;">LỌC</button>
+                </center>
+            </form>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    var min = 1000;
+    var max = 1000000;
+    function SetSlider() {
+        //Display the minimum and maximum values.
+        //$("#price_slider_value").html(min + "    -    " + max);
+        $('#vmin').val(min);
+        $('#vmax').val(max);
+        //Initialize the slider.
+        $("#price_slider").slider({
+            min: min,
+            max: max,
+            step: 500,
+            values: [min, max],
+            stop: function (event, ui) {
+                var start = parseInt(ui.values[0]);
+                var end = parseInt(ui.values[1]);
+                //$("#price_slider_value").html(start + "    -    " + end);
+                $('#vmin').val(start);
+                $('#vmax').val(end);
+            },
+            slide: function (event, ui) {
+                if ((ui.values[0] + 5) >= ui.values[1]) {
+                    return false;
+                }
+                var start = parseInt(ui.values[0]);
+                var end = parseInt(ui.values[1]);
+                //$("#price_slider_value").html(start + "    -    " + end);
+                $('#vmin').val(start);
+                $('#vmax').val(end);
+            }
+        });
+    }
+    $(function () {
+        SetSlider();
+    });
+</script>

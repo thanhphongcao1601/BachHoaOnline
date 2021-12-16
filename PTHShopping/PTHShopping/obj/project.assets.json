@@ -1079,6 +1079,15 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
+      "PagedList/1.17.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/PagedList.dll": {}
+        },
+        "runtime": {
+          "lib/net40/PagedList.dll": {}
+        }
+      },
       "PagedList.Core/1.17.4": {
         "type": "package",
         "compile": {
@@ -1102,6 +1111,18 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "PagedList.Mvc/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "PagedList": "1.17.0"
+        },
+        "compile": {
+          "lib/net40/PagedList.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net40/PagedList.Mvc.dll": {}
+        }
       },
       "runtime.native.System/4.3.0": {
         "type": "package",
@@ -4097,6 +4118,19 @@
         "packageIcon.png"
       ]
     },
+    "PagedList/1.17.0": {
+      "sha512": "Ou6F3WKXh49hOo0TxWM+SkIGuKllYPuPPvnSYOlQ1sTrtuEyuDUhYbSJd5Sdb06i/sWUJZTjiUecEs3Ht/Hx3g==",
+      "type": "package",
+      "path": "pagedlist/1.17.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/PagedList.dll",
+        "lib/net40/PagedList.xml",
+        "pagedlist.1.17.0.nupkg.sha512",
+        "pagedlist.nuspec"
+      ]
+    },
     "PagedList.Core/1.17.4": {
       "sha512": "Me111vdmlPp4GGeHqvNlnv4Raq1f1F77fDsJebuKsHCZXG4v4kMDzd5h1YVDv/Q7q9DuVgueR9mxp7eO7Yj4LA==",
       "type": "package",
@@ -4142,6 +4176,20 @@
         "lib/netcoreapp3.0/PagedList.Core.Mvc.dll",
         "pagedlist.core.mvc.3.0.0.nupkg.sha512",
         "pagedlist.core.mvc.nuspec"
+      ]
+    },
+    "PagedList.Mvc/4.5.0": {
+      "sha512": "D0M4qW2g4a9cwG8ozIKUnJheCrm5GpFTceqUl63AXWaAVnTgk+TysZYUOGMsBRuzid8aF+/E8b0bXM6+90jiEw==",
+      "type": "package",
+      "path": "pagedlist.mvc/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Content/PagedList.css",
+        "lib/net40/PagedList.Mvc.XML",
+        "lib/net40/PagedList.Mvc.dll",
+        "pagedlist.mvc.4.5.0.nupkg.sha512",
+        "pagedlist.mvc.nuspec"
       ]
     },
     "runtime.native.System/4.3.0": {
@@ -7845,25 +7893,36 @@
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.12",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
       "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore >= 5.0.2",
+      "PagedList >= 1.17.0",
+      "PagedList.Core >= 1.17.4",
       "PagedList.Core.Mvc >= 3.0.0",
+      "PagedList.Mvc >= 4.5.0",
       "X.PagedList.Mvc.Core >= 8.1.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {}
+    "C:\\Users\\thanh\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\_dotNetCoreMVC\\BachHoa\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
+      "projectUniqueName": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
       "projectName": "PTHShopping",
-      "projectPath": "E:\\_dotNetCoreMVC\\BachHoa\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "E:\\_dotNetCoreMVC\\BachHoa\\BachHoaOnline\\PTHShopping\\PTHShopping\\obj\\",
+      "projectPath": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\PTHShopping.csproj",
+      "packagesPath": "C:\\Users\\thanh\\.nuget\\packages\\",
+      "outputPath": "E:\\BachHoaOnline\\BachHoaOnline\\PTHShopping\\PTHShopping\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\thanh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -7930,9 +7989,21 @@
             "target": "Package",
             "version": "[5.0.2, )"
           },
+          "PagedList": {
+            "target": "Package",
+            "version": "[1.17.0, )"
+          },
+          "PagedList.Core": {
+            "target": "Package",
+            "version": "[1.17.4, )"
+          },
           "PagedList.Core.Mvc": {
             "target": "Package",
             "version": "[3.0.0, )"
+          },
+          "PagedList.Mvc": {
+            "target": "Package",
+            "version": "[4.5.0, )"
           },
           "X.PagedList.Mvc.Core": {
             "target": "Package",
@@ -7957,7 +8028,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -7968,6 +8039,26 @@
       "warningLevel": 1,
       "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
       "libraryId": "BCrypt.Net",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PagedList 1.17.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PagedList",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PagedList.Mvc 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PagedList.Mvc",
       "targetGraphs": [
         "net5.0"
       ]
