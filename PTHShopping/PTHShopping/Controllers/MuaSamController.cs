@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using X.PagedList;
 using PagedList.Core.Mvc;
 
+
 namespace PTHShopping.Controllers
 {
     public class MuaSamController : Controller
@@ -28,8 +29,15 @@ namespace PTHShopping.Controllers
                 return data;
             }
         }
-        public IActionResult Index(PTHShoppingContext modelz, string id, int? currentPage, string timkiem)
+
+        public IActionResult Index(PTHShoppingContext modelz, string id, int? currentPage, string timkiem, string loc_km, string loc_new, string loc_slban, int vmin, int vmax)
         {
+            ViewBag.loc_km = loc_km;
+            ViewBag.loc_new = loc_new;
+            ViewBag.loc_slban = loc_slban;
+            ViewBag.vmin = vmin;
+            ViewBag.vmax = vmax;
+
             ViewBag.timkiem = timkiem;
             ViewBag.pageSize = 3;
             if (currentPage == null)

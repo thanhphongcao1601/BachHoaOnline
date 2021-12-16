@@ -11,6 +11,54 @@
 }
 <div class="col-lg-9 col-md-7">
     <div class="product__discount">
+        <!--Loc san pham-->
+        @{
+            string loc = "";
+
+            if (ViewBag.loc_km != null)
+            {
+                loc = loc + ViewBag.loc_km + ",";
+            }
+            if (ViewBag.loc_new != null)
+            {
+                loc = loc + ViewBag.loc_new + ",";
+            }
+            if (ViewBag.loc_slban != null)
+            {
+                loc = loc + ViewBag.loc_slban + ",";
+            }
+            if (loc.Length > 0)
+            {
+                loc = loc.Remove(loc.Length - 1);
+
+
+                var lstLoc = Model.ListSanpham.ToList().OrderBy(s => s.KhuyenMai);
+                //loc theo san pham
+
+            <div class="section-title product__discount__title">
+                <h3>Kết quả zzz của: @loc</h3>
+            </div>
+            <div class="row">
+                @foreach (var item in lstLoc)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="/@item.Thumb">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
+                                <h5>@item.Gia VND</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            }
+            <div>Đây là : @loc</div>
+            }
 
         <!--Tim kiem san pham - hien thi san pham-->
         @if (ViewBag.timkiem != null)

@@ -41,154 +41,7 @@
     </style>
 </head>
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
-    <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="#"><img src="~/Userassets/img/logo.png" alt=""></a>
-        </div>
-        <div class="humberger__menu__cart">
-            <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>@ViewBag.totalprice VND</span></div>
-        </div>
-        <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="~/Userassets/img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
-        </div>
-        <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
-                <li>
-                    <a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Humberger End -->
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i> bachhoa.online@gmail.com</li>
-                                <li>CỬA HÀNG BÁCH HOÁ ONLINE</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__auth d-flex float-right">
-                                @{ 
-                                    var userSDT = "";
-                                }
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    userSDT = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(c => c.Type == "SDT").Value.ToString();
-                                    var roles = ((ClaimsIdentity)User.Identity).Claims
-                                    .Where(c => c.Type == ClaimTypes.Role)
-                                    .Select(c => c.Value).ToList()[0];
-                                    if (roles == "Admin")
-                                    {
-                                        <a class="mr-3" href="/Admin">Vào trang quản trị </a>
-                                    }
-                                    <a href="/Login/Home/Logout"><i class="fa fa-sign-out"></i> Đăng xuất</a>
-                                }
-                                else
-                                {
-                                    <a href="/Login"><i class="fa fa-user"></i> Đăng nhập</a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img style="width:60%" src="~/Userassets/img/lg.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li><a href="/">Trang chủ</a></li>
-                            <li><a href="./MuaSam">Mua sắm</a></li>
-                            <li class="active">
-                                <a href="#">Trang khác</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./Cart">Giỏ Hàng</a></li>
-                                    <li><a href="./ThanhToan">Thanh toán</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./LienHe">Liên hệ</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <div class="header__cart__price">Tổng: <span>@ViewBag.totalprice VND</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
-    <section class="hero hero-normal">
-        <!-- Hero Section Begin -->
-        <!-- Hero Section End -->
-    </section>
+    @await Html.PartialAsync("/Views/Shared/_HeaderPartialView.cshtml")
 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="https://media.vov.vn/sites/default/files/styles/large/public/2021-04/ronaldo_mu.jpeg">
@@ -212,32 +65,32 @@
             <div class="checkout__form">
                 <h4>Chi tiết hoá đơn</h4>
 
-                <form asp-action="Create" asp-controller="DonHangs" 
+                <form asp-action="Create" asp-controller="DonHangs"
                       asp-route-NgayDatHang=@DateTime.Now
-                      asp-route-IddonHang=""
+                      asp-route-IddonHang=@RandomID.RandomString(5)
                       asp-route-IdkhachHang=""
-                      asp-route-NgayGiaoHang="" 
+                      asp-route-NgayGiaoHang=""
                       asp-route-IdtrangThaiGiaoDich=""
                       asp-route-Deleted=@false
                       asp-route-DaThanhToan=@false
                       asp-route-NgayThanhToan=""
                       asp-route-GhiChu="Don hang tri gia @(ViewBag.totalprice * (100 - ViewBag.phantram)/100)"
                       asp-route-phantram=@ViewBag.phantram>
-                        <div class="">
-                            <div class="checkout__order">
-                                <h4>Order của bạn</h4>
-                                <div class="checkout__order__products">Các sản phẩm <span>Thành tiền</span></div>
-                                <ul>
-                                    @foreach (var item in Model)
-                                    { 
+                    <div class="">
+                        <div class="checkout__order">
+                            <h4>Order của bạn</h4>
+                            <div class="checkout__order__products">Các sản phẩm <span>Thành tiền</span></div>
+                            <ul>
+                                @foreach (var item in Model)
+                                {
                                     <li>@item.TenSp <span>@item.ThanhTien VND</span></li>
-                                    }
-                                </ul>
-                                <div class="checkout__order__subtotal">Giá gốc <span>@ViewBag.totalprice VND</span></div>
-                                <div class="checkout__order__total">Giá đã giảm <span>@(ViewBag.totalprice * (100 - ViewBag.phantram)/100) VND</span></div>
-                                <button type="submit" class="site-btn">ĐẶT HÀNG</button>
-                            </div>
+                                }
+                            </ul>
+                            <div class="checkout__order__subtotal">Giá gốc <span>@ViewBag.totalprice VND</span></div>
+                            <div class="checkout__order__total">Giá đã giảm <span>@(ViewBag.totalprice * (100 - ViewBag.phantram)/100) VND</span></div>
+                            <button type="submit" class="site-btn">ĐẶT HÀNG</button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
