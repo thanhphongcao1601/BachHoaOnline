@@ -1,39 +1,34 @@
-﻿using PTHShopping.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using PTHShopping.Helper;
+using PTHShopping.Models;
 
 namespace PTHShopping.Helper
 {
-    public class RandomID
+    public static class RandomID
     {
-        private static Random random = new Random();
-
-        public static string RandomString(int length)
+        public static string generateID()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-        private readonly PTHShoppingContext _context;
-
-        public RandomID(PTHShoppingContext context)
-        {
-            _context = context;
-        }
-
-        public string RandomIDKhachHang()
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            string rs = new string(Enumerable.Repeat(chars, 10)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-            var id = _context.KhachHangs.Where(x => rs == x.IdkhachHang).ToList();
-            if (id != null)
-            {
-                RandomIDKhachHang();
-            }
-            return rs;
+            StringBuilder builder = new StringBuilder();
+            Enumerable
+               .Range(65, 26)
+                .Select(e => ((char)e).ToString())
+                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
+                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
+                .OrderBy(e => Guid.NewGuid())
+                .Take(10)
+                .ToList().ForEach(e => builder.Append(e));
+            string id = builder.ToString();
+            return id;
         }
     }
+
+    // dung: RanDomID.generateID() - tao ID k trung
 }

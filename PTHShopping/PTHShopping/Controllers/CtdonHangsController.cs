@@ -42,7 +42,7 @@ namespace PTHShopping.Controllers
                 var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp);
                 var ct = new CtdonHang
                 {
-                    IdctdonHang = RandomID.RandomString(10),
+                    IdctdonHang = RandomID.generateID(),
                     IddonHang = iddh,
                     IdsanPham = item.MaSp,
                     SoLuong = item.SoLuong,

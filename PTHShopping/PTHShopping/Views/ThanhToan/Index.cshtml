@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CartItem>;
 @using PTHShopping.Models;
 @using PTHShopping.Helper;
+@using System.Security.Claims;
 
 <!DOCTYPE html>
 <html>
@@ -67,8 +68,8 @@
 
                 <form asp-action="Create" asp-controller="DonHangs"
                       asp-route-NgayDatHang=@DateTime.Now
-                      asp-route-IddonHang=@RandomID.RandomString(5)
-                      asp-route-IdkhachHang=""
+                      asp-route-IddonHang=@RandomID.generateID()
+                      asp-route-IdkhachHang=@User.Claims.First(c => c.Type == "IdKH").Value.Trim()
                       asp-route-NgayGiaoHang=""
                       asp-route-IdtrangThaiGiaoDich=""
                       asp-route-Deleted=@false
