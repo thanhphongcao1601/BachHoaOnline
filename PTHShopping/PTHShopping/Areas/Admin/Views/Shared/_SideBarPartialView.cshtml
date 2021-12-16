@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+﻿@using System.Security.Claims;
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
@@ -57,29 +54,34 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-title">Quản lý nhân viên</span>
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
                 <span class="menu-title">Quản lý thống kê</span>
                 <i class="mdi mdi-chart-bar menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                <span class="menu-title">Quản lý hệ thống</span>
-                <i class="mdi menu-arrow"></i>
-                <i class="mdi mdi-settings menu-icon"></i>
-            </a>
-            <div class="collapse" id="general-pages">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Accounts" asp-action="Index"> Quản lý tài khoản quản trị </a></li>
-                    <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index"> Quản lý quyền truy cập </a></li>
-                </ul>
-            </div>
-        </li>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+            .Where(c => c.Type == ClaimTypes.Role)
+            .Select(c => c.Value).ToList()[0];
+            if (roles == "Admin")
+            {
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                        <span class="menu-title">Quản lý hệ thống</span>
+                        <i class="mdi menu-arrow"></i>
+                        <i class="mdi mdi-settings menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="general-pages">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Accounts" asp-action="Index"> Quản lý tài khoản quản trị </a></li>
+                            <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index"> Quản lý quyền truy cập </a></li>
+                        </ul>
+                    </div>
+                </li>
+            }
+
+        }
 
     </ul>
 </nav>

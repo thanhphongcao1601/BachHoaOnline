@@ -21,9 +21,10 @@ namespace PTHShopping.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminKhachHangs
-        public IActionResult Index(int? page)
+        [Route("Admin/KhachHangs/{page?}")]
+        public IActionResult Index(int page=1)
         {
-            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var pageNumber = page;
             var pageSize = 10;
             var lsCustomer = _context.KhachHangs.AsNoTracking()
                 .Include(x=>x.IdvitriNavigation)

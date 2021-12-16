@@ -77,6 +77,7 @@ namespace PTHShopping.Areas.Login.Controllers
                     }
                     else
                     {
+                        ViewBag.notFound = "1";
                         return View();
                     }
                 }
@@ -105,6 +106,7 @@ namespace PTHShopping.Areas.Login.Controllers
                 }
                 else
                 {
+                    ViewBag.notFound = "1";
                     return View();
                 }
                 

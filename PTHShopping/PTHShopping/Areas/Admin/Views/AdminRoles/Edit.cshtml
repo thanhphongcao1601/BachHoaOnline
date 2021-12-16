@@ -5,9 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Chỉnh sửa</h1>
-
-<h4>Quyền truy cập</h4>
+<h5 class="text-info">Chỉnh sửa quyền truy cập - @Model.RoleId</h5>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,13 +23,13 @@
                 <span asp-validation-for="MoTa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <input type="submit" value=" Lưu " class="btn-gradient-primary btn-rounded btn-sm btn">
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Trở lại danh sách</a>
+    <a asp-action="Index">&lt; Trở lại</a>
 </div>
 
