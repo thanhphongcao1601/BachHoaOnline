@@ -45,9 +45,10 @@ namespace PTHShopping.Controllers
             }
             ViewBag.totalprice = total;
 
-            var lstSanpham = objModel.SanPhams.ToList();
-            var lstCategory = objModel.Categories.ToList();
-           
+            var lstSanpham = objModel.SanPhams.Where(x => x.Active == true).ToList();
+            var lstCategory = objModel.Categories.Where(x=>x.Published==true).ToList();
+            var lsNew = objModel.Trangs.Where(x => x.Published == true).OrderByDescending(x=>x.NgayTao).ToList();
+            ViewBag.news = lsNew;
             Sanpham_Danhmuc objSanpham_Danhmuc = new Sanpham_Danhmuc();
             objSanpham_Danhmuc.ListSanpham = lstSanpham;
             objSanpham_Danhmuc.ListDanhmuc = lstCategory;

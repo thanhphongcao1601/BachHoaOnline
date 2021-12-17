@@ -1,4 +1,9 @@
 ﻿@using System.Security.Claims;
+@{ 
+    var roles = ((ClaimsIdentity)User.Identity).Claims
+            .Where(c => c.Type == ClaimTypes.Role)
+            .Select(c => c.Value).ToList()[0];
+}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
@@ -10,7 +15,7 @@
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                     <span class="font-weight-bold mb-2">@User.Identity.Name</span>
-                    <span class="text-secondary text-small">Quản lý</span>
+                    <span class="text-secondary text-small">@roles</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </div>
@@ -22,7 +27,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" asp-area="Admin" asp-controller="AdminDonHangs" asp-action="Index">
                 <span class="menu-title">Quản lý đơn hàng </span>
                 <i class="mdi mdi-book-multiple menu-icon"></i>
             </a>
@@ -61,9 +66,6 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            var roles = ((ClaimsIdentity)User.Identity).Claims
-            .Where(c => c.Type == ClaimTypes.Role)
-            .Select(c => c.Value).ToList()[0];
             if (roles == "Admin")
             {
                 <li class="nav-item">

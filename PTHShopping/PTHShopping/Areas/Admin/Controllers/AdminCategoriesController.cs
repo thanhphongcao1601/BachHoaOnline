@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,24 +20,34 @@ namespace PTHShopping.Areas.Admin.Controllers
     {
         private readonly PTHShoppingContext _context;
         private readonly IHostingEnvironment _environment;
-
-        public AdminCategoriesController(PTHShoppingContext context, IHostingEnvironment IHostingEnvironment)
+        public INotyfService _notifService { get; }
+        public AdminCategoriesController(PTHShoppingContext context, INotyfService notifService, IHostingEnvironment IHostingEnvironment)
         {
             _context = context;
             _environment = IHostingEnvironment;
-
+            _notifService = notifService;
         }
 
         // GET: Admin/AdminCategories
-        [Route("Admin/AdminCategories/{page?}")]
+        [Route("Admin/Categories/{page?}")]
+        [Route("Admin/Categories/{page?}/{published?}")]
 
-        public async Task<IActionResult> Index(int page=1)
+        public async Task<IActionResult> Index(int page=1, int published = -1)
         {
             var pageNumber = page;
             var pageSize = 10;
             var lsCat = _context.Categories.OrderByDescending(x => x.Published);
+            if (published == 1)
+            {
+                lsCat = (IOrderedQueryable<Category>)_context.Categories.Where(x => x.Published==true);
+            }
+            if (published == 0)
+            {
+                lsCat = (IOrderedQueryable<Category>)_context.Categories.Where(x => x.Published == false);
+            }
             PagedList<Category> models = new PagedList<Category>(lsCat, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentFilter = published;
             return View(models);
         }
 
@@ -73,6 +84,27 @@ namespace PTHShopping.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var err = 0;
+                var lis_IdCat = _context.Categories.Select(x => x.CatId).ToList();
+                foreach (var x in lis_IdCat)
+                {
+                    var xn = x.Trim();
+                    if (category.CatId.Equals(xn))
+                    {
+                        ViewBag.TrungID = xn;
+                        err = 1;
+                    }
+                }
+                if(category.CatName == null || category.CatName == string.Empty)
+                {
+                    err = 1;
+                    ViewBag.nullName = "nullName";
+                }
+                if (err == 1)
+                {
+                    return View(category);
+                }
+
                 string PathDB = string.Empty;
                 if (file != null) //Luu Anh
                 {
@@ -81,6 +113,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                 }
                 _context.Add(category);
                 await _context.SaveChangesAsync();
+                _notifService.Success("Thêm mới thành công!");
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -118,6 +151,16 @@ namespace PTHShopping.Areas.Admin.Controllers
             {
                 try
                 {
+                    var err = 0;
+                    if (category.CatName == null || category.CatName == string.Empty)
+                    {
+                        err = 1;
+                        ViewBag.nullName = "nullName";
+                    }
+                    if (err == 1)
+                    {
+                        return View(category);
+                    }
                     string thumbOld = category.Thumb;
                     string PathDB = string.Empty;
                     if (file != null) //Luu Anh
@@ -135,6 +178,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                     }
                     _context.Update(category);
                     await _context.SaveChangesAsync();
+                    _notifService.Success("Chỉnh sửa thành công!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -212,6 +256,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             }
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
+            _notifService.Success("Xóa thành công!");
             return RedirectToAction(nameof(Index));
         }
 

@@ -4,74 +4,55 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Index</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<h5 class="text-info">Danh sách các đơn hàng</h5>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    
 </p>
-<table class="table">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NgayDatHang)
+                Mã đơn hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayGiaoHang)
+                Ngày đặt
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deleted)
+                Ngày giao
+            </th>
+            
+            <th>
+                Khách hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DaThanhToan)
+                Trạng thái
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayThanhToan)
+                Ghi chú
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdthanhToan)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GhiChu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdkhachHangNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdtrangThaiGiaoDichNavigation)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.IddonHang)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.NgayDatHang)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayGiaoHang)
+                @Html.DisplayFor(modelItem => item.IdkhachHangNavigation.HoTen)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Deleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaThanhToan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayThanhToan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdthanhToan)
+                @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdkhachHangNavigation.IdkhachHang)
-            </td>
-            <td>
-               @* @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.IdtrangThaiGiaoDich)*@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IddonHang">Edit</a> |

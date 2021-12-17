@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,21 +20,36 @@ namespace PTHShopping.Areas.Admin.Controllers
     {
         private readonly PTHShoppingContext _context;
         private readonly IHostingEnvironment _environment;
-        public AdminTinTucController(PTHShoppingContext context, IHostingEnvironment IHostingEnvironment)
+        public INotyfService _notifService { get; }
+
+        public AdminTinTucController(PTHShoppingContext context, INotyfService notifService, IHostingEnvironment IHostingEnvironment)
         {
             _context = context;
+            _notifService = notifService;
             _environment = IHostingEnvironment;
         }
 
         // GET: Admin/AdminTinTuc
-        public async Task<IActionResult> Index(int? page)
+
+        [Route("Admin/TinTuc/{page?}")]
+        [Route("Admin/TinTuc/{page?}/{published?}")]
+        public async Task<IActionResult> Index(int? page, int published=-1)
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var pageSize = 10;
             var lsNews = _context.Trangs.AsNoTracking()
                 .OrderByDescending(x => x.NgayTao);
+            if (published == 1)
+            {
+                lsNews = (IOrderedQueryable<Trang>)lsNews.Where(x => x.Published == true);
+            }
+            if (published == 0)
+            {
+                lsNews = (IOrderedQueryable<Trang>)lsNews.Where(x => x.Published == false);
+            }
             PagedList<Trang> models = new PagedList<Trang>(lsNews, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentFilter = published;
             return View(models);
         }
 
@@ -70,6 +86,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var err = 0;
                 var lis_IdTT = _context.Trangs.Select(x => x.Idtrang).ToList();
                 foreach (var x in lis_IdTT)
                 {
@@ -77,8 +94,17 @@ namespace PTHShopping.Areas.Admin.Controllers
                     if (trang.Idtrang.Equals(xn))
                     {
                         ViewBag.TrungID = xn;
-                        return View(trang);
+                        err = 1;
                     }
+                }
+                if (trang.TieuDe == null || trang.TieuDe == string.Empty)
+                {
+                    ViewBag.nullTD = "nullTD";
+                    err = 1;
+                }
+                if (err == 1)
+                {
+                    return View(trang);
                 }
                 string PathDB = string.Empty;
                 if (file != null) //Luu Anh
@@ -86,8 +112,12 @@ namespace PTHShopping.Areas.Admin.Controllers
                     PathDB = saveImg(file);
                     trang.Thumb = PathDB;
                 }
+
+                trang.Published = true;
+                trang.NgayTao = DateTime.Now;
                 _context.Add(trang);
                 await _context.SaveChangesAsync();
+                _notifService.Success("Thêm mới thành công!");
                 return RedirectToAction(nameof(Index));
             }
             return View(trang);
@@ -170,8 +200,15 @@ namespace PTHShopping.Areas.Admin.Controllers
                         }
 
                     }
+                    
+                    if (trang.TieuDe == null || trang.TieuDe == string.Empty)
+                    {
+                        ViewBag.nullTD = "nullTD";
+                        return View(trang);
+                    }
                     _context.Update(trang);
                     await _context.SaveChangesAsync();
+                    _notifService.Success("Chỉnh sửa thành công!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -223,6 +260,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             }
             _context.Trangs.Remove(trang);
             await _context.SaveChangesAsync();
+            _notifService.Success("Xóa thành công!");
             return RedirectToAction(nameof(Index));
         }
 

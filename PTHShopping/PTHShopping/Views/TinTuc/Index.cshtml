@@ -141,24 +141,23 @@
                         </div>
                         <div class="blog__sidebar__item">
                             <h4>Tin gần đây</h4>
-                            @if (listNew.Count >= 3)
+                            @{ var count = listNew.Count >= 3 ? 3 : listNew.Count; }
+                            @for (int i = 0; i < count; i++)
                             {
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    <div class="blog__sidebar__recent">
-                                        <a href="/CtTinTuc/@listNew[i].Idtrang" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img class="mini-thumb" src="/@listNew[i].Thumb" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6> @listNew[i].TieuDe</h6>
-                                                <span>@listNew[i].NgayTao</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                }
+                                <div class="blog__sidebar__recent">
+                                    <a href="/CtTinTuc/@listNew[i].Idtrang" class="blog__sidebar__recent__item">
+                                        <div class="blog__sidebar__recent__item__pic">
+                                            <img class="mini-thumb" src="/@listNew[i].Thumb" alt="">
+                                        </div>
+                                        <div class="blog__sidebar__recent__item__text">
+                                            <h6> @listNew[i].TieuDe</h6>
+                                            <span>@listNew[i].NgayTao</span>
+                                        </div>
+                                    </a>
+                                </div>
+                              }
 
-                            }
+                            
 
                         </div>
                     </div>

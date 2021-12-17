@@ -11,9 +11,8 @@
 
 <style>
     .False {
-        background-color: #009966 !important;
-        opacity: 0.5;
-        display: none;
+        background-color: #696969 !important;
+        opacity: 0.8;
     }
 
     th {
@@ -44,15 +43,16 @@
 </style>
 <h5 class="text-info">Danh sách sản phẩm - page:@CurrentPage</h5>
 <br />
-<div class="mt-4">
+<div class="mt-2">
     <select class="cus-select" style="min-width:140px; height:25px; font-size:small;" asp-items="ViewBag.Cat" id="CatID">
         <option value="all">Tất cả danh mục</option>
     </select>
     <select class="" style="min-width: 100px; height: 25px; font-size:small;" asp-items="ViewBag.lsTrangThai" id="trangthai">
         <option value="all">Tất cả trạng thái</option>
     </select>
-    <input class="ml-5 mr-2" id="hide" type="checkbox" />
-    <span  style="font-size: 14px;">Bao gồm các sản phẩm ẩn khỏi cửa hàng</span>
+    <a href="/Admin/AdminSanPhams" class="badge badge-gradient-info"> Tất cả</a>
+    <a href="/Admin/AdminSanPhams/1/@ViewBag.CurrentCatID/@ViewBag.Currenttrangthai/1" class="badge badge-gradient-success"> &#10004; Sản phẩm Active</a>
+    <a href="/Admin/AdminSanPhams/1/@ViewBag.CurrentCatID/@ViewBag.Currenttrangthai/0" class="badge badge-gradient-danger">&#10006; Sản phẩm Inactive</a>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </div>
 <div class="scroll">
@@ -154,7 +154,7 @@
 
 <div aria-label="Page navigation example">
     <ul class="pagination">
-        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminSanPhams" asp-route-CatID="@ViewBag.CurrentCatID" asp-route-trangthai="@ViewBag.Currenttrangthai" asp-action="Index" />
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminSanPhams" asp-route-active="@ViewBag.CurrentFilter"  asp-route-CatID="@ViewBag.CurrentCatID" asp-route-trangthai="@ViewBag.Currenttrangthai" asp-action="Index" />
     </ul>
 </div>
 
@@ -163,15 +163,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#hide").change(function () {
-                if (this.checked) {
-                    $('.False').show();
-                } else {
-                    $('.False').hide();
-                }
-            });
             jQuery("#trangthai").change(function () {
                 var page = @CurrentPage;
+                var filter = @ViewBag.CurrentFilter;
                 var catID = jQuery("#CatID").children(":selected").attr("value");
                 var trangthain = jQuery(this).children(":selected").attr("value");
                 $("#trangthai option").removeAttr('selected');
@@ -184,6 +178,7 @@
                       //  page:page,
                         CatID: catID,
                         trangthai: trangthain,
+                        active: filter,
                     },
                     async: true,
                     success: function (result) {
@@ -198,6 +193,7 @@
             });
             jQuery("#CatID").change(function () {
                 var page = @CurrentPage;
+                var filter = @ViewBag.CurrentFilter;
                 var trangthain = jQuery("#trangthai").children(":selected").attr("value");
                 var catID = jQuery(this).children(":selected").attr("value");
                 $("#CatID option").removeAttr('selected');
@@ -210,6 +206,7 @@
                       //  page: page,
                         CatID: catID,
                         trangthai: trangthain,
+                        active: filter,
                     },
                     async: true,
                     success: function (result) {

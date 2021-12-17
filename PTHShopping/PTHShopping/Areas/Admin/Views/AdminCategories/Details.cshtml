@@ -19,46 +19,23 @@
             <td class="col-6" valign="top">
                 <img class="avt card shadow-lg" id="thumd" src="/@Model.Thumb" />
             </td>
-            <td class="col-6 rounded bg-light shadow-lg" >
+            <td class="col-6 rounded bg-light shadow-lg">
+                <span class="font-weight-bold"> Mã: </span> @Html.DisplayFor(model => model.CatId)
+
+                <hr />
+                <span class="font-weight-bold"> Danh mục: </span> @Html.DisplayFor(model => model.CatName)
+
+                <hr />
                 <span class="font-weight-bold"> Mô tả: </span> @Html.DisplayFor(model => model.MoTa)
 
                 <hr />
-                <span class="font-weight-bold"> Parent ID: </span> @Html.DisplayFor(model => model.ParrentId)
+
+                <span class="font-weight-bold"> Published: </span> @Html.DisplayFor(model => model.Published)
 
                 <hr />
-                <span class="font-weight-bold"> Cấp độ: </span> @Html.DisplayFor(model => model.Levels)
 
-                <hr />
-                <span class="font-weight-bold"> Ordering: </span> @Html.DisplayFor(model => model.Ordering)
-
-                <hr />
-                <span class="font-weight-bold"> Published: </span>
-                @if (Model.Published == null)
-                {
-                    <span>Chưa thiết lập</span>
-                }
-                else
-                {
-                    @Html.DisplayFor(model => model.Published)
-                }
-
-                <hr />
-                <span class="font-weight-bold"> Tiêu đề: </span> @Html.DisplayFor(model => model.TieuDe)
-
-                <hr />
                 <span class="font-weight-bold"> Ký hiệu: </span> @Html.DisplayFor(model => model.KyHieu)
 
-                <hr />
-                <span class="font-weight-bold"> MetaDesc: </span> @Html.DisplayFor(model => model.MetaDesc)
-
-                <hr />
-                <span class="font-weight-bold"> MetaKey: </span> @Html.DisplayFor(model => model.MetaKey)
-
-                <hr />
-                <span class="font-weight-bold"> Cover: </span> @Html.DisplayFor(model => model.Cover)
-
-                <hr />
-                <span class="font-weight-bold"> SchemaMarkup: </span> @Html.DisplayFor(model => model.SchemaMarkup)
             </td>
         </tr>
     </table>
