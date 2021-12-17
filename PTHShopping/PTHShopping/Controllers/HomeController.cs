@@ -38,14 +38,17 @@ namespace PTHShopping.Controllers
         {
             var myCart = Carts;
             double total = 0;
+            int cartNum = 0;
 
             foreach (var i in myCart)
             {
                 total = total + i.ThanhTien;
+                cartNum = cartNum + i.SoLuong;
             }
+            ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
 
-            var lstSanpham = objModel.SanPhams.ToList();
+            var lstSanpham = objModel.SanPhams.Where(c=>c.Active==true).ToList();
             var lstCategory = objModel.Categories.ToList();
            
             Sanpham_Danhmuc objSanpham_Danhmuc = new Sanpham_Danhmuc();

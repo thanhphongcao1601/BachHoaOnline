@@ -14,8 +14,7 @@
                 <div class="latest-product__slider owl-carousel">
                     <div class="latest-prdouct__slider__item">
                         @{
-                            //var sortls = Model.ListSanpham.ToList().Where(x => x.CatId.ToString() == "cat002");
-                            var sortls = Model.ListSanpham;
+                            var sortls = Model.ListSanpham.OrderByDescending(c => c.NgayTao);
                         }
                         @foreach (var item in sortls)
                         {
@@ -44,11 +43,12 @@
         <div class="sidebar__item">
             <form asp-action="Index" asp-controller="MuaSam">
                 <h4>Bộ lọc tìm kiếm</h4>
-                <ul>
-                    <li><label><input type="checkbox" value="s.KhuyenMai" name="loc_km"> Đang khuyến mãi</label></li>
-                    <li><label><input type="checkbox" value="s.NgayTao" name="loc_new"> Mới nhất</label></li>
-                    <li><label><input type="checkbox" value="s.Slban" name="loc_slban"> Mua nhiều nhất</label></li>
-                </ul>
+                <div style="margin-left:10px; margin-bottom:10px;">
+                    @Html.RadioButton("Locz", "lockm") <span>Khuyến mãi</span><br />
+                    @Html.RadioButton("Locz", "locnew") <span>Mới nhất</span><br />
+                    @Html.RadioButton("Locz", "locslban") <span>Nhiều nhất</span>
+                </div>
+
                 <h5 style="font-weight:bold;">Giá</h5>
                 <center>
                     <div id="price_slider_value" style="width: 100%"></div>
@@ -58,7 +58,7 @@
                     <table style="margin-top:10px;">
                         <tr>
                             <td style="width:100px; display:inline-block;">Giá thấp:</td>
-                            <td><input id="vmin" name="vmin" type="number" min="1000"></td>
+                            <td><input id="vmin" name="vmin" type="number" min="500"></td>
                         </tr>
                         <tr>
                             <td style="width:100px; display:inline-block;">Giá cao:</td>
@@ -77,7 +77,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
 <script type="text/javascript">
-    var min = 1000;
+    var min = 500;
     var max = 1000000;
     function SetSlider() {
         //Display the minimum and maximum values.

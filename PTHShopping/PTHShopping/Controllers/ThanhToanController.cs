@@ -36,11 +36,14 @@ namespace PTHShopping.Controllers
         {
             var myCart = Carts;
             double total = 0;
+            int cartNum = 0;
 
             foreach (var i in myCart)
             {
                 total = total + i.ThanhTien;
+                cartNum = cartNum + i.SoLuong;
             }
+            ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
             ViewBag.phantram = phantram;
             return View(Carts);
