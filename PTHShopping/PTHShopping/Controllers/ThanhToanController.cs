@@ -9,7 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PTHShopping.Controllers
-{
+{   
+    [Authorize]
     public class ThanhToanController : Controller
     {
 

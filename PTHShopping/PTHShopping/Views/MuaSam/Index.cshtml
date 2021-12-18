@@ -12,7 +12,8 @@
 }
 <div class="col-lg-9 col-md-7">
     <div class="product__discount">
-        @if (ViewBag.loc != null && ViewBag.vmin > 0 && ViewBag.vmax > 0)
+        <!--Loc san pham-->
+        @if (ViewBag.loc != null || ViewBag.vmin > 0 && ViewBag.vmax > 0)
         {
             lstLoc = Model.ListSanpham.Where(c => c.Gia >= ViewBag.vmin && c.Gia <= ViewBag.vmax).ToList();
             @if (ViewBag.loc == "lockm")
@@ -42,7 +43,15 @@
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
-                                <h5>@item.Gia VND</h5>
+                                @if (item.KhuyenMai != null)
+                                {
+                                    <h5>@(item.Gia - item.Gia*item.KhuyenMai/100) VND</h5>
+                                    <span style="text-decoration:line-through;">@item.Gia VND</span>
+                                }
+                                else
+                                {
+                                    <h5>@item.Gia VND</h5>
+                                }
                             </div>
                         </div>
                     </div>
@@ -70,7 +79,15 @@
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
-                                <h5>@item.Gia VND</h5>
+                                @if (item.KhuyenMai != null)
+                                {
+                                    <h5>@(item.Gia - item.Gia*item.KhuyenMai/100) VND</h5>
+                                    <span style="text-decoration:line-through;">@item.Gia VND</span>
+                                }
+                                else
+                                {
+                                    <h5>@item.Gia VND</h5>
+                                }
                             </div>
                         </div>
                     </div>
@@ -103,7 +120,6 @@
                                     </ul>
                                 </div>
                                 <div class="product__discount__item__text">
-                                    <span>@item.CatId</span>
                                     <h5><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h5>
                                     @if (item.KhuyenMai != null)
                                     {
@@ -190,7 +206,15 @@
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index -1})">@item.TenSanPham</a></h6>
-                                <h5>@item.Gia VND</h5>
+                                @if (item.KhuyenMai != null)
+                                {
+                                    <h5>@(item.Gia - item.Gia*item.KhuyenMai/100) VND</h5>
+                                    <span style="text-decoration:line-through;">@item.Gia VND</span>
+                                }
+                                else
+                                {
+                                    <h5>@item.Gia VND</h5>
+                                }
                             </div>
                         </div>
                     </div>
@@ -259,7 +283,15 @@
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index -1})">@item.TenSanPham</a></h6>
-                                <h5>@item.Gia VND</h5>
+                                @if (item.KhuyenMai != null)
+                                {
+                                    <h5>@(item.Gia - item.Gia*item.KhuyenMai/100) VND</h5>
+                                    <span style="text-decoration:line-through;">@item.Gia VND</span>
+                                }
+                                else
+                                {
+                                    <h5>@item.Gia VND</h5>
+                                }
                             </div>
                         </div>
                     </div>

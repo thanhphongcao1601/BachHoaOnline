@@ -75,7 +75,7 @@
                       asp-route-Deleted=@false
                       asp-route-DaThanhToan=@false
                       asp-route-NgayThanhToan=""
-                      asp-route-GhiChu="Don hang tri gia @(ViewBag.totalprice * (100 - ViewBag.phantram)/100)"
+                      asp-route-GhiChu=@(ViewBag.totalprice * (100 - ViewBag.phantram)/100)
                       asp-route-phantram=@ViewBag.phantram>
                     <div class="">
                         <div class="checkout__order">

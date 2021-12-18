@@ -1,0 +1,104 @@
+﻿@model IEnumerable<PTHShopping.Models.KhachHang>
+@using System.Security.Claims;
+@{
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+@{
+    var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();
+} 
+<table class="table">
+    @{
+        var test = Model.Where(c=>c.IdkhachHang==@idKH);
+    }
+    @foreach (var item in test)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <td>
+                <img src="/@item.Avatar" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SinhNhat)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.SinhNhat)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayTao)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayTao)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MatKhau)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatKhau)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Giotinh)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Giotinh)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdkhachHang">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdkhachHang">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdkhachHang">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -42,48 +42,6 @@
 </head>
 <body>
     @await Html.PartialAsync("/Views/Shared/_HeaderPartialView.cshtml")
-    <section class="hero hero-normal">
-        <!-- Hero Section Begin -->
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>Tất cả sản phẩm</span>
-                        </div>
-                        <ul>
-                            @foreach (var item in Model.ListDanhmuc)
-                            {
-                                <li><a href="@Url.Action("Index", "MuaSam",new { id = item.CatId.ToString() })">@item.CatName</a></li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Bạn muốn mua gì?">
-                                <button type="submit" class="site-btn">TÌM</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>1900 0099</h5>
-                                <span>hỗ trợ 24/7</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hero Section End -->
-    </section>
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="https://img4.thuthuatphanmem.vn/uploads/2019/12/28/hinh-nen-cau-thu-bong-da-ronaldo-cuc-dep_014217069.jpg">
         <div class="container">
@@ -101,8 +59,6 @@
         </div>
     </section>
     <div class="container" style="margin-top:30px;">
-        <div class="row">
-            <!-- test-->
             <!-- Product Details Section Begin -->
             <section class="product-details spad">
                 <div class="container">
@@ -164,10 +120,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
             </section>
-            <!-- Product Details Section End -->
-        </div>
+
+
         <!-- Related Product Section Begin -->
         <section class="related-product">
             <div class="container">

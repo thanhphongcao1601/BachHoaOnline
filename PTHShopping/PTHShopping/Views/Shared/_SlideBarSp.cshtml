@@ -18,7 +18,7 @@
                         }
                         @foreach (var item in sortls)
                         {
-                            int index = sortls.ToList().IndexOf(item);
+                            int index = Model.ListSanpham.IndexOf(item);
                             int count = sortls.ToList().Count;
                             <a href="@Url.Action("Index", "ChiTietSP",new { id = index})" class="latest-product__item">
                                 <div class="latest-product__item__pic">
