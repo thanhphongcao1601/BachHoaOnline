@@ -26,6 +26,7 @@ namespace PTHShopping.Models
         public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<MaGiamGium> MaGiamGia { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Trang> Trangs { get; set; }
@@ -312,6 +313,19 @@ namespace PTHShopping.Models
                 entity.Property(e => e.Slug).HasColumnType("ntext");
 
                 entity.Property(e => e.Ten).HasColumnType("ntext");
+            });
+
+            modelBuilder.Entity<MaGiamGium>(entity =>
+            {
+                entity.HasKey(e => e.Ma)
+                    .HasName("PK__MaGiamGi__3214CC9F8F3403FF");
+
+                entity.Property(e => e.Ma).HasMaxLength(10);
+
+                entity.Property(e => e.Magiamgia)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("magiamgia");
             });
 
             modelBuilder.Entity<Role>(entity =>

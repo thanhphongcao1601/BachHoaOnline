@@ -10,10 +10,12 @@ using PTHShopping.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PTHShopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Staff")]
     public class AdminKhachHangsController : Controller
     {
         private readonly PTHShoppingContext _context;
@@ -133,7 +135,8 @@ namespace PTHShopping.Areas.Admin.Controllers
                 }
                 khachHang.NgayTao = DateTime.Now;
                 khachHang.Active = true;
-                khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(khachHang.MatKhau, khachHang.Salt); _context.Add(khachHang);
+                khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(khachHang.MatKhau, khachHang.Salt); 
+                _context.Add(khachHang);
                 await _context.SaveChangesAsync();
                 _notifService.Success("Thêm mới thành công!");
                 return RedirectToAction(nameof(Index));

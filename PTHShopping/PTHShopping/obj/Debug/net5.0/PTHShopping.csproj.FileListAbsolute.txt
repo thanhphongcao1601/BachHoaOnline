@@ -4224,3 +4224,5 @@ E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\DonHangs\Edit.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\DonHangs\Index.cshtml.g.cs
 E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\ThanhToan\Index.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Shipper\Index.cshtml.g.cs
+E:\_dotNetCoreMVC\BachHoa\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Shipper\Ctdonhang.cshtml.g.cs

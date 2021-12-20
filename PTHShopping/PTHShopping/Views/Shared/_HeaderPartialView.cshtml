@@ -80,13 +80,17 @@
                         <div class="header__top__right__auth d-flex float-right">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="mr-3"><i class="fa fa-user-circle-o"></i>@User.Identity.Name</a> 
+                                <a class="mr-3"><i class="fa fa-user-circle-o"></i>@User.Identity.Name</a>
                                 var roles = ((ClaimsIdentity)User.Identity).Claims
                                 .Where(c => c.Type == ClaimTypes.Role)
                                 .Select(c => c.Value).ToList()[0];
                                 if (roles == "Admin" || roles == "Staff")
                                 {
                                     <a class="mr-3" href="/Admin">| Vào trang quản trị </a>
+                                }
+                                if (roles == "Shipper")
+                                {
+                                    <a class="mr-3" href="/Shipper">| Vào trang giao hàng </a>
                                 }
                                 <a href="/Login/Home/Logout">| <i class="fa fa-sign-out"></i> Đăng xuất</a>
                             }

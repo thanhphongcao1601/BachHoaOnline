@@ -1,65 +1,130 @@
-﻿@model IEnumerable<PTHShopping.Models.DonHang>
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<PTHShopping.Models.DonHang>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    th {
+        font-weight: bold !important;
+        text-align: center;
+    }
+
+    td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+    .scroll {
+        overflow-x: scroll;
+        width: 100%;
+    }
+
+    td {
+        max-width: 200px;
+        overflow-x: hidden;
+    }
+</style>
+
 <h5 class="text-info">Danh sách các đơn hàng</h5>
 
 <p>
-    
+    <a href="/Admin/DonHang/1/all" class="badge badge-gradient-info"> Tất cả</a>
+    <a href="/Admin/DonHang/1/dagiao" class="badge badge-gradient-success"> &#10004; Đã giao</a>
+    <a href="/Admin/DonHang/1/danggiao" class="badge badge-gradient-primary">&#9992; Đang giao</a>
+    <a href="/Admin/DonHang/1/chuagiao" class="badge badge-gradient-warning">&#9888; Chưa giao</a>
+    <a href="/Admin/DonHang/1/dahuy" class="badge badge-gradient-danger">&#10006; Đã hủy</a>
+    <a href="/Admin/DonHang/1/an" class="badge badge-gradient-secondary"> <del>Các đơn ẩn</del></a>
 </p>
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th>
-                Mã đơn hàng
-            </th>
-            <th>
-                Ngày đặt
-            </th>
-            <th>
-                Ngày giao
-            </th>
-            
-            <th>
-                Khách hàng
-            </th>
-            <th>
-                Trạng thái
-            </th>
-            <th>
-                Ghi chú
-            </th>
-            <th>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IddonHang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDatHang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdkhachHangNavigation.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IddonHang">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IddonHang">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IddonHang">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="scroll">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Mã đơn hàng
+                </th>
+                <th>
+                    Ngày đặt
+                </th>
+                <th>
+                    Ngày giao
+                </th>
+
+                <th>
+                    Khách hàng
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Ghi chú
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IddonHang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayDatHang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayGiaoHang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdkhachHangNavigation.HoTen)
+                    </td>
+                    @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Chưa giao"))
+                    {
+                        <td class="text-warning">
+                            @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                        </td>
+                    }
+                    @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đang giao"))
+                    {
+                        <td class="text-primary">
+                            @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                        </td>
+                    }
+                    @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"))
+                    {
+                        <td class="text-success">
+                            @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                        </td>
+                    }
+                    @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã hủy"))
+                    {
+                        <td class="text-danger">
+                            @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GhiChu)
+                    </td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="AdminCtDonHangs" asp-action="Index" asp-route-id="@item.IddonHang">Chi tiết đơn hàng</a> |
+                        @if (item.Deleted == false)
+                        {
+                            <a class="text-danger" asp-area="Admin" asp-controller="AdminDonHangs" asp-action="anDonHang" asp-route-id="@item.IddonHang"> Ẩn</a>
+                        }
+                        else
+                        {
+                            <a class="text-success" asp-area="Admin" asp-controller="AdminDonHangs" asp-action="hienDonHang" asp-route-id="@item.IddonHang"> Hiện</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div aria-label="Page navigation example">
+    <ul class="pagination">
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminDonHangs" asp-route-published="@ViewBag.CurrentFilter" asp-action="Index" />
+    </ul>
+</div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PTHShopping.Helper;
 using PTHShopping.Models;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,28 @@ namespace PTHShopping.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            var thang = DateTime.Now.Month;
+            ViewBag.CurrentMonth = thang;
+            var ctdh = _context.CtdonHangs
+                .Where(x=>x.IddonHangNavigation.NgayGiaoHang.Value.Month == thang)
+                .Where(x=>x.IddonHangNavigation.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"))
+                .Select(x => x.Tong).ToList();
+            var sum = 0.0;
+            if (ctdh!= null)
+            {
+                for(int i = 0; i < ctdh.Count; i++)
+                {
+                    sum += (double)ctdh[i];
+                }
+            }
+            ViewBag.danhso = sum;
+            var dh = _context.DonHangs.ToList();
+            ViewBag.sodh = dh.Count;
+            var magiamgia = _context.MaGiamGia.ToList();
+            if (magiamgia != null)
+            {
+                ViewBag.magiamgia = magiamgia;
+            }
             var kh = _context.KhachHangs.Where(x => x.Active == true).ToList();
             var news = _context.Trangs.Where(x => x.Published == true).OrderByDescending(x=>x.NgayTao).ToList();
             var sp = _context.SanPhams.AsNoTracking().Include(x => x.Cat).OrderByDescending(x => x.Slban).ToList();
@@ -30,6 +53,37 @@ namespace PTHShopping.Areas.Admin.Controllers
             ViewBag.kh = khNew;
             ViewBag.news = news;
             return View();
+        }
+
+
+        [Route("Admin/Home/magiamgia/{ma?}")]
+        public async Task<IActionResult> magiamgia(string ma)
+        {
+            if(ma==null || ma == string.Empty)
+            {
+                return Redirect("/Admin");
+            }
+            var str = ma.Substring(ma.Length - 2, 2);
+            if (int.TryParse(str, out int value))
+            {
+                MaGiamGium sale = new MaGiamGium();
+                sale.Ma = RandomID.generateID();
+                sale.Magiamgia = ma;
+                _context.Add(sale);
+                await _context.SaveChangesAsync();
+                var url = $"/Admin";
+                return Json(new { status = "success", redirectUrl = url });
+            }
+            return Redirect("/Admin");
+
+        }
+        [Route("Admin/Home/del/{ma?}")]
+        public async Task<IActionResult> del(string ma)
+        {
+            var sale = _context.MaGiamGia.FindAsync(ma);
+            _context.MaGiamGia.Remove(await sale);
+            await _context.SaveChangesAsync();
+            return Redirect("/Admin");
         }
     }
 }

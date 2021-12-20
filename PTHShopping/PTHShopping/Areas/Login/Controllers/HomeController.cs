@@ -103,6 +103,9 @@ namespace PTHShopping.Areas.Login.Controllers
                     userIdentity.AddClaim(new Claim("SDT", account.Sdt));
                     userIdentity.AddClaim(new Claim("Email", account.Email));
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+                    if (Role.RoleName.Contains("Shipper")){
+                        return Redirect("/Shipper");
+                    }
                     return Redirect("/Admin");
                 }
                 else
