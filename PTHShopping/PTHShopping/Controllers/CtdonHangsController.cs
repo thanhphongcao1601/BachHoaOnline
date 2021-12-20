@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PTHShopping.Helper;
 using PTHShopping.Models;
+using System.Security.Claims;
 
 namespace PTHShopping.Controllers
 {
@@ -35,12 +36,12 @@ namespace PTHShopping.Controllers
             }
         }
 
-        public async Task<IActionResult> TaoCT(string iddh, int pt)
+        public async Task<IActionResult> TaoCT(string iddh, int pt, string dcm)
         {
             var myCart = Carts;
-
             foreach (var item in myCart)
             {
+                item.DiaChi = dcm;
                 var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp);
                 var ct = new CtdonHang
                 {
@@ -55,13 +56,33 @@ namespace PTHShopping.Controllers
                 _context.Add(ct);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { dcm = dcm});
         }
 
         // GET: CtdonHangs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string dcm)
         {
+            var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();
+
+            _context.KhachHangs.Where(c => c.IdkhachHang.Trim() == idKH).FirstOrDefault().DiaChi = dcm;
+            await _context.SaveChangesAsync();
+
             var pTHShoppingContext = _context.CtdonHangs.Include(c => c.IddonHangNavigation).Include(c => c.IdsanPhamNavigation);
+            var myCart = Carts;
+            double total = 0;
+            int cartNum = 0;
+
+            foreach (var i in myCart)
+            {
+                total = total + i.ThanhTien;
+                cartNum = cartNum + i.SoLuong;
+            }
+            ViewBag.cartNum = cartNum;
+            ViewBag.totalprice = total;
+
+            //dia chi moi
+            @ViewBag.diachimoi = dcm;
+            myCart.Clear();
             return View(await pTHShoppingContext.ToListAsync());
         }
 

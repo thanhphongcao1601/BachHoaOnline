@@ -9,13 +9,13 @@
 } 
 <table class="table">
     @{
-        var test = Model.Where(c=>c.IdkhachHang==@idKH);
+        var test = Model.Where(c => c.IdkhachHang == @idKH);
     }
     @foreach (var item in test)
     {
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Avatar)
+                <span>Avatar</span>
             </th>
             <td>
                 <img src="/@item.Avatar" />
@@ -23,15 +23,32 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.HoTen)
+                <span>Họ tên</span>
             </th>
             <td>
                 @Html.DisplayFor(modelItem => item.HoTen)
             </td>
         </tr>
+
+
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SinhNhat)
+                <span>Giới tính</span>
+            </th>
+            <td>
+                @if (item.Giotinh == false)
+                {
+                    <span>Nữ</span>
+                }
+                else
+                {
+                    <span>Nam</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span>Sinh nhật</span>
             </th>
             <td>
                 @Html.DisplayFor(modelItem => item.SinhNhat)
@@ -39,7 +56,7 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DiaChi)
+                <span>Địa chỉ</span>
             </th>
             <td>
                 @Html.DisplayFor(modelItem => item.DiaChi)
@@ -47,7 +64,7 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                <span>Email</span>
             </th>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
@@ -55,7 +72,7 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Sdt)
+                <span>Số điện thoại</span>
             </th>
             <td>
                 @Html.DisplayFor(modelItem => item.Sdt)
@@ -63,41 +80,19 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NgayTao)
+                <span>Ngày tạo</span>
             </th>
             <td>
                 @Html.DisplayFor(modelItem => item.NgayTao)
             </td>
         </tr>
+
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MatKhau)
-            </th>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.MatKhau)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Giotinh)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.Giotinh)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Active)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdkhachHang">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdkhachHang">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdkhachHang">Delete</a>
+                <center>
+                    <a style="font-size:20px;" asp-action="Edit" asp-route-id="@item.IdkhachHang">Sửa</a>
+                </center>
             </td>
         </tr>
     }

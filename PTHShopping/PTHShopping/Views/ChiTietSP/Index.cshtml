@@ -112,7 +112,6 @@
                                         </div>
                                     </div>
                                     <button class="primary-btn" style="border:none !important;">THÊM VÀO GIỎ HÀNG</button>
-                                    <a href="#" class="heart-icon"><i class="fa fa-heart"></i></a>
                                     <div style="margin:20px;"><b>Thông tin thêm:</b></div> 
                                     <div>@Model.ListSanpham[index].MoTa</div>
                                        
@@ -140,17 +139,18 @@
                     }
                     @foreach (var item in lstSp)
                     {
+                        var indexz = Model.ListSanpham.ToList().IndexOf(item);
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="/@item.Thumb">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index-1 })"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="@Url.Action("Index", "ChiTietSP", new { id = indexz})"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index-1 })">@item.TenSanPham</a></h6>
+                                    <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = indexz})">@item.TenSanPham</a></h6>
                                     <h5>@item.Gia VND</h5>
                                 </div>
                             </div>

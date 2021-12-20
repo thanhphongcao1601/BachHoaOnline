@@ -80,6 +80,19 @@ namespace PTHShopping.Controllers
             //return Content(item.SoLuong.ToString());
         }
 
+        public IActionResult SetSL(string id, int num)
+        {
+            var myCart = Carts;
+            var item = myCart.SingleOrDefault(p => p.MaSp == id);
+
+            if (item != null)//chưa có
+            {
+                myCart.Where(p => p.MaSp == id).FirstOrDefault().SoLuong += num;
+            }
+            HttpContext.Session.Set("GioHang", myCart);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult RemoveFromCart(string id)
         {
             var myCart = Carts;

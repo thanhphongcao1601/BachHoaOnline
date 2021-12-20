@@ -83,11 +83,13 @@
                                             @item.DonGia
                                         </td>
                                         <td class="shoping__cart__quantity">
-                                            <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" value="@item.SoLuong">
-                                                </div>
-                                            </div>
+                                            <form asp-action="SetSL" asp-controller="Cart" asp-route-id="@item.MaSp" asp-route-num=1>
+                                                <button style="width:30px; background-color:white;">+</button>
+                                            </form>
+                                            @item.SoLuong
+                                            <form asp-action="SetSL" asp-controller="Cart" asp-route-id="@item.MaSp" asp-route-num=-1>
+                                                <button style="width: 30px; background-color: white;">-</button>
+                                            </form>
                                         </td>
                                         <td class="shoping__cart__total">
                                             @item.ThanhTien

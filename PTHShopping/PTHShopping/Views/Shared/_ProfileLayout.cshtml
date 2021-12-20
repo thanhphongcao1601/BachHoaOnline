@@ -1,5 +1,9 @@
 ﻿@using System.Security.Claims;
+@using System.Security.Claims;
 
+@{
+    var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();
+}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 @{
     ViewData["Title"] = "Index";
@@ -60,7 +64,7 @@
         <div style="width:20%;float:left; height:max-content; padding:20px;">
             <div style="margin-bottom:10px;"><a class="abc" href="/Profile">Thông tin cá nhân</a></div>
             <div style="margin-bottom:10px;"><a class="abc" href="/CtDonHangs">Lịch sử mua hàng</a></div>
-            <div style="margin-bottom:10px;"><a class="abc" href="#">Bảo mật</a></div>
+            <div style="margin-bottom:10px;"><a class="abc" asp-action="ResetPass" asp-route-id="@idKH">Bảo mật</a></div>
             <div style="margin-bottom:10px;"><a class="abc" href="#">Cài đặt</a></div>
         </div>
         <div style="width:80%;float:right;">
