@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,23 +17,26 @@ using PTHShopping.Models;
 namespace PTHShopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Staff")]
     public class AdminSanPhamsController : Controller
     {
         private readonly PTHShoppingContext _context;
         private readonly IHostingEnvironment _environment;
-        public AdminSanPhamsController(PTHShoppingContext context, IHostingEnvironment IHostingEnvironment)
+        public INotyfService _notifService { get; }
+        public AdminSanPhamsController(PTHShoppingContext context, INotyfService notifService, IHostingEnvironment IHostingEnvironment)
         {
             _context = context;
             _environment = IHostingEnvironment;
+            _notifService = notifService;
         }
 
 
 
         // GET: Admin/AdminSanPhams
 
-        [Route("Admin/AdminSanPhams/{page}/{CatID}/{trangthai}")]
+        [Route("Admin/AdminSanPhams/{page}/{CatID}/{trangthai}/{active}")]
         [Route("Admin/AdminSanPhams")]
-        public IActionResult Index(int page = 1, string CatID = "all", string trangthai = "all")
+        public IActionResult Index(int page = 1, string CatID = "all", string trangthai = "all", int active = -1)
         {
 
             List<SelectListItem> lsTrangThai = new List<SelectListItem>();
@@ -99,19 +104,29 @@ namespace PTHShopping.Areas.Admin.Controllers
                     .Include(x => x.Cat)
                     .OrderByDescending(x => x.Active).ToList();
             }
-            
+
+            if (active == 1)
+            {
+                lsProduct = lsProduct.Where(x => x.Active == true).ToList();
+            }
+            if (active == 0)
+            {
+                lsProduct = lsProduct.Where(x => x.Active == false).ToList();
+            }
+
             PagedList<SanPham> models = new PagedList<SanPham>(lsProduct.AsQueryable(), pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
             ViewBag.CurrentCatID = CatID;
             ViewBag.Currenttrangthai = trangthai;
+            ViewBag.CurrentFilter = active;
             ViewData["Cat"] = new SelectList(_context.Categories.Where(x=>x.Published==true), "CatId", "CatName", CatID);
             return View(models);
         }
 
-        [Route("Admin/AdminSanPhams/Filter/{page?}/{CatID?}/{trangthai?}")]
-        public IActionResult Filter(int page=1, string CatID = "all", string trangthai="all")
+        [Route("Admin/AdminSanPhams/Filter/{page?}/{CatID?}/{trangthai?}/{active?}")]
+        public IActionResult Filter(int page=1, string CatID = "all", string trangthai="all", int active=-1)
         {
-            var url = $"/Admin/AdminSanphams/{page}/{CatID}/{trangthai}";
+            var url = $"/Admin/AdminSanphams/{page}/{CatID}/{trangthai}/{active}";
             if (CatID == "all" && trangthai == "all")
             {
                 url = $"/Admin/AdminSanphams";
@@ -158,7 +173,36 @@ namespace PTHShopping.Areas.Admin.Controllers
             var newFileName = string.Empty;
             if (ModelState.IsValid)
             {
-
+                var err = 0;
+                if(sanPham.IdsanPham==null || sanPham.IdsanPham == string.Empty)
+                {
+                    ViewBag.nullID = "nullId";
+                    err = 1;
+                }
+                var lis_Id = _context.SanPhams.Select(x => x.IdsanPham).ToList();
+                foreach (var x in lis_Id)
+                {
+                    var xn = x.Trim();
+                    if (sanPham.IdsanPham.Equals(xn))
+                    {
+                        ViewBag.TrungID = xn;
+                        err = 1;
+                    }
+                }
+                if(sanPham.TenSanPham == null || sanPham.TenSanPham == string.Empty)
+                {
+                    ViewBag.nullName = "nullName";
+                    err = 1;
+                }
+                if (sanPham.Gia == null || sanPham.Gia<=0)
+                {
+                    ViewBag.gia = "nullGia";
+                    err = 1;
+                }
+                if (err == 1)
+                {
+                    return View(sanPham);
+                }
                 string PathDB = string.Empty;
                 if (file != null) //Luu Anh
                 {
@@ -172,10 +216,11 @@ namespace PTHShopping.Areas.Admin.Controllers
                     sanPham.Video = PathDBVD;
                 }
 
-
+                sanPham.Slban = 0;
+                sanPham.NgayTao = DateTime.Now;
                 _context.Add(sanPham);
                 await _context.SaveChangesAsync();
-               
+                _notifService.Success("Thêm mới thành công!");
                 return RedirectToAction(nameof(Index));
             }
             return View(sanPham);
@@ -242,7 +287,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatId");
+            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatName");
 
             var sanPham = await _context.SanPhams.FindAsync(id);
             if (sanPham == null)
@@ -269,6 +314,26 @@ namespace PTHShopping.Areas.Admin.Controllers
             {
                 try
                 {
+                    var err = 0;
+                    if (sanPham.IdsanPham == null || sanPham.IdsanPham == string.Empty)
+                    {
+                        ViewBag.nullID = "nullId";
+                        err = 1;
+                    }
+                    if (sanPham.TenSanPham == null || sanPham.TenSanPham == string.Empty)
+                    {
+                        ViewBag.nullName = "nullName";
+                        err = 1;
+                    }
+                    if (sanPham.Gia == null || sanPham.Gia <= 0)
+                    {
+                        ViewBag.gia = "nullGia";
+                        err = 1;
+                    }
+                    if (err == 1)
+                    {
+                        return View(sanPham);
+                    }
                     string thumbOld = sanPham.Thumb;
                     string videoOld = sanPham.Video;
 
@@ -303,6 +368,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                     }
                     _context.Update(sanPham);
                     await _context.SaveChangesAsync();
+                    _notifService.Success("Chỉnh sửa thành công!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -362,7 +428,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             }
             _context.SanPhams.Remove(sanPham);
             await _context.SaveChangesAsync();
-            
+            _notifService.Success("Xóa thành công!");
             return RedirectToAction(nameof(Index));
         }
 

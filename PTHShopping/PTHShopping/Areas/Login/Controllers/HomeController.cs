@@ -43,14 +43,14 @@ namespace PTHShopping.Areas.Login.Controllers
  
             //xet trong tai khoan quan tri
             var result = (from a in _context.Accounts
-                          where Convert.ToString(a.Sdt)==sdt
+                          where Convert.ToString(a.Sdt)==sdt && a.Active ==true
                           select a).ToList();
            
              if (result.Count() == 0)
              {
                 //xet trong tai khoan khach hang
                 var kh = (from a in _context.KhachHangs
-                              where Convert.ToString(a.Sdt) == sdt
+                              where Convert.ToString(a.Sdt) == sdt && a.Active == true
                           select a).ToList();
                 if (kh.Count() == 0)
                 {
@@ -74,7 +74,7 @@ namespace PTHShopping.Areas.Login.Controllers
                         userIdentity.AddClaim(new Claim("Email", account.Email));
                         userIdentity.AddClaim(new Claim("IdKH",account.IdkhachHang));
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-                        return Redirect("/Home/");
+                        return Redirect("/Home");
                     }
                     else
                     {
@@ -103,7 +103,10 @@ namespace PTHShopping.Areas.Login.Controllers
                     userIdentity.AddClaim(new Claim("SDT", account.Sdt));
                     userIdentity.AddClaim(new Claim("Email", account.Email));
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-                    return Redirect("/Admin/");
+                    if (Role.RoleName.Contains("Shipper")){
+                        return Redirect("/Shipper");
+                    }
+                    return Redirect("/Admin");
                 }
                 else
                 {

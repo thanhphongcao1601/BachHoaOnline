@@ -7,7 +7,7 @@
 <h5 class="text-info">Thêm tài khoản quản trị mới</h5>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -57,7 +57,7 @@
             </div>
             <div class="form-group" hidden>
                 <label asp-for="Salt" class="control-label"></label>
-                <input asp-for="Salt" class="form-control" value="@BCrypt.Net.BCrypt.GenerateSalt(12)" />
+                <input asp-for="Salt" class="form-control" readonly value="@BCrypt.Net.BCrypt.GenerateSalt(12)" />
                 <span asp-validation-for="Salt" class="text-danger"></span>
             </div>
 

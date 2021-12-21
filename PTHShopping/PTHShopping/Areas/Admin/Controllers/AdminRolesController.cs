@@ -62,6 +62,21 @@ namespace PTHShopping.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var err = 0;
+                if(role.RoleId==null || role.RoleId == string.Empty)
+                {
+                    ViewBag.nullID = "NullID";
+                    err = 1;
+                }
+                if (role.RoleName == null || role.RoleName == string.Empty)
+                {
+                    ViewBag.nullName = "NullName";
+                    err = 1;
+                }
+                if (err == 1)
+                {
+                    return View(role);
+                }
                 _context.Add(role);
                 await _context.SaveChangesAsync();
                 _notifService.Success("Thêm mới thành công!");

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using PTHShopping.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace PTHShopping.Areas.Admin.Controllers
 {
@@ -16,10 +17,11 @@ namespace PTHShopping.Areas.Admin.Controllers
     public class AccountsController : Controller
     {
         private readonly PTHShoppingContext _context;
-
-        public AccountsController(PTHShoppingContext context)
+        public INotyfService _notifService { get; }
+        public AccountsController(PTHShoppingContext context, INotyfService notifService)
         {
             _context = context;
+            _notifService = notifService;
         }
 
         // GET: Admin/Accounts
@@ -160,6 +162,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                 account.Active = true;
                 _context.Add(account);
                 await _context.SaveChangesAsync();
+                _notifService.Success("Thêm mới thành công!");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
@@ -216,6 +219,8 @@ namespace PTHShopping.Areas.Admin.Controllers
                     }
                     _context.Update(account);
                     await _context.SaveChangesAsync();
+                    _notifService.Success("Chỉnh sửa thành công!");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -261,6 +266,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             var account = await _context.Accounts.FindAsync(id);
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
+            _notifService.Success("Xóa thành công!");
             return RedirectToAction(nameof(Index));
         }
 

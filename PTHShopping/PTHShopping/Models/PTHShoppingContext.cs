@@ -26,6 +26,7 @@ namespace PTHShopping.Models
         public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<MaGiamGium> MaGiamGia { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Trang> Trangs { get; set; }
@@ -36,7 +37,7 @@ namespace PTHShopping.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-LS2HU2P;Database=PTHShopping;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-7P911SC5;Database=PTHShopping;Integrated Security=true;");
             }
         }
 
@@ -312,6 +313,19 @@ namespace PTHShopping.Models
                 entity.Property(e => e.Slug).HasColumnType("ntext");
 
                 entity.Property(e => e.Ten).HasColumnType("ntext");
+            });
+
+            modelBuilder.Entity<MaGiamGium>(entity =>
+            {
+                entity.HasKey(e => e.Ma)
+                    .HasName("PK__MaGiamGi__3214CC9F8F3403FF");
+
+                entity.Property(e => e.Ma).HasMaxLength(10);
+
+                entity.Property(e => e.Magiamgia)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("magiamgia");
             });
 
             modelBuilder.Entity<Role>(entity =>

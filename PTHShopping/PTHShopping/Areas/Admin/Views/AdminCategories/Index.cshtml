@@ -8,9 +8,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
     .False {
-        background-color: #009966 !important;
-        opacity: 0.5;
-        display: none;
+        background-color: #696969 !important;
+        opacity: 0.8;
     }
 
     th {
@@ -43,8 +42,9 @@
 <h5 class="text-info">Danh sách danh mục</h5>
 <br />
 <p>
-    <input class="ml-5 mr-2" id="hide" type="checkbox" />
-    <span style="font-size: 14px;">Bao gồm các danh mục ẩn khỏi cửa hàng</span>
+    <a href="/Admin/Categories" class="badge badge-gradient-info"> Tất cả</a>
+    <a href="/Admin/Categories/1/1" class="badge badge-gradient-success"> &#10004; Các danh mục Public</a>
+    <a href="/Admin/Categories/1/0" class="badge badge-gradient-danger">&#10006; Các danh mục Private</a>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
 </p>
 <div class="scroll">
@@ -112,22 +112,6 @@
 
 <div aria-label="Page navigation example">
     <ul class="pagination">
-        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminCategories"  asp-action="Index" />
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminCategories" asp-route-published="@ViewBag.CurrentFilter"  asp-action="Index" />
     </ul>
 </div>
-
-
-@section scripts{
-    <script>
-        $(document).ready(() => {
-            $("#hide").change(function () {
-                if (this.checked) {
-                    $('.False').show();
-                } else {
-                    $('.False').hide();
-                }
-            });
-        })
-
-    </script>
-}

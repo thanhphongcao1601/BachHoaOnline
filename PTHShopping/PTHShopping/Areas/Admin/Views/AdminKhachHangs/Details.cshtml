@@ -5,74 +5,50 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
+<h5 class="text-info">Chi tiết khách hàng</h5>
 
 <div>
-    <h4>KhachHang</h4>
+
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HoTen)
+           Họ tên
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.HoTen)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SinhNhat)
+            Sinh nhật
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SinhNhat)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Avatar)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiaChi)
+            Địa chỉ
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DiaChi)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sdt)
+           Số điện thoại
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Sdt)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Idvitri)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Idvitri)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quan)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quan)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phuong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phuong)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayTao)
+            Ngày tạo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NgayTao)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MatKhau)
+            Mật khẩu (mã hóa)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MatKhau)
@@ -84,7 +60,7 @@
             @Html.DisplayFor(model => model.Salt)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastLogin)
+            Đăng nhập cuối
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LastLogin)
@@ -98,6 +74,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdkhachHang">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">&lt; Trở lại</a> |
+    <a asp-action="Edit" asp-route-id="@Model.IdkhachHang">Sửa</a> 
+
 </div>

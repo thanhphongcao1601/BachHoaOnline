@@ -10,9 +10,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
     .False {
-        background-color: #009966 !important;
-        opacity: 0.5;
-        display: none;
+        background-color: #696969 !important;
+        opacity: 0.8;
     }
     .scroll {
         overflow-x: scroll;
@@ -34,14 +33,13 @@
 </style>
 <h5 class="text-info">Danh sách tin tức - page: @CurrentPage</h5>
 
-<p>
-    <input class="ml-5 mr-2" id="hide" type="checkbox" />
-    <span style="font-size: 14px;">Bao gồm các tin tức bị ẩn</span>
+<div class="mt-4">
+    <a href="/Admin/TinTuc" class="badge badge-gradient-info"> Tất cả</a>
+    <a href="/Admin/TinTuc/1/1" class="badge badge-gradient-success"> &#10004; Các tin tức Public</a>
+    <a href="/Admin/TinTuc/1/0" class="badge badge-gradient-danger">&#10006; Các tin tức Private</a>
     <a asp-action="Create" class="btn-gradient-primary btn-rounded btn-sm btn float-right mr-5"> <i class="mdi mdi-plus"></i></a>
-</p>
+</div>
 <div class="scroll">
-
-
     <table class="table">
         <thead>
             <tr>
@@ -89,22 +87,6 @@
 </div>
 <div aria-label="Page navigation example">
     <ul class="pagination">
-        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminTinTuc" asp-action="Index" />
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-route-published="@ViewBag.CurrentFilter" asp-controller="AdminTinTuc" asp-action="Index" />
     </ul>
 </div>
-
-
-@section scripts{
-    <script>
-    $(document).ready(() => {
-        $("#hide").change(function () {
-            if (this.checked) {
-                $('.False').show();
-            } else {
-                $('.False').hide();
-            }
-        });
-    })
-
-    </script>
-}

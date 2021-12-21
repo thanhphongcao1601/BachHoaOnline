@@ -1,16 +1,16 @@
 ﻿@model PTHShopping.Models.Account
 @using PTHShopping.Helper
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <h5 class="text-info">Chỉnh sửa tài khoản quản trị - @Model.AccountId</h5>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AccountId"/>
+            <input type="hidden" asp-for="AccountId" />
             <div class="form-group">
                 <label asp-for="HoTen" class="control-label">Họ tên</label>
                 <input asp-for="HoTen" class="form-control" />
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label">Mậu khẩu</label>
-                <input asp-for="Password" class="form-control" readonly/>
+                <input asp-for="Password" class="form-control" readonly />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,7 +48,13 @@
                 <label asp-for="RoleId" class="control-label">Quyền</label>
                 <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
             </div>
-
+            <div class="form-group">
+                <label asp-for="Active" class="control-label">Active</label>
+                <select asp-for="Active" class="form-control">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+            </div>
             <div class="form-group">
                 <input type="submit" value=" Lưu " class="btn-gradient-primary btn-rounded btn-sm btn">
             </div>

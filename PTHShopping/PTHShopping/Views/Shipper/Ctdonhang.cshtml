@@ -1,0 +1,155 @@
+﻿@model IEnumerable<PTHShopping.Models.CtdonHang>
+
+@{
+    double sum = 0.0;
+    @foreach (var item in Model)
+    {
+        sum += item.Tong.Value;
+    }
+}
+
+<head>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Userassets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .thumbNews {
+            max-height: 230px;
+        }
+    </style>
+
+    <style>
+        th {
+            font-weight: bold !important;
+            text-align: center;
+        }
+
+        td {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .scroll {
+            overflow-x: scroll;
+            width: 100%;
+        }
+
+        td {
+            max-width: 200px;
+            overflow-x: hidden;
+        }
+
+        .img {
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 0 !important;
+        }
+        .img2 {
+            max-height: 70px;
+        }
+
+        .header {
+            text-align: center;
+            width: 100%;
+            margin: auto;
+            font-size: 30px;
+            color: green;
+            text-shadow: 2px 2px yellow;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<div class="bg-light">
+    <div class="container">
+        <div class="d-flex">
+            <img class="img2" src="https://dangky5gviettel.com.vn/wp-content/uploads/2021/01/shipper.png" />
+            <div class="header">Bách hóa Online - Giao hàng Tận Tay!</div>
+        </div>
+        <h6 class="elegantshd custom"> Giao hàng nhanh </h6>
+
+    </div>
+    <hr />
+</div>
+<div class="container">
+    <h5 class="text-info">Đơn hàng -  @ViewBag.Id</h5>
+    <hr />
+    <h6>Khách hàng: &emsp;&emsp; @ViewBag.kh </h6>
+    <h6>Địa chỉ: &emsp;&emsp; @ViewBag.dckh </h6>
+    <h6>Tổng đơn hàng: &emsp;&emsp; @sum  Vnđ</h6>
+    <h6>Chi tiết: </h6>
+    <p>
+
+    </p>
+    <div class="scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Sản phẩm
+                    </th>
+                    <th>
+                        Đơn giá
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th>
+                        Khuyến mãi (%)
+                    </th>
+                    <th>
+                        Thành tiền
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (item.IdsanPhamNavigation.Thumb != null && item.IdsanPhamNavigation.Thumb != "")
+                            {
+                                <img class="img" src="/@item.IdsanPhamNavigation.Thumb" />
+                            }
+                            else
+                            {
+                                <img class="img" src="https://via.placeholder.com/100" />
+                            }
+                        </td>
+                        <td>
+                            @item.IdsanPhamNavigation.TenSanPham
+                        </td>
+                        <td>
+                            @item.IdsanPhamNavigation.Gia
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @item.IdsanPhamNavigation.KhuyenMai
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tong)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")

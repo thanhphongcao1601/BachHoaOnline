@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<MaGiamGium> Mas = ViewBag.magiamgia;
 }
 
 
@@ -29,9 +30,9 @@
             <div class="card-body">
                 <img src="~/Adminassets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                 <h4 class="font-weight-normal mb-3">
-                    Doanh số trong tuần <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    Doanh số trong tháng <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
-                <h2 class="mb-5">$ 15,0000</h2>
+                <h2 class="mb-5">@ViewBag.danhso VNĐ</h2>
                 <h6 class="card-text">Increased by 60%</h6>
             </div>
         </div>
@@ -41,9 +42,9 @@
             <div class="card-body">
                 <img src="~/Adminassets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                 <h4 class="font-weight-normal mb-3">
-                    Đơn hàng trong tuần <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    Đơn hàng trong tháng <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
-                <h2 class="mb-5">45,6334</h2>
+                <h2 class="mb-5">@ViewBag.sodh</h2>
                 <h6 class="card-text">Decreased by 10%</h6>
             </div>
         </div>
@@ -117,6 +118,8 @@
                                     </tr>
                                 }
                             }
+
+
                         </tbody>
                     </table>
                 </div>
@@ -127,39 +130,32 @@
 <div class="row">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Recent Updates</h4>
-                <div class="d-flex">
-                    <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
-                        <i class="mdi mdi-account-outline icon-sm mr-2"></i>
-                        <span>jack Menqu</span>
+            @if (ViewBag.news.Count>=4) {
+                <div class="card-body">
+                    <h4 class="card-title">Tin tức đăng gần đây</h4>
+                    <div class="d-flex">
+                        <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
+                            <i class="mdi mdi-account-outline icon-sm mr-2"></i>
+                            <span>Admin shop</span>
+                        </div>
+                        <div class="d-flex align-items-center text-muted font-weight-light">
+                            <i class="mdi mdi-clock icon-sm mr-2"></i>
+                            <span>Bài đăng gần nhất @ViewBag.news[0].NgayTao</span>
+                        </div>
                     </div>
-                    <div class="d-flex align-items-center text-muted font-weight-light">
-                        <i class="mdi mdi-clock icon-sm mr-2"></i>
-                        <span>October 3rd, 2018</span>
+                    <div class="row mt-3">
+                        <div class="col-6 pr-1">
+                            <img src="/@ViewBag.news[0].Thumb" class="mb-2 mw-100 w-100 rounded" alt="image">
+                            <img src="/@ViewBag.news[1].Thumb" class="mw-100 w-100 rounded" alt="image">
+                        </div>
+                        <div class="col-6 pl-1">
+                            <img src="/@ViewBag.news[2].Thumb" class="mb-2 mw-100 w-100 rounded" alt="image">
+                            <img src="/@ViewBag.news[3].Thumb" class="mw-100 w-100 rounded" alt="image">
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6 pr-1">
-                        <img src="~/Adminassets/images/dashboard/img_1.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
-                        <img src="~/Adminassets/images/dashboard/img_4.jpg" class="mw-100 w-100 rounded" alt="image">
-                    </div>
-                    <div class="col-6 pl-1">
-                        <img src="~/Adminassets/images/dashboard/img_2.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
-                        <img src="~/Adminassets/images/dashboard/img_3.jpg" class="mw-100 w-100 rounded" alt="image">
-                    </div>
-                </div>
-                <div class="d-flex mt-5 align-items-top">
-                    <img src="~/Adminassets/images/faces/face3.jpg" class="img-sm rounded-circle mr-3" alt="image">
-                    <div class="mb-0 flex-grow">
-                        <h5 class="mr-2 mb-2">School Website - Authentication Module.</h5>
-                        <p class="mb-0 font-weight-light">It is a long established fact that a reader will be distracted by the readable content of a page.</p>
-                    </div>
-                    <div class="ml-auto">
-                        <i class="mdi mdi-heart-outline text-muted"></i>
-                    </div>
-                </div>
-            </div>
+               
+                 </div>
+             }
         </div>
     </div>
 </div>
@@ -214,63 +210,61 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title text-white">Todo</h4>
+                <p class="text-warning">&#9888; Mã giảm giá có dạng: ...xx (xx là số % khuyến mãi) mới được thêm thành công. </p>
                 <div class="add-items d-flex">
-                    <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?">
-                    <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+                    <input type="text" class="form-control todo-list-input" placeholder="Tạo mã giảm giá - Ví dụ: NOEL30" id="ma" maxlength="25">
+                    <button type="submit" class="add btn btn-gradient-primary font-weight-bold" id="add-task">Add</button>
                 </div>
-                <div class="list-wrapper">
-                    <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
-                        <li>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox"> Meeting with Alisa
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                        <li class="completed">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox" checked> Call John
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox"> Create invoice
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox"> Print Statements
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                        <li class="completed">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox" checked> Prepare for presentation
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox"> Pick up kids from school
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                    </ul>
-                </div>
+                @if (Mas.Count > 0)
+                {
+
+                    <div class="list-wrapper">
+                        <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                            @foreach (var item in Mas)
+                            {
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <i class="mdi mdi-sale text-primary"></i>
+                                            @item.Magiamgia
+                                        </label>
+                                    </div>
+                                    <a class="remove" asp-controller="Home" asp-action="del" asp-route-ma="@item.Ma"> <i class="mdi mdi-close-circle-outline" id="del"></i> </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                }
             </div>
         </div>
     </div>
 </div>
+
+
+@section scripts{ 
+    <script>
+        $(document).ready(() => {
+            $('#add-task').click(() => {
+                var ma = $("#ma").val();
+                $.ajax({
+                    url: '/Admin/Home/magiamgia',
+                    datatype: "json",
+                    type: "POST",
+                    data: {
+                        ma: ma
+                    },
+                    async: true,
+                    success: function (result) {
+                        if (result.status == "success") {
+                            window.location.href = result.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error')
+                    }
+                });
+            });
+        });
+    </script>
+}

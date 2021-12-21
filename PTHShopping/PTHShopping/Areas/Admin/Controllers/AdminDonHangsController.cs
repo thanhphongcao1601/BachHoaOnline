@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
 using PTHShopping.Models;
 
 namespace PTHShopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Staff")]
     public class AdminDonHangsController : Controller
     {
         private readonly PTHShoppingContext _context;
@@ -20,10 +23,75 @@ namespace PTHShopping.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminDonHangs
-        public async Task<IActionResult> Index()
+        [Route("Admin/DonHang/{page?}")]
+        [Route("Admin/DonHang/{page?}/{filter?}")]
+        public async Task<IActionResult> Index(int page=1,string filter = "all")
         {
-            var pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation).Include(d => d.IdtrangThaiGiaoDichNavigation);
-            return View(await pTHShoppingContext.ToListAsync());
+            var pageNumber = page;
+            var pageSize = 10;
+            var pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                .Where(x => x.Deleted == false); 
+            if (filter == "dagiao")
+            {
+                pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                    .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                    .Where(x => x.Deleted == false)
+                    .Where(x => x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"));
+            }
+            if (filter == "danggiao")
+            {
+                pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                    .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                    .Where(x => x.Deleted == false)
+                    .Where(x => x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đang giao"));
+            }
+            if (filter == "dahuy")
+            {
+                pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                    .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                    .Where(x => x.Deleted == false)
+                    .Where(x => x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã hủy"));
+            }
+            if (filter == "chuagiao")
+            {
+                pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                    .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                    .Where(x => x.Deleted == false)
+                    .Where(x => x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Chưa giao"));
+            }
+            if (filter == "an")
+            {
+                pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                    .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                    .Where(x => x.Deleted == true);
+            }
+            PagedList<DonHang> models = new PagedList<DonHang>(pTHShoppingContext, pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentFilter = filter;
+            return View(models);
+        }
+
+        [Route("Admin/AdminDonHangs/AnDonHang/{id?}")]
+        public IActionResult anDonHang(string? id)
+        {
+            DonHang dh = _context.DonHangs.Where(x => x.IddonHang == id).ToList()[0];
+            dh.Deleted = true;
+            _context.Update(dh);
+            _context.SaveChangesAsync();
+            return Redirect("/Admin/DonHang");
+
+        }
+
+        [Route("Admin/AdminDonHangs/HienDonHang/{id?}")]
+        public IActionResult hienDonHang(string? id)
+        {
+            DonHang dh = _context.DonHangs.Where(x => x.IddonHang == id).ToList()[0];
+            dh.Deleted = false;
+            _context.Update(dh);
+            _context.SaveChangesAsync();
+            return Redirect("/Admin/DonHang");
+
         }
 
         // GET: Admin/AdminDonHangs/Details/5

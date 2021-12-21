@@ -1,0 +1,202 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<PTHShopping.Models.DonHang>
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+
+}
+<html>
+<head>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Userassets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Userassets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <style>
+        th {
+            font-weight: bold !important;
+            text-align: center;
+        }
+
+        td {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        .scroll {
+            overflow-x: scroll;
+            width: 100%;
+        }
+
+        td {
+            max-width: 200px;
+            overflow-x: hidden;
+        }
+
+        .img {
+            max-height: 70px;
+        }
+        .header {
+            text-align: center;
+            width: 100%;
+            margin: auto;
+            font-size: 30px;
+            color: green;
+            text-shadow: 2px 2px yellow;
+            font-weight:bold;
+        }
+        
+    </style>
+
+</head>
+
+<div class="bg-light">
+    <div class="container">
+        <div class="d-flex">
+            <img class="img" src="https://dangky5gviettel.com.vn/wp-content/uploads/2021/01/shipper.png" />
+            <div class="header">Bách hóa Online - Giao hàng Tận Tay!</div>
+        </div>
+        <h6 class="elegantshd custom"> Giao hàng nhanh </h6>
+
+    </div>
+    <hr />
+</div>
+
+
+<div class="container">
+ 
+    <h5 class="text-info">Danh sách các đơn hàng</h5>
+
+    <p>
+        <a href="/Shipper/1/all" class="badge badge-gradient-info"> Tất cả</a>
+        <a href="/Shipper/1/kh" class="badge badge-gradient-success"> &#10004; Theo khách hàng</a>
+        <a href="/Shipper/1/ndh" class="badge badge-gradient-primary">&#9992; Theo ngày đặt</a>
+    </p>
+    <div class="scroll ">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Mã đơn hàng
+                    </th>
+                    <th>
+                        Ngày đặt
+                    </th>
+                    <th>
+                        Ngày giao
+                    </th>
+
+                    <th>
+                        Khách hàng
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                    <th>
+                        Ghi chú
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IddonHang)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayDatHang)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayGiaoHang)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdkhachHangNavigation.HoTen)
+                        </td>
+                        @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Chưa giao"))
+                        {
+                            <td class="text-warning">
+                                @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                            </td>
+                        }
+                        @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đang giao"))
+                        {
+                            <td class="text-primary">
+                                @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                            </td>
+                        }
+                        @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"))
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                            </td>
+                        }
+                        @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã hủy"))
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.IdtrangThaiGiaoDichNavigation.TrangThai)
+                            </td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+                        <td>
+                            <a href="/Shipper/ctdh/@item.IddonHang">Chi tiết</a> |
+                            @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Chưa giao"))
+                            {<a asp-controller="Shipper" asp-action="tienhanh" asp-route-id="@item.IddonHang">&#9992; Tiến hành giao</a>
+                            }
+                            @if (item.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đang giao"))
+                            {<a asp-controller="Shipper" asp-action="hoanthanh" asp-route-id="@item.IddonHang">&#10004; Hoàn thành</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-12">
+
+        <div>
+            <p>
+                Trang @CurrentPage / <strong>@Model.PageCount</strong>
+            </p>
+            @if (CurrentPage > 1)
+            {
+                <a href="/Shipper/@(CurrentPage - 1)/@ViewBag.CurrentFilter" class="btn btn-dark btn-sm">
+                    &lt;
+                </a>
+            }
+
+
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <a href="/Shipper/@i/@ViewBag.CurrentFilter" class="btn btn-dark btn-sm" id="@i">
+                    @i
+                </a>
+            }
+            @if (CurrentPage < @Model.PageCount)
+            {
+                <a href="/Shipper/@(CurrentPage+1)/@ViewBag.CurrentFilter" class="btn btn-dark btn-sm">
+                    &gt;
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
+</html>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#' +@CurrentPage).css("background-color", "#B5B5B5 !important");
+        });
+    </script>
+}

@@ -5,58 +5,46 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>CtdonHang</h4>
+<h6 class="text-info">Thay đổi số lượng sản phẩm: "@ViewBag.sp"của đơn hàng @Model.IddonHang</h6>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdctdonHang" />
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="IddonHang" class="control-label"></label>
                 <select asp-for="IddonHang" class="form-control" asp-items="ViewBag.IddonHang"></select>
                 <span asp-validation-for="IddonHang" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="IdsanPham" class="control-label"></label>
                 <select asp-for="IdsanPham" class="form-control" asp-items="ViewBag.IdsanPham"></select>
                 <span asp-validation-for="IdsanPham" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="SoDonHang" class="control-label"></label>
                 <input asp-for="SoDonHang" class="form-control" />
                 <span asp-validation-for="SoDonHang" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SoLuong" class="control-label"></label>
+                <label asp-for="SoLuong" class="control-label"> Số lượng sản phẩm</label>
                 <input asp-for="SoLuong" class="form-control" />
                 <span asp-validation-for="SoLuong" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="KhuyenMai" class="control-label"></label>
-                <input asp-for="KhuyenMai" class="form-control" />
-                <span asp-validation-for="KhuyenMai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="Tong" class="control-label"></label>
                 <input asp-for="Tong" class="form-control" />
                 <span asp-validation-for="Tong" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NgayGiaoHang" class="control-label"></label>
-                <input asp-for="NgayGiaoHang" class="form-control" />
-                <span asp-validation-for="NgayGiaoHang" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value=" Lưu " class="btn-gradient-primary btn-rounded btn-sm btn">
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-area="Admin" asp-controller="AdminCtDonHangs" asp-action="Index" asp-route-id="@Model.IddonHang">&lt; Trở về</a>
 </div>
 
