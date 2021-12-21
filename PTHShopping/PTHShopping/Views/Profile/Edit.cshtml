@@ -19,12 +19,10 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <input name="file" id="file" type="file" style="margin-left:20px;" onchange="readURL(this);" />
+            <img id="avatar" src="" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdkhachHang" />
-            <div class="form-control">
-                <input name="file" id="file" type="file" style="margin-left:20px;" onchange="readURL(this);" />
-                <label class="btn btn-primary mt-1" for="file">Chọn ảnh</label>
-            </div>
             <table>
                 <tr>
                     <td>
@@ -95,11 +93,11 @@
                             <span asp-validation-for="LastLogin" class="text-danger"></span>
                         </div>
                         <!--
-                        <div class="form-group">
-                            <label asp-for="Active" class="control-label"></label>
-                            <input asp-for="Active" class="form-control" />
-                            <span asp-validation-for="Active" class="text-danger"></span>
-                        </div>-->
+                <div class="form-group">
+                    <label asp-for="Active" class="control-label"></label>
+                    <input asp-for="Active" class="form-control" />
+                    <span asp-validation-for="Active" class="text-danger"></span>
+                </div>-->
                     </td>
                 </tr>
             </table>
