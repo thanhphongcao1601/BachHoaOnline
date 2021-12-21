@@ -1,0 +1,132 @@
+﻿@model PTHShopping.Models.KhachHang
+@using PTHShopping.Helper;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+@{
+    string saveavatar = string.Empty;
+}
+
+
+<h1>Sửa</h1>
+
+<h4>Khách hàng</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <input name="file" id="file" type="file" style="margin-left:20px;" onchange="readURL(this);" />
+            <img style="width:300px;height:300px; object-fit:cover;" id="avatar" src="" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdkhachHang" />
+            <table>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="Avatar" class="control-label"></label>
+                            <input asp-for="Avatar" class="form-control" />
+                            <span asp-validation-for="Avatar" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HoTen" class="control-label"></label>
+                            <input asp-for="HoTen" class="form-control" />
+                            <span asp-validation-for="HoTen" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SinhNhat" class="control-label"></label>
+                            <input asp-for="SinhNhat" class="form-control" />
+                            <span asp-validation-for="SinhNhat" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Giotinh" class="control-label"></label>
+                            <input asp-for="Giotinh" class="form-control" />
+                            <span asp-validation-for="Giotinh" class="text-danger"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="width:40px;"></div>
+                    </td>
+
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sdt" class="control-label"></label>
+                            <input asp-for="Sdt" class="form-control" />
+                            <span asp-validation-for="Sdt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DiaChi" class="control-label"></label>
+                            <input asp-for="DiaChi" class="form-control" />
+                            <span asp-validation-for="DiaChi" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NgayTao" class="control-label"></label>
+                            <input asp-for="NgayTao" class="form-control" />
+                            <span asp-validation-for="NgayTao" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="MatKhau" class="control-label"></label>
+                            <input asp-for="MatKhau" class="form-control" />
+                            <span asp-validation-for="MatKhau" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="Salt" class="control-label"></label>
+                            <input asp-for="Salt" class="form-control" />
+                            <span asp-validation-for="Salt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="LastLogin" class="control-label"></label>
+                            <input asp-for="LastLogin" class="form-control" />
+                            <span asp-validation-for="LastLogin" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="Active" class="control-label"></label>
+                            <input asp-for="Active" class="form-control" />
+                            <span asp-validation-for="Active" class="text-danger"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <label class="control-label">Đổi mật khẩu?</label>
+                <input class="form-control" style="margin-bottom:20px;" name="pass1" />
+                <input class="form-control" name="pass2" />
+                @if (ViewBag.saimk != null)
+                {
+                    <div style="color:red;">@ViewBag.saimk</div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var a = document.getElementById("avatar");
+    function readURL(input) {
+        if (input.files) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = (e) => {
+                a.src = e.target.result;
+            }
+        }
+    }
+</script>
+
+
+<div>
+    <a asp-action="Index">Trở lại</a>
+</div>
+

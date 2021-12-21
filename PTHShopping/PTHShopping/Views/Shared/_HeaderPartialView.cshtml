@@ -32,19 +32,10 @@
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./shop-grid.html">Shop</a></li>
-            <li>
-                <a href="#">Pages</a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                </ul>
-            </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li class="active"><a href="/">Trang Chủ</a></li>
+            <li><a href="/MuaSam">Mua Sắm</a></li>
+            <li><a href="/TinTuc">Tin Tức</a></li>
+            <li><a href="/LienHe">Liên Hệ</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -80,7 +71,7 @@
                         <div class="header__top__right__auth d-flex float-right">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="mr-3"><i class="fa fa-user-circle-o"></i>@User.Identity.Name</a>
+                                <a class="mr-3" href="@Url.Action("Index", "Profile")"><i class="fa fa-user-circle-o"></i>@User.Identity.Name</a>
                                 var roles = ((ClaimsIdentity)User.Identity).Claims
                                 .Where(c => c.Type == ClaimTypes.Role)
                                 .Select(c => c.Value).ToList()[0];
@@ -116,14 +107,7 @@
                     <ul>
                         <li id="trangchu"class="active"><a href="/">Trang chủ</a></li>
                         <li id="muasam"><a href="/MuaSam">Mua sắm</a></li>
-                        <li id="trangkhac">
-                            <a  href="#">Trang khác</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="/TinTuc/">Tin tức</a></li>
-                                <li><a href="/Cart">Giỏ hàng</a></li>
-                                <li><a href="/DonHangs">Thanh toán</a></li>
-                            </ul>
-                        </li>
+                        <li id="trangkhac"><a href="/TinTuc">Tin Tức</a></li>
                         <li id="lienhe"><a href="./LienHe">Liên hệ</a></li>
                     </ul>
                 </nav>
@@ -131,8 +115,7 @@
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.cartNum</span></a></li>
                     </ul>
                     <div class="header__cart__price">Tổng: <span>@ViewBag.totalprice VND</span></div>
                 </div>

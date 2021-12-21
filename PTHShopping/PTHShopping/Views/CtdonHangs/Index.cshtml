@@ -1,156 +1,82 @@
 ﻿@model IEnumerable<PTHShopping.Models.CtdonHang>
+@using System.Security.Claims;
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Giỏ Hàng</title>
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="~/Userassets/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Userassets/css/style.css" type="text/css">
-
-    <style>
-        *:not(.fa,.fas) {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-        }
-
-        .pgiamgia {
-            height: 45px;
-            width: 45px;
-            background: #dd2222;
-            border-radius: 50%;
-            font-size: 14px;
-            color: #ffffff;
-            line-height: 45px;
-            text-align: center;
-            position: absolute;
-            left: 2px;
-            top: 2px;
-        }
-    </style>
-</head>
-<body>
-    @await Html.PartialAsync("/Views/Shared/_HeaderPartialView.cshtml")
-
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Tên sản phẩm
-                    </th>
-                    <th>
-                        SL
-                    </th>
-                    <th>
-                        Mã KM
-                    </th>
-                    <th>
-                        Tổng
-                    </th>
-                    <th>
-                        Ngày Giao
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IddonHangNavigation)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IdsanPhamNavigation)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    string chia = null;
-                    string bg = null;
-                }
-                <!--Chia cac san pham theo tung don hang-->
-                @foreach (var item in Model.Reverse())
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Sản phẩm
+            </th>
+            <th>
+                SL
+            </th>
+            <th>
+                Mã KM
+            </th>
+            <th>
+                Tổng
+            </th>
+            <th>
+                Ngày Giao
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @{
+        string temp = "";
+        var lst = Model.OrderByDescending(s => s.IddonHangNavigation.NgayDatHang).Where(c => c.IddonHangNavigation.IdkhachHang == @User.Claims.First(c => c.Type == "IdKH").Value);
+    }
+    <tbody>
+        <!--Chia cac san pham theo tung don hang-->
+        @foreach (var item in lst)
+        {
+            if (temp != item.IddonHang)
+            {
+                if (temp != "")
                 {
-                    @if (chia == null)
-                    {
-                        chia = item.IddonHangNavigation.IddonHang;
-                    }
-
-                    @if (chia == item.IddonHangNavigation.IddonHang)
-                    {
-                        bg = "#F5FFFA";
-                    }
-                    else
-                    {
-                        <tr style="height:80px !important;">
-                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-
-                        </tr>
-                        chia = item.IddonHangNavigation.IddonHang;
-                    }
-                    <tr style="background-color:@bg">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IdsanPhamNavigation.TenSanPham)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SoLuong)
-                        </td>
-                        <td style="text-align:center;">
-                            @if (item.KhuyenMai != null)
-                            {
-                                <span> @item.KhuyenMai%</span>
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tong)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NgayGiaoHang)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IddonHangNavigation.IddonHang)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IdsanPhamNavigation.IdsanPham)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdctdonHang">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.IdctdonHang">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.IdctdonHang">Delete</a>
-                        </td>
+                    <tr>
+                        <td height="50px;"></td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    </div>
-    <!-- Js Plugins -->
-    @await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
-    <!-- Footer Section End -->
-    <!-- Js Plugins -->
-    <script src="~/Userassets/js/jquery-3.3.1.min.js"></script>
-    <script src="~/Userassets/js/bootstrap.min.js"></script>
-    <script src="~/Userassets/js/jquery.nice-select.min.js"></script>
-    <script src="~/Userassets/js/jquery-ui.min.js"></script>
-    <script src="~/Userassets/js/jquery.slicknav.js"></script>
-    <script src="~/Userassets/js/mixitup.min.js"></script>
-    <script src="~/Userassets/js/owl.carousel.min.js"></script>
-    <script src="~/Userassets/js/main.js"></script>
-</body>
-</html>
-
-
+                <tr style="background-color:lightgreen;">
+                    <td>Mã đơn hàng: @item.IddonHang</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tổng: @item.IddonHangNavigation.GhiChu</td>
+                </tr>
+                temp = item.IddonHang;
+            }
+            <tr>
+                <td>
+                    <span><img src="/@item.IdsanPhamNavigation.Thumb" style="max-width:100px;" /></span>
+                    @Html.DisplayFor(modelItem => item.IdsanPhamNavigation.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                </td>
+                <td style="text-align:center;">
+                    @if (item.KhuyenMai != null)
+                    {
+                        <span> @item.KhuyenMai%</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayGiaoHang)
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

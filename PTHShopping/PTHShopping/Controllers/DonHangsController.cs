@@ -58,17 +58,13 @@ namespace PTHShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IddonHang,IdkhachHang,NgayDatHang,NgayGiaoHang,IdtrangThaiGiaoDich,Deleted,DaThanhToan,NgayThanhToan,IdthanhToan,GhiChu")] DonHang donHang, int phantram)
+        public async Task<IActionResult> Create([Bind("IddonHang,IdkhachHang,NgayDatHang,NgayGiaoHang,IdtrangThaiGiaoDich,Deleted,DaThanhToan,NgayThanhToan,IdthanhToan,GhiChu")] DonHang donHang, int phantram, string diachimoi)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(donHang);
                 await _context.SaveChangesAsync();
-
-
-                return RedirectToAction("TaoCT", "CtdonHangs",new { iddh=donHang.IddonHang, pt = phantram });
-
-                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("TaoCT", "CtdonHangs",new { iddh=donHang.IddonHang, pt = phantram, dcm = diachimoi });
             }
             ViewData["IdkhachHang"] = new SelectList(_context.KhachHangs, "IdkhachHang", "IdkhachHang", donHang.IdkhachHang);
             ViewData["IdtrangThaiGiaoDich"] = new SelectList(_context.TrangThaiGiaoDiches, "IdtrangThaiGiaoDich", "IdtrangThaiGiaoDich", donHang.IdtrangThaiGiaoDich);

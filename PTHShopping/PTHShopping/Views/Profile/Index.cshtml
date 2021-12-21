@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PTHShopping.Models.KhachHang>
+@using System.Security.Claims;
+@{
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+@{
+    var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();
+}
+    @{
+        var test = Model.Where(c => c.IdkhachHang == @idKH);
+    }
+    @foreach (var item in test)
+    {
+        <table>
+            <tr>
+                <td width="100px;">
+
+                </td>
+                <td>
+                    <img style="width: 400px; height: 400px; object-fit: cover; display:inline-block;" src="/@item.Avatar" />
+                </td>
+                <td width="50px;">
+                </td>
+                <td>
+                    <div style="font-size:50px;font-weight:bold;">@item.HoTen</div><br />
+                    <span style="font-size:20px;font-weight:bold;">Giới tính: </span>
+                    @if (item.Giotinh == false)
+                    {
+                        <span>Nữ</span>
+                    }
+                    else
+                    {
+                        <span>Nam</span>
+                    }
+                    <br />
+                    <span style="font-size:20px;font-weight:bold;">Sinh nhật: </span> @item.SinhNhat <br />
+                    <span style="font-size:20px;font-weight:bold;">Địa chỉ: </span> @item.DiaChi <br />
+                    <span style="font-size:20px;font-weight:bold;">Email: </span> @item.Email <br />
+                    <span style="font-size:20px;font-weight:bold;">Số điện thoại: </span> @item.Sdt <br />
+                    <span style="font-size:20px;font-weight:bold;">Ngày tạo: </span>@item.NgayTao <br />
+                    <div style="width:100px; background-color:aquamarine; border: 1px solid black; text-align:center; margin-top:20px;float:right;">
+                        <a style="font-size:20px;" asp-action="Edit" asp-route-id="@item.IdkhachHang">Sửa</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+<br />
+    @section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#trangchu').removeClass('active');
+        });
+    </script>
+}

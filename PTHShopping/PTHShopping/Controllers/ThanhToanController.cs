@@ -9,7 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PTHShopping.Controllers
-{
+{   
+    [Authorize]
     public class ThanhToanController : Controller
     {
 
@@ -34,17 +35,21 @@ namespace PTHShopping.Controllers
 
         public IActionResult Index(int phantram)
         {
+            var lstKH = _context.KhachHangs;
             var myCart = Carts;
             double total = 0;
+            int cartNum = 0;
 
             foreach (var i in myCart)
             {
                 total = total + i.ThanhTien;
+                cartNum = cartNum + i.SoLuong;
             }
+            ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
             ViewBag.phantram = phantram;
+            ViewBag.lstKH = lstKH;
             return View(Carts);
-            //return Content("day la: "+phantram.ToString());
         }
     }
 }

@@ -43,7 +43,7 @@ namespace PTHShopping.Areas.Login.Controllers
  
             //xet trong tai khoan quan tri
             var result = (from a in _context.Accounts
-                          where Convert.ToString(a.Sdt)==sdt && a.Active ==true
+                          where Convert.ToString(a.Sdt).Trim() == sdt.Trim() && a.Active ==true
                           select a).ToList();
            
              if (result.Count() == 0)

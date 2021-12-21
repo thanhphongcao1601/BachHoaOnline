@@ -7,7 +7,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="~/Userassets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/Userassets/css/font-awesome.min.css" type="text/css">
@@ -146,3 +146,12 @@
     <script src="~/Userassets/js/main.js"></script>
 </body>
 </html>
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#lienhe').addClass('active');
+            $('#trangchu').removeClass('active');
+        });
+    </script>
+}
