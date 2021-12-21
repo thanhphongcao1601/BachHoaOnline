@@ -104,17 +104,20 @@
                                     }
                                     <span><b>Mô tả</b></span>
                                     <p>@Model.ListSanpham[index].ShortDesc</p>
-                                    <div class="product__details__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input name="sl" type="text" value="1">
+                                    @if (Model.ListSanpham[index].UnitsInStock > 0)
+                                    {
+                                        <div class="product__details__quantity">
+                                            <div class="quantity">
+                                                <div class="pro-qty">
+                                                    <input name="sl" type="text" value="1">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <button class="primary-btn" style="border:none !important;">THÊM VÀO GIỎ HÀNG</button>
-                                    <div style="margin:20px;"><b>Thông tin thêm:</b></div> 
+                                        <button class="primary-btn" style="border:none !important;">THÊM VÀO GIỎ HÀNG</button>
+                                    }
+                                    <div style="margin:20px; margin-left:0px;"><b>Thông tin thêm:</b></div>
                                     <div>@Model.ListSanpham[index].MoTa</div>
-                                       
+
                                 </form>
                             </div>
                         </div>

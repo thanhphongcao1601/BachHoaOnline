@@ -1,5 +1,5 @@
 ﻿@model PTHShopping.Models.KhachHang
-
+@using PTHShopping.Helper;
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
@@ -7,7 +7,9 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
+@{
+    string saveavatar = string.Empty;
+}
 
 
 <h1>Sửa</h1>
@@ -19,14 +21,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdkhachHang" />
-            <div class="form-group">
-                <label class="control-label" asp-for="Avatar">Ảnh đại diện</label><br />
-                <input style="margin-left:20px;" id="file" type="file" name="file" onchange="readURL(this);" hidden />
+            <div class="form-control">
+                <input name="file" id="file" type="file" style="margin-left:20px;" onchange="readURL(this);" />
                 <label class="btn btn-primary mt-1" for="file">Chọn ảnh</label>
-                <span asp-validation-for="Avatar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <img class="avt ml-3" id="avatar" src="" />
             </div>
             <table>
                 <tr>
@@ -82,17 +79,16 @@
                             <input asp-for="NgayTao" class="form-control" />
                             <span asp-validation-for="NgayTao" class="text-danger"></span>
                         </div>
-                        <!--
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label asp-for="MatKhau" class="control-label"></label>
                             <input asp-for="MatKhau" class="form-control" />
                             <span asp-validation-for="MatKhau" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <label asp-for="Salt" class="control-label"></label>
                             <input asp-for="Salt" class="form-control" />
                             <span asp-validation-for="Salt" class="text-danger"></span>
-                        </div>-->
+                        </div>
                         <div class="form-group">
                             <label asp-for="LastLogin" class="control-label"></label>
                             <input asp-for="LastLogin" class="form-control" />
@@ -114,22 +110,23 @@
     </div>
 </div>
 
-@{
-    <script type="text/javascript">
-        var a = document.getElementById("avatar");
-        function readURL(input) {
-            if (input.files) {
-                var reader = new FileReader();
-                reader.readAsDataURL(input.files[0]);
-                reader.onload = (e) => {
-                    a.src = e.target.result;
-                }
+
+<script type="text/javascript">
+    var a = document.getElementById("avatar");
+    var b = document.getElementById("test");
+    function readURL(input) {
+        if (input.files) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = (e) => {
+                a.src = e.target.result;
+                b.value = a.src;
             }
         }
-    </script>
-}
+    }
+</script>
+
 
 <div>
     <a asp-action="Index">Trở lại</a>
 </div>
-

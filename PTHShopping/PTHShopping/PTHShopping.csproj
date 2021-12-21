@@ -31,6 +31,7 @@
     <Folder Include="Areas\Login\Data\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="wwwroot\CatImages\" />
+    <Folder Include="wwwroot\AvatarImages\" />
     <Folder Include="wwwroot\TintucImages\" />
     <Folder Include="wwwroot\ProductImages\" />
   </ItemGroup>

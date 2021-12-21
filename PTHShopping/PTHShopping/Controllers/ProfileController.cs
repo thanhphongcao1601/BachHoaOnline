@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +19,12 @@ namespace PTHShopping.Controllers
     public class ProfileController : Controller
     {
         private readonly PTHShoppingContext _context;
+        private readonly IHostingEnvironment _environment;
 
-        public ProfileController(PTHShoppingContext context)
+        public ProfileController(PTHShoppingContext context, IHostingEnvironment IHostingEnvironment)
         {
             _context = context;
+            _environment = IHostingEnvironment;
         }
 
         public List<CartItem> Carts
@@ -118,8 +123,10 @@ namespace PTHShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
+        public async Task<IActionResult> Edit(string id, IFormFile file, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
         {
+            var newFileName = string.Empty;
+                
             if (id != khachHang.IdkhachHang)
             {
                 return NotFound();
@@ -129,6 +136,17 @@ namespace PTHShopping.Controllers
             {
                 try
                 {
+                    string PathDB = string.Empty;
+                    if (file != null) //Luu Anh
+                    {
+                        PathDB = saveImg(file);
+                        khachHang.Avatar = PathDB;
+                    }
+                    else
+                    {
+                        khachHang.Avatar = "Khong luu duoc avatar";
+                    }
+
                     _context.Update(khachHang);
                     await _context.SaveChangesAsync();
                 }
@@ -182,6 +200,34 @@ namespace PTHShopping.Controllers
         private bool KhachHangExists(string id)
         {
             return _context.KhachHangs.Any(e => e.IdkhachHang == id);
+        }
+
+        public string saveImg(IFormFile file)
+        {
+            var newFileName = string.Empty;
+            var fileName = string.Empty;
+            string PathDB = string.Empty;
+            if (file.Length > 0)
+            {
+                // lay FileName
+                fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                //tao ten tep chong trung
+                var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+                // lay duoi file
+                var FileExtension = Path.GetExtension(fileName);
+                // FileName + FileExtension
+                newFileName = myUniqueFileName + FileExtension;
+                // tao path de dua file vo root
+                fileName = Path.Combine(_environment.WebRootPath, "AvatarImages") + $@"\{newFileName}";
+                // path de luu DB
+                PathDB = "AvatarImages/" + newFileName;
+                using (FileStream fs = System.IO.File.Create(fileName))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+            }
+            return PathDB;
         }
     }
 }

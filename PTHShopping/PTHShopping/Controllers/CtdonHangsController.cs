@@ -53,6 +53,8 @@ namespace PTHShopping.Controllers
                     KhuyenMai = pt,
                     NgayGiaoHang = null
                 };
+                _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp).UnitsInStock -= ct.SoLuong;
+                _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp).Slban += ct.SoLuong;
                 _context.Add(ct);
                 await _context.SaveChangesAsync();
             }
