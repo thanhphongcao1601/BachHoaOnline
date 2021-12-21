@@ -117,6 +117,10 @@
                                 <input type="text" name="magg" placeholder="Nhập mã ở đây">
                                 <button type="submit" class="site-btn">Áp dụng</button>
                             </form>
+                            @if (ViewBag.makmad != null)
+                            {
+                                <div>Mã khuyến mãi áp dụng: <span style="color:red;">@ViewBag.makmad</span></div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -148,3 +152,12 @@
     <script src="~/Userassets/js/main.js"></script>
 </body>
 </html>
+
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#trangchu').removeClass('active');
+        });
+    </script>
+}

@@ -149,11 +149,12 @@
 
                                 @foreach (var item in sortls)
                                 {
+                                    int indexz = Model.ListSanpham.IndexOf(item);
                                     int index = sortls.ToList().IndexOf(item);
                                     int count = sortls.ToList().Count;
-                                    <a href="#" class="latest-product__item">
+                                    <a href="@Url.Action("Index", "ChiTietSP", new { id = indexz })" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="/@item.Thumb" alt=""> @*thumb*@
+                                            <img style="width:110px; height:110px; object-fit:cover;" src="/@item.Thumb" alt=""> @*thumb*@
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>@item.TenSanPham</h6>
@@ -188,11 +189,12 @@
                                 @foreach (var item in sortls2)
                                 {
                                     //if (item.Slban == null) { break; }
+                                    int indexz = Model.ListSanpham.IndexOf(item);
                                     int index = sortls2.ToList().IndexOf(item);
                                     int count = sortls2.ToList().Count;
-                                    <a href="#" class="latest-product__item">
+                                    <a href="@Url.Action("Index", "ChiTietSP", new { id = indexz })" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="/@item.Thumb" alt="">
+                                            <img style="width:110px; height:110px; object-fit:cover;" src="/@item.Thumb" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>@item.TenSanPham</h6>
@@ -226,11 +228,12 @@
 
                                 @foreach (var item in sortls3)
                                 {
+                                    int indexz = Model.ListSanpham.IndexOf(item);
                                     int index = sortls3.ToList().IndexOf(item);
                                     int count = sortls3.ToList().Count;
-                                    <a href="#" class="latest-product__item">
+                                    <a href="@Url.Action("Index", "ChiTietSP", new { id = indexz })" class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="/@item.Thumb" alt="">
+                                            <img style="width:110px; height:110px; object-fit:cover;" src="/@item.Thumb" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h6>@item.TenSanPham</h6>
@@ -273,7 +276,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="blog__item">
                             <div class="blog__item__pic">
-                                <img class="thumbNews" src="/@ViewBag.news[i].Thumb" alt="">
+                                <img style="object-fit:cover; height:230px;" class="thumbNews" src="/@ViewBag.news[i].Thumb" alt="">
                             </div>
                             <div class="blog__item__text">
                                 <ul>

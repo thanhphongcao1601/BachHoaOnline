@@ -123,10 +123,22 @@ namespace PTHShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, IFormFile file, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
+        public async Task<IActionResult> Edit(string id, IFormFile file, string pass1, string pass2, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
         {
             var newFileName = string.Empty;
-                
+
+            if (pass1 != string.Empty && pass2 != string.Empty && pass2 != null && pass1 == pass2)
+            {
+                khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(pass2, khachHang.Salt);
+            }
+
+            if (pass1 != string.Empty && pass2 != string.Empty && pass2 != pass1) { 
+                ViewBag.saimk = "Đôi mật khẩu không hợp lệ";
+                return View();
+            }
+            _context.Update(khachHang);
+            await _context.SaveChangesAsync();
+
             if (id != khachHang.IdkhachHang)
             {
                 return NotFound();
@@ -136,17 +148,21 @@ namespace PTHShopping.Controllers
             {
                 try
                 {
+                    string thumbOld = khachHang.Avatar;
                     string PathDB = string.Empty;
                     if (file != null) //Luu Anh
                     {
                         PathDB = saveImg(file);
                         khachHang.Avatar = PathDB;
-                    }
-                    else
-                    {
-                        khachHang.Avatar = "Khong luu duoc avatar";
-                    }
+                        if (thumbOld != string.Empty && thumbOld != null)
+                        {
+                            if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, thumbOld)))
+                            {
+                                System.IO.File.Delete(Path.Combine(_environment.WebRootPath, thumbOld));
 
+                            }
+                        }
+                    }
                     _context.Update(khachHang);
                     await _context.SaveChangesAsync();
                 }

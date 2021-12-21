@@ -116,3 +116,12 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#muasam').addClass('active');
+            $('#trangchu').removeClass('active');
+        });
+    </script>
+}

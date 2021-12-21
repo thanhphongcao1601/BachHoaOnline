@@ -69,6 +69,7 @@
         </div>
         <div style="width:80%;float:right;">
             @RenderBody()
+            @await RenderSectionAsync("Scripts", required: false)
         </div>
     </div>
     <div style="float:left; width:100%;">
@@ -77,6 +78,7 @@
     <!-- Js Plugins -->
     <!-- Footer Section End -->
     <!-- Js Plugins -->
+
     <script src="~/Userassets/js/jquery-3.3.1.min.js"></script>
     <script src="~/Userassets/js/bootstrap.min.js"></script>
     <script src="~/Userassets/js/jquery.nice-select.min.js"></script>
@@ -88,4 +90,10 @@
 </body>
 </html>
 
-
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#trangchu').removeClass('active');
+        });
+    </script>
+}

@@ -36,13 +36,16 @@ namespace PTHShopping.Controllers
         PTHShoppingContext objModel = new PTHShoppingContext();
         public IActionResult Index()
         {
+            int cartNum = 0;
             var myCart = Carts;
             double total = 0;
 
             foreach (var i in myCart)
             {
                 total = total + i.ThanhTien;
+                cartNum = cartNum + i.SoLuong;
             }
+            ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
 
             var lstSanpham = objModel.SanPhams.Where(x => x.Active == true).ToList();

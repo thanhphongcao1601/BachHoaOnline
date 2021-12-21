@@ -58,6 +58,7 @@ namespace PTHShopping.Controllers
                 _context.Add(ct);
                 await _context.SaveChangesAsync();
             }
+            Carts.Clear();
             return RedirectToAction("Index", new { dcm = dcm});
         }
 
@@ -84,7 +85,6 @@ namespace PTHShopping.Controllers
 
             //dia chi moi
             @ViewBag.diachimoi = dcm;
-            myCart.Clear();
             return View(await pTHShoppingContext.ToListAsync());
         }
 
