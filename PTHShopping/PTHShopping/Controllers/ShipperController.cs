@@ -11,6 +11,7 @@ using PTHShopping.Models;
 
 namespace PTHShopping.Controllers
 {
+    [Authorize(Roles = "Admin,Staff,Shipper")]
     public class ShipperController : Controller
     {
         private readonly PTHShoppingContext _context;
@@ -36,6 +37,13 @@ namespace PTHShopping.Controllers
             if (filter == "ndh")
             {
                 pTHShoppingContext = pTHShoppingContext.OrderByDescending(x => x.NgayDatHang);
+            }
+            if (filter == "dagiao")
+            {
+                pTHShoppingContext = _context.DonHangs.Include(d => d.IdkhachHangNavigation)
+                .Include(d => d.IdtrangThaiGiaoDichNavigation)
+                .Where(x => x.Deleted == false)
+                .Where(x => x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"));
             }
             ViewBag.CurrentFiller = filter;
             PagedList<DonHang> models = new PagedList<DonHang>(pTHShoppingContext, pageNumber, pageSize);

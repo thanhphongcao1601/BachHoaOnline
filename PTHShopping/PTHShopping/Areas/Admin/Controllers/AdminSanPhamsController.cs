@@ -303,7 +303,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("IdsanPham,TenSanPham,ShortDesc,MoTa,CatId,Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe,SLBan,MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
+        public async Task<IActionResult> Edit(string id, [Bind("IdsanPham,TenSanPham,ShortDesc,MoTa,CatId,Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe,Slban,MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
         {
             if (id != sanPham.IdsanPham)
             {

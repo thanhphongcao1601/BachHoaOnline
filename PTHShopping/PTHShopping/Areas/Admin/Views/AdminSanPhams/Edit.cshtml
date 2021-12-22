@@ -124,8 +124,13 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="UnitsInStock" class="control-label">Số lượng kho</label>
-                    <input asp-for="UnitsInStock" class="form-control" value="0" />
+                    <input asp-for="UnitsInStock" class="form-control" />
                     <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Slban" class="control-label">Số lượng bán</label>
+                    <input asp-for="Slban" class="form-control" />
+                    <span asp-validation-for="Slban" class="text-danger"></span>
                 </div>
                 <div class="form-group pb-5">
 

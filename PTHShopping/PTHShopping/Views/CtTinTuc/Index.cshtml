@@ -1,30 +1,28 @@
 ﻿@model PTHShopping.Models.Trang;
-@{ 
-    var listNew = ViewBag.listNew;
-    var spnew = 0;
-    var sale = 0;
-    var market = 0;
-    var shop = 0;
-    for (int i = 0; i < listNew.Count; i++)
-    {
-        if (listNew[i].TenTrang.Contains("Tin tức về sản phẩm mới"))
-        {
-            spnew += 1;
-        }
-        if (listNew[i].TenTrang.Contains("Tin tức về khuyến mãi"))
-        {
-            sale += 1;
-        }
-        if (listNew[i].TenTrang.Contains("Tin tức về thị trường"))
-        {
-            market += 1;
-        }
-        if (listNew[i].TenTrang.Contains("Tin tức về của hàng"))
-        {
-            shop += 1;
-        }
-    }
-}
+@{ var listNew = ViewBag.listNew;
+                var spnew = 0;
+                var sale = 0;
+                var market = 0;
+                var shop = 0;
+                for (int i = 0; i < listNew.Count; i++)
+                {
+                    if (listNew[i].TenTrang.Contains("Tin tức về sản phẩm mới"))
+                    {
+                        spnew += 1;
+                    }
+                    if (listNew[i].TenTrang.Contains("Tin tức về khuyến mãi"))
+                    {
+                        sale += 1;
+                    }
+                    if (listNew[i].TenTrang.Contains("Tin tức về thị trường"))
+                    {
+                        market += 1;
+                    }
+                    if (listNew[i].TenTrang.Contains("Tin tức về của hàng"))
+                    {
+                        shop += 1;
+                    }
+                } }
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -50,9 +48,10 @@
     <link rel="stylesheet" href="~/Userassets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/Userassets/css/style.css" type="text/css">
     <style>
-        .avt{
-            object-fit:cover;
+        .avt {
+            object-fit: cover;
         }
+
         .mini-thumb {
             max-height: 70px;
             max-width: 80px;
@@ -118,7 +117,7 @@
                     </a>
                 </div>}
 
-                            }
+        }
 
                         </div>
                     </div>
@@ -166,7 +165,6 @@
     </section>
     <!-- Blog Details Section End -->
     <!-- Related Blog Section Begin -->
-
     <!-- Related Blog Section End -->
     <!-- Footer Section Begin -->
     @await Html.PartialAsync("/Views/Shared/_FooterPartialView.cshtml")
@@ -186,3 +184,11 @@
 </body>
 
 </html>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#trangkhac').addClass('active');
+            $('#trangchu').removeClass('active');
+        });
+    </script>
+}
