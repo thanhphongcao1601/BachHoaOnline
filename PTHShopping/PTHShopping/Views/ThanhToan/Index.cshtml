@@ -5,6 +5,15 @@
 
 @{ 
     var idKH = @User.Claims.First(c => c.Type == "IdKH").Value.Trim();
+    string diachi = "";
+    foreach (var item in ViewBag.lstKH)
+    {
+        if (idKH == item.IdkhachHang)
+        {
+            diachi = item.DiaChi;
+            break;
+        }
+    }
 }
 
 <!DOCTYPE html>
@@ -95,16 +104,6 @@
                             <div class="checkout__order__total">Giá đã giảm <span>@(ViewBag.totalprice * (100 - ViewBag.phantram)/100) VND</span></div>
                             <div>
                                 <div style="font-weight:bold; margin:10px;">Sử dụng địa chỉ mặc định hoặc đổi địa chỉ tại đây</div>
-                                @{ 
-                                    string diachi = "";
-                                    foreach (var item in ViewBag.lstKH)
-                                    {
-                                        if (idKH == item.IdkhachHang)
-                                        {
-                                            diachi = item.DiaChi;
-                                        }
-                                    }
-                                }
                                 <input type="text" style="width:70%" name="diachimoi" value="@diachi" required/>
                             </div>
                             <button type="submit" class="site-btn">ĐẶT HÀNG</button>

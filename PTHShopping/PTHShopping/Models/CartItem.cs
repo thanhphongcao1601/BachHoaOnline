@@ -13,6 +13,6 @@ namespace PTHShopping.Models
         public double DonGia { get; set; }
         public int SoLuong { get; set; }
         public double ThanhTien => SoLuong * DonGia;
-        public string DiaChi { get; set; }
+        public int TonKho { get; set; }
     }
 }

@@ -117,8 +117,24 @@ namespace PTHShopping.Areas.Login.Controllers
              }
         }
 
+        public List<CartItem> Carts
+        {
+            get
+            {
+                var data = HttpContext.Session.Get<List<CartItem>>("GioHang");
+                if (data == null)
+                {
+                    data = new List<CartItem>();
+                }
+                return data;
+            }
+        }
+
         public IActionResult Logout()
         {
+            var myCart = Carts;
+            myCart.Clear();
+            HttpContext.Session.Set("GioHang", myCart);
             HttpContext.SignOutAsync();
             return Redirect("/Login");
         }

@@ -31,7 +31,7 @@ namespace PTHShopping.Controllers
         }
 
         [Route("/Cart/{phantram?}")]
-        public IActionResult Index(int phantram)
+        public IActionResult Index(int phantram, int maxkho)
         {
             var myCart = Carts;
             double total = 0;
@@ -45,6 +45,7 @@ namespace PTHShopping.Controllers
             ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
             ViewBag.phantram = phantram;
+            ViewBag.maxkho = maxkho;
 
             if (phantram != null)
             {
@@ -56,8 +57,8 @@ namespace PTHShopping.Controllers
                 {
                     ViewBag.makmad = "Không hợp lệ";
                 }
-
             }
+
             return View(Carts);
         }
 
@@ -65,6 +66,7 @@ namespace PTHShopping.Controllers
         {
             var myCart = Carts;
             var item = myCart.SingleOrDefault(p => p.MaSp == id);
+            var itemStock = _context.SanPhams.Where(c => c.IdsanPham == id).FirstOrDefault().UnitsInStock;
 
             if (item == null)//chưa có
             {
@@ -80,13 +82,15 @@ namespace PTHShopping.Controllers
                     TenSp = sanPham.TenSanPham,
                     DonGia = (sanPham.Gia * (100 - km) / 100).Value,
                     SoLuong = sl,
-                    Hinh = sanPham.Thumb
+                    Hinh = sanPham.Thumb,
+                    TonKho = (int)itemStock - sl
                 };
                 myCart.Add(item);
             }
             else
             {
                 item.SoLuong +=sl; //sl
+                item.TonKho -= sl;
             }
 
             HttpContext.Session.Set("GioHang", myCart);
@@ -98,10 +102,24 @@ namespace PTHShopping.Controllers
         {
             var myCart = Carts;
             var item = myCart.SingleOrDefault(p => p.MaSp == id);
-
+            int maxkho = 0;
             if (item != null)//chưa có
             {
-                myCart.Where(p => p.MaSp == id).FirstOrDefault().SoLuong += num;
+                if (num > 0 && item.TonKho > 0)
+                {
+                    item.SoLuong += 1;
+                    item.TonKho -= 1;
+                }
+
+                if (num<0 && item.SoLuong == 1)
+                {
+                    myCart.Remove(item);
+                }
+                else if (num < 0 && item.SoLuong > 1)
+                {
+                    item.SoLuong -= 1;
+                    item.TonKho += 1;
+                }
             }
             HttpContext.Session.Set("GioHang", myCart);
             return RedirectToAction("Index");

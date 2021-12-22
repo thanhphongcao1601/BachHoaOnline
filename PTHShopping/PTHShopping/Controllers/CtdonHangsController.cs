@@ -41,7 +41,6 @@ namespace PTHShopping.Controllers
             var myCart = Carts;
             foreach (var item in myCart)
             {
-                item.DiaChi = dcm;
                 var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp);
                 var ct = new CtdonHang
                 {
@@ -58,7 +57,10 @@ namespace PTHShopping.Controllers
                 _context.Add(ct);
                 await _context.SaveChangesAsync();
             }
-            Carts.Clear();
+
+            myCart.Clear();
+            HttpContext.Session.Set("GioHang", myCart);
+
             return RedirectToAction("Index", new { dcm = dcm});
         }
 
@@ -67,8 +69,11 @@ namespace PTHShopping.Controllers
         {
             var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();
 
-            _context.KhachHangs.Where(c => c.IdkhachHang.Trim() == idKH).FirstOrDefault().DiaChi = dcm;
-            await _context.SaveChangesAsync();
+            if (dcm != null)
+            {
+                _context.KhachHangs.Where(c => c.IdkhachHang.Trim() == idKH).FirstOrDefault().DiaChi = dcm;
+                await _context.SaveChangesAsync();
+            }
 
             var pTHShoppingContext = _context.CtdonHangs.Include(c => c.IddonHangNavigation).Include(c => c.IdsanPhamNavigation);
             var myCart = Carts;

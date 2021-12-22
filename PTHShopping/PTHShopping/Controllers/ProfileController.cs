@@ -110,6 +110,7 @@ namespace PTHShopping.Controllers
             }
 
             var khachHang = await _context.KhachHangs.FindAsync(id);
+            ViewBag.srcavatar = khachHang.Avatar;
             if (khachHang == null)
             {
                 return NotFound();
@@ -125,6 +126,7 @@ namespace PTHShopping.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, IFormFile file, string pass1, string pass2, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
         {
+            ViewBag.srcavatar = khachHang.Avatar;
             var newFileName = string.Empty;
 
             if (pass1 != string.Empty && pass2 != string.Empty && pass2 != null && pass1 == pass2)

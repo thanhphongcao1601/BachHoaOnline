@@ -36,6 +36,7 @@ namespace PTHShopping.Controllers
         public IActionResult Index(int phantram)
         {
             var lstKH = _context.KhachHangs;
+            ViewBag.lstKH = lstKH;
             var myCart = Carts;
             double total = 0;
             int cartNum = 0;
@@ -48,7 +49,7 @@ namespace PTHShopping.Controllers
             ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
             ViewBag.phantram = phantram;
-            ViewBag.lstKH = lstKH;
+
             return View(Carts);
         }
     }

@@ -46,6 +46,15 @@ namespace PTHShopping.Controllers
             objSanpham_Danhmuc.ListDanhmuc = lstCategory;
 
             ViewBag.idctsp = id;
+            ViewBag.tonkho = objSanpham_Danhmuc.ListSanpham[id].UnitsInStock;
+            if (cartNum > 0)
+            {
+               if (myCart.Where(c => c.MaSp == objSanpham_Danhmuc.ListSanpham[id].IdsanPham).FirstOrDefault() != null)
+                {
+                    ViewBag.tonkho = myCart.Where(c => c.MaSp == objSanpham_Danhmuc.ListSanpham[id].IdsanPham).FirstOrDefault().TonKho;
+                }
+            }
+            
             return View(objSanpham_Danhmuc);
         }
     }

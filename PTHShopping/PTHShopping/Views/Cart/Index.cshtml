@@ -83,12 +83,15 @@
                                             @item.DonGia
                                         </td>
                                         <td class="shoping__cart__quantity">
-                                            <form asp-action="SetSL" asp-controller="Cart" asp-route-id="@item.MaSp" asp-route-num=1>
-                                                <button style="width:30px; background-color:white;">+</button>
-                                            </form>
+                                            @if (item.TonKho > 0)
+                                            {
+                                                <form asp-action="SetSL" asp-controller="Cart" asp-route-id="@item.MaSp" asp-route-num=1>
+                                                    <button style="width: 30px; background-color: white; border: 1px solid #DCDCDC;">+</button>
+                                                </form>
+                                            }
                                             @item.SoLuong
                                             <form asp-action="SetSL" asp-controller="Cart" asp-route-id="@item.MaSp" asp-route-num=-1>
-                                                <button style="width: 30px; background-color: white;">-</button>
+                                                <button style="width: 30px; background-color: white; border: 1px solid #DCDCDC;">-</button>
                                             </form>
                                         </td>
                                         <td class="shoping__cart__total">
