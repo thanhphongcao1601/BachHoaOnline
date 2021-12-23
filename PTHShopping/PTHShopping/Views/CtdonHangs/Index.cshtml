@@ -17,15 +17,11 @@
                 SL
             </th>
             <th>
-                Mã KM
-            </th>
-            <th>
                 Tổng
             </th>
             <th>
                 Ngày Giao
             </th>
-            <th></th>
         </tr>
     </thead>
     @{
@@ -45,12 +41,18 @@
                     </tr>
                 }
                 <tr style="background-color:lightgreen;">
-                    <td>Mã đơn hàng: @item.IddonHang</td>
+                    <td>
+                        Mã đơn hàng: @item.IddonHang
+                        <span> | Tổng: @item.IddonHangNavigation.GhiChu VND</span>
+                        @if (item.KhuyenMai > 0)
+                        {
+                            <span> | KM áp dụng: @item.KhuyenMai%</span>
+                        }
+                    </td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>Tổng: @item.IddonHangNavigation.GhiChu</td>
                 </tr>
                 temp = item.IddonHang;
             }
@@ -62,19 +64,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.SoLuong)
                 </td>
-                <td style="text-align:center;">
-                    @if (item.KhuyenMai != null)
-                    {
-                        <span> @item.KhuyenMai%</span>
-                    }
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Tong)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NgayGiaoHang)
-                </td>
-                <td>
                 </td>
             </tr>
         }

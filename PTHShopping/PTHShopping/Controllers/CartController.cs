@@ -102,7 +102,6 @@ namespace PTHShopping.Controllers
         {
             var myCart = Carts;
             var item = myCart.SingleOrDefault(p => p.MaSp == id);
-            int maxkho = 0;
             if (item != null)//chưa có
             {
                 if (num > 0 && item.TonKho > 0)

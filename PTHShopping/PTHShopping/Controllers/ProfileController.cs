@@ -124,21 +124,34 @@ namespace PTHShopping.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, IFormFile file, string pass1, string pass2, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
+        public async Task<IActionResult> Edit(string id, IFormFile file, string pass0, string pass1, string pass2, [Bind("IdkhachHang,HoTen,SinhNhat,Avatar,DiaChi,Email,Sdt,Idvitri,Quan,Phuong,NgayTao,MatKhau,Salt,LastLogin,Active,Giotinh")] KhachHang khachHang)
         {
             ViewBag.srcavatar = khachHang.Avatar;
             var newFileName = string.Empty;
-
-            if (pass1 != string.Empty && pass2 != string.Empty && pass2 != null && pass1 == pass2)
+           
+            if (pass0 != string.Empty || pass1 != string.Empty || pass2 != string.Empty)
             {
-                khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(pass2, khachHang.Salt);
+                bool ver = BCrypt.Net.BCrypt.Verify(pass0, khachHang.MatKhau);
+
+                if (pass1 != string.Empty && pass2 != string.Empty && pass2 != null && pass1 == pass2 && ver==true)
+                {
+                    khachHang.MatKhau = BCrypt.Net.BCrypt.HashPassword(pass2, khachHang.Salt);
+                }
+
+                if (pass2 != pass1 && ver == true)
+                {
+                    ViewBag.saimk = "Mật khẩu mới không khớp";
+                    return View();
+                }
+                if (ver == false)
+                {
+                    ViewBag.saimk = "Mật khẩu cũ không đúng";
+                    return View();
+                }
             }
 
-            if (pass1 != string.Empty && pass2 != string.Empty && pass2 != pass1) { 
-                ViewBag.saimk = "Đôi mật khẩu không hợp lệ";
-                return View();
-            }
-            _context.Update(khachHang);
+
+                _context.Update(khachHang);
             await _context.SaveChangesAsync();
 
             if (id != khachHang.IdkhachHang)

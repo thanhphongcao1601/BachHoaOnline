@@ -60,11 +60,11 @@ namespace PTHShopping.Controllers
 
             myCart.Clear();
             HttpContext.Session.Set("GioHang", myCart);
-
             return RedirectToAction("Index", new { dcm = dcm});
         }
 
         // GET: CtdonHangs
+        [Route("/CTDonHang/{dcm?}")]
         public async Task<IActionResult> Index(string dcm)
         {
             var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();

@@ -33,6 +33,7 @@ namespace PTHShopping.Controllers
             }
         }
 
+        [Route("/ThanhToan/{phantram?}")]
         public IActionResult Index(int phantram)
         {
             var lstKH = _context.KhachHangs;

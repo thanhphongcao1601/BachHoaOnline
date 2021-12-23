@@ -95,8 +95,12 @@
                     <span asp-validation-for="Active" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Đổi mật khẩu?</label>
+                    <label class="control-label">Đổi mật khẩu?</label> <br />
+                    <label class="control-label">Nhập mật khẩu cũ</label>
+                    <input class="form-control" style="margin-bottom:20px;" type="password" name="pass0" />
+                    <label class="control-label">Nhập mật khẩu mới</label>
                     <input class="form-control" style="margin-bottom:20px;" type="password" name="pass1" />
+                    <label class="control-label">Nhập lại mật khẩu mới</label>
                     <input class="form-control" type="password" name="pass2" />
                     @if (ViewBag.saimk != null)
                     {
