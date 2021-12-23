@@ -24,8 +24,13 @@ namespace PTHShopping.Areas.Admin.Controllers
         // GET: Admin/AdminCtdonHangs
         public async Task<IActionResult> Index(string? id)
         {
-            var kh = _context.DonHangs.Where(x => x.IddonHang == id).Select(x => x.IdkhachHangNavigation.HoTen).ToList()[0].ToString();
-            var dckh = _context.DonHangs.Where(x => x.IddonHang == id).Select(x => x.IdkhachHangNavigation.DiaChi).ToList();
+            var kh = _context.DonHangs
+                .Where(x => x.IddonHang == id)
+                .Select(x => x.IdkhachHangNavigation.HoTen)
+                .ToList()[0].ToString();
+            var dckh = _context.DonHangs
+                .Where(x => x.IddonHang == id)
+                .Select(x => x.IdkhachHangNavigation.DiaChi).ToList();
             var dc = "";
             if( dckh[0]==null)
             {
@@ -40,7 +45,12 @@ namespace PTHShopping.Areas.Admin.Controllers
             ViewBag.kh = kh;
             ViewBag.dckh = dc;
             ViewBag.Id = id;
-            var pTHShoppingContext = _context.CtdonHangs.Include(c => c.IddonHangNavigation).Include(c => c.IdsanPhamNavigation).Where(x=>x.IddonHang==id);
+
+            var pTHShoppingContext = _context.CtdonHangs
+                .Include(c => c.IddonHangNavigation)
+                .Include(c => c.IdsanPhamNavigation)
+                .Where(x=>x.IddonHang==id);
+
             return View(await pTHShoppingContext.ToListAsync());
         }
 
@@ -106,7 +116,9 @@ namespace PTHShopping.Areas.Admin.Controllers
                 return NotFound();
             }
             var ten = _context.SanPhams.Where(x => x.IdsanPham == ctdonHang.IdsanPham).Select(x => x.TenSanPham).ToList()[0];
+            var maxsl = _context.SanPhams.Where(x => x.IdsanPham == ctdonHang.IdsanPham).Select(x => x.UnitsInStock).ToList()[0];
             ViewBag.sp = ten;
+            ViewBag.slmax = maxsl;
             slOld = (int)ctdonHang.SoLuong;
             ViewData["IddonHang"] = new SelectList(_context.DonHangs, "IddonHang", "IddonHang", ctdonHang.IddonHang);
             ViewData["IdsanPham"] = new SelectList(_context.SanPhams, "IdsanPham", "IdsanPham", ctdonHang.IdsanPham);
@@ -143,7 +155,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                     _context.Update(sp);
                     var gia = _context.SanPhams.Where(x => x.IdsanPham == ctdonHang.IdsanPham).Select(x=>x.Gia).ToList()[0];
                     var km = _context.SanPhams.Where(x => x.IdsanPham == ctdonHang.IdsanPham).Select(x=>x.KhuyenMai).ToList()[0];
-                    
+                    if (km == null) km = 0;
                     ctdonHang.Tong = (gia * ctdonHang.SoLuong) - (gia * ctdonHang.SoLuong) * (km / 100); 
               
                     _context.Update(ctdonHang);
@@ -194,6 +206,10 @@ namespace PTHShopping.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var ctdonHang = await _context.CtdonHangs.FindAsync(id);
+            var sp = await _context.SanPhams.FindAsync(ctdonHang.IdsanPham);
+            sp.Slban = sp.Slban - ctdonHang.SoLuong;
+            sp.UnitsInStock = sp.UnitsInStock + ctdonHang.SoLuong;
+            _context.Update(sp);
             _context.CtdonHangs.Remove(ctdonHang);
             await _context.SaveChangesAsync();
             return Redirect("/Admin/AdminCtDonHangs/Index/" + ctdonHang.IddonHang);

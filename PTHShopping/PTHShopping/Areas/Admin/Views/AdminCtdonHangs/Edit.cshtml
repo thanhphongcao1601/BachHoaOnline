@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SoLuong" class="control-label"> Số lượng sản phẩm</label>
-                <input asp-for="SoLuong" class="form-control" />
+                <input asp-for="SoLuong" class="form-control" max="@ViewBag.slmax"/>
                 <span asp-validation-for="SoLuong" class="text-danger"></span>
             </div>
             <div hidden class="form-group">

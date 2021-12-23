@@ -1,0 +1,436 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<style>
+    .scroll {
+        overflow-x: scroll;
+        width: 100%;
+    }
+
+    .td1 {
+        width: 100px;
+        overflow: hidden;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    .icon {
+        font-size: 63px;
+        color: white;
+    }
+
+    .head{
+        box-sizing:border-box;
+    }
+    .box {
+        height: 100px;
+        box-sizing:border-box;
+        margin: 0px;
+       
+    }
+    .td{
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+    .date{
+        max-width:54px;
+        border:solid 1px white;
+        margin-top:2px;
+    }
+    .dhht {
+        overflow-y: scroll;
+        max-height: 500px;
+    }
+    .sphh {
+        overflow-y: scroll;
+        max-height: 350px;
+    }
+    td {
+        vertical-align: middle !important;
+    }
+</style>
+
+<h5 class="text-info">Thống kê Bách Hóa Online</h5>
+<hr />
+
+
+<div class="d-flex row">
+    <div class="card d-flex box col-12 col-md-3">
+        <table>
+            <tr>
+                <td class="bg-danger td td1"><i class="icon mdi mdi-cart-outline"> </i></td>
+                <td class="td">
+                    Tổng số đơn hàng
+                    <br />
+                    (<strong>@ViewBag.sodonhang</strong>)
+                    <br />
+                    <a href="/Admin/DonHang">Chi tiết</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card d-flex box col-12 col-md-3">
+        <table>
+            <tr>
+                <td class="bg-primary td td1"><i class="icon mdi mdi-human-greeting"> </i></td>
+                <td class="td">
+                    Tổng số khách hàng
+                    <br />
+                    (<strong>@ViewBag.sokhachhang</strong>)
+                    <br/>
+                    <a href="/Admin/KhachHangs">Chi tiết</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card d-flex box col-12 col-md-3">
+        <table>
+            <tr>
+                <td class="bg-info td td1"><i class="icon mdi mdi-book-multiple"> </i></td>
+                <td class="td">
+                    Tổng số sản phẩm
+                    <br />
+                    (<strong>@ViewBag.sosanpham</strong>)
+                    <br />
+                    <a href="/Admin/AdminSanPhams">Chi tiết</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card d-flex box col-12 col-md-3">
+        <table>
+            <tr>
+                <td class="bg-success td td1"><i class="icon mdi mdi-newspaper"> </i></td>
+                <td class="td">
+                    Tổng số tin tức
+                    <br />
+                    (<strong>@ViewBag.sotintuc</strong>)
+                    <br />
+                    <a href="/Admin/TinTuc">Chi tiết</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row mt-3" >
+    <div class="card scroll col-12 col-md-6" id="piechart"></div>
+    <div class="card col-12 col-md-6 scroll">
+        <div class="d-flex align-items-center mt-2 w-100">
+            <strong>Thống kê đơn hàng theo ngày</strong>
+            <input type="date" class="float-right date" id="date" value="@ViewBag.date"/>
+            <strong class="text-secondary ml-1">@ViewBag.date</strong>
+        </div>
+        <hr />
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Số lượng đơn</th>
+                    <th scope="col">Tổng số sản phẩm</th>
+                    <th scope="col">Tiền đơn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td class="text-success">Đã giao</td>
+                    <td>@ViewBag.sldagiao</td>
+                    <td>@ViewBag.slspdagiao</td>
+                    <td>@ViewBag.dsdagiao</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td class="text-primary">Đang giao</td>
+                    <td>@ViewBag.sldanggiao</td>
+                    <td>@ViewBag.slspdanggiao</td>
+                    <td>@ViewBag.dsdanggiao</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td class="text-warning">Chưa giao</td>
+                    <td>@ViewBag.slchuagiao</td>
+                    <td>@ViewBag.slspchuagiao</td>
+                    <td>@ViewBag.dschuagiao</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td class="text-danger">Đã hủy</td>
+                    <td>@ViewBag.sldahuy</td>
+                    <td>@ViewBag.slspdahuy</td>
+                    <td>@ViewBag.dsdahuy</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row mt-3 dhht">
+    <div class="card scroll col-12">
+        <strong class="mt-2">Danh sách đơn hàng hoàn thành trong tháng (tính đến @DateTime.Now.Date.ToShortDateString()) </strong>
+        <hr />
+        <div>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Mã đơn</th>
+                        <th scope="col">Ngày đặt</th>
+                        <th scope="col">Ngày giao</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.dhht.Count > 0)
+                    {
+                        for (var i = 0; i < ViewBag.dhht.Count; i++)
+                        {
+                            <tr>
+                                <th scope="row">@(i+1)</th>
+                                <td>@ViewBag.dhht[i].IddonHang</td>
+                                <td>@ViewBag.dhht[i].NgayDatHang</td>
+                                <td>@ViewBag.dhht[i].NgayGiaoHang</td>
+                                <td><a href="/Admin/AdminCtDonHangs/Index/@ViewBag.dhht[i].IddonHang">Chi tiết</a></td>
+                            </tr>
+
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="card col-12 col-md-6">
+        <strong class="mt-2">Top sản phẩm bán chạy</strong>
+        <hr />
+        <div class="table-responsive sphh">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> Sản phẩm  </th>
+                        <th> Loại </th>
+                        <th> Tình trạng </th>
+                        <th> Số lượng bán </th>
+                        <th> Còn lại </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.sp.Count > 0)
+                    {
+                        var count = ViewBag.sp.Count > 10 ? 10 : ViewBag.sp.Count;
+                        @for (int i = 0; i < count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="/@ViewBag.sp[i].Thumb" class="mr-2" alt="image"> @ViewBag.sp[i].TenSanPham
+                                </td>
+                                <td> @ViewBag.sp[i].Cat.CatName </td>
+                                <td>
+                                    <label class="badge badge-gradient-success">Bán chạy</label>
+                                </td>
+                                <td> @ViewBag.sp[i].Slban </td>
+                                <td> @ViewBag.sp[i].UnitsInStock </td>
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @*------*@
+    <div class="card col-12 col-md-6">
+        <strong class="mt-2">Những sản phẩm còn ít hoặc hết hàng</strong>
+        <hr />
+        <div class="table-responsive sphh">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> Sản phẩm  </th>
+                        <th> Loại </th>
+                        <th> Tình trạng </th>
+                        <th> Số lượng bán </th>
+                        <th> Còn lại </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.sphh.Count > 0)
+                    {
+                        var count = ViewBag.sphh.Count;
+                        @for (int i = 0; i < count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="/@ViewBag.sphh[i].Thumb" class="mr-2" alt="image"> @ViewBag.sphh[i].TenSanPham
+                                </td>
+                                <td> @ViewBag.sphh[i].Cat.CatName </td>
+                                <td>
+                                    <label class="badge badge-gradient-danger">Cháy hàng</label>
+                                </td>
+                                <td> @ViewBag.sphh[i].Slban </td>
+                                <td> @ViewBag.sphh[i].UnitsInStock </td>
+                            </tr>
+
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="card col-12 col-md-6">
+        <strong class="mt-2">Những khách hàng tiềm năng</strong>
+        <hr />
+        <div class="table-responsive sphh">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> #</th>
+                        <th> Khách hàng </th>
+                        <th> Số điện thoại </th>
+                        <th> Số đơn đã mua </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (ViewBag.c > 0)
+                    {
+                        var i = 1;
+                        @foreach (var item in ViewBag.khtn)
+                        {
+                            if (i <= 10)
+                            {
+                                <tr>
+                                    <th>@i</th>
+                                    <td>
+                                        @if (@item.kh.Avatar != null && @item.kh.Avatar != string.Empty)
+                                        {
+                                            <img src="/@item.kh.Avatar" class="mr-2" alt="image"> @item.kh.HoTen
+                                        }
+                                        else
+                                        {
+                                            <img src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png" class="mr-2" alt="image"> @item.kh.HoTen
+
+                                        }
+                                    </td>
+                                    <td> @item.kh.Sdt</td>
+                                    <td> @item.count đơn</td>
+
+                                </tr>
+                            }
+                            i++;
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card col-12 col-md-6">
+        <strong class="mt-2">Những khách mới</strong>
+        <hr />
+        <div class="table-responsive sphh">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> #</th>
+                        <th> Khách hàng </th>
+                        <th> Số điện thoại </th>
+                        <th> Ngày tạo </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (ViewBag.khm.Count > 0)
+                    {
+                        var i = 1;
+                        @foreach (var item in ViewBag.khm)
+                        {
+                            if (i <= 10)
+                            {
+                                <tr>
+                                    <th>@i</th>
+                                    <td>
+                                        @if (@item.Avatar != null && @item.Avatar != string.Empty)
+                                        {
+                                            <img src="/@item.Avatar" class="mr-2" alt="image"> @item.HoTen
+                                        }
+                                        else
+                                        {
+                                            <img src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png" class="mr-2" alt="image"> @item.HoTen
+
+                                        }
+                                    </td>
+                                    <td> @item.Sdt</td>
+                                    <td> @item.NgayTao</td>
+
+                                </tr>
+                            }
+                            i++;
+
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{ 
+    <script type="text/javascript">
+
+    $(document).ready(() => {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Đơn hàng', 'Trạng thái'],
+                ['Đang giao', @ViewBag.danggiao],
+                ['Đã hủy', @ViewBag.dahuy],
+                ['Chưa giao', @ViewBag.chuagiao],
+                ['Đã giao', @ViewBag.dagiao],
+            ]);
+            var options = { 'title': ' Tỷ lệ đơn hàng trong tháng này', 'width': 500, 'height': 300 };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+
+        $('#date').change(() => {
+            var date = $("#date").val().toString();
+            $.ajax({
+                url: '/Admin/Thongke/datecontact',
+                datatype: "json",
+                type: "POST",
+                data: {
+                    date: date
+                },
+                async: true,
+                success: function (result) {
+                    if (result.status == "success") {
+                        window.location.href = result.redirectUrl;
+                    }
+                },
+                error: function (xhr) {
+                    alert('error')
+                }
+            });
+        });
+    });
+    </script>
+}

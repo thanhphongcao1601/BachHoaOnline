@@ -15,6 +15,7 @@
             <div class="col-6">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="IdkhachHang" />
+                <input type="hidden" asp-for="LastLogin" />
                 <div class="form-group">
                     <label asp-for="HoTen" class="control-label">Họ tên</label>
                     <input asp-for="HoTen" class="form-control" />
@@ -53,7 +54,7 @@
                     <input asp-for="Sdt" class="form-control" readonly />
                     <span asp-validation-for="Sdt" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="MatKhau" class="control-label">Mật khẩu (mã hóa)</label>
                     <input asp-for="MatKhau" class="form-control" readonly />
                     <span asp-validation-for="MatKhau" class="text-danger"></span>
@@ -62,7 +63,7 @@
                     <label  class="control-label">Đổi mật khẩu?</label>
                     <input class="form-control"  name="pass2"/> 
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="Salt" class="control-label"></label>
                     <input asp-for="Salt" class="form-control" readonly />
                     <span asp-validation-for="Salt" class="text-danger"></span>

@@ -22,10 +22,12 @@ namespace PTHShopping.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.now = DateTime.Now.Date.ToShortDateString();
             var thang = DateTime.Now.Month;
+            var nam = DateTime.Now.Year;
             ViewBag.CurrentMonth = thang;
             var ctdh = _context.CtdonHangs
-                .Where(x=>x.IddonHangNavigation.NgayGiaoHang.Value.Month == thang)
+                .Where(x=>x.IddonHangNavigation.NgayGiaoHang.Value.Month == thang && x.IddonHangNavigation.NgayGiaoHang.Value.Year == nam)
                 .Where(x=>x.IddonHangNavigation.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"))
                 .Select(x => x.Tong).ToList();
             var sum = 0.0;
