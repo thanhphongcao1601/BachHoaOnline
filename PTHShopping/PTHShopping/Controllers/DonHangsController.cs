@@ -62,6 +62,7 @@ namespace PTHShopping.Controllers
         {
             if (ModelState.IsValid)
             {
+                donHang.NgayDatHang = DateTime.Now;
                 _context.Add(donHang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("TaoCT", "CtdonHangs",new { iddh=donHang.IddonHang, pt = phantram, dcm = diachimoi });

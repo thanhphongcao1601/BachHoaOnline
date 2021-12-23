@@ -30,6 +30,7 @@ namespace PTHShopping.Controllers
             }
         }
 
+        [Route("/MuaSam/{currentPage?}/{id?}")]
         public IActionResult Index(PTHShoppingContext modelz, string id, int? currentPage, string timkiem, string Locz, int vmin, int vmax)
         {
             ViewBag.loc = Locz;

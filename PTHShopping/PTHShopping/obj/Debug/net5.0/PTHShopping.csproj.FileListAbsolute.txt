@@ -4207,3 +4207,9 @@ E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Vi
 E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Profile\Index.cshtml.g.cs
 E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Shipper\Ctdonhang.cshtml.g.cs
 E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Views\Shipper\Index.cshtml.g.cs
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Host.dll
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\Microsoft.Extensions.Globalization.CultureInfoCache.dll
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\Microsoft.Extensions.PlatformAbstractions.dll
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\bin\Debug\net5.0\ShieldUI.AspNetCore.Mvc.dll
+E:\BachHoaOnline\BachHoaOnline\PTHShopping\PTHShopping\obj\Debug\net5.0\Razor\Areas\Admin\Views\Thongke\Index.cshtml.g.cs

@@ -46,6 +46,7 @@ namespace PTHShopping.Controllers
             ViewBag.totalprice = total;
             ViewBag.phantram = phantram;
             ViewBag.maxkho = maxkho;
+            ViewBag.lstSP = _context.SanPhams;
 
             if (phantram != null)
             {

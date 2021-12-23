@@ -129,9 +129,13 @@ namespace PTHShopping.Controllers
             ViewBag.srcavatar = khachHang.Avatar;
             var newFileName = string.Empty;
            
-            if (pass0 != string.Empty || pass1 != string.Empty || pass2 != string.Empty)
+            if (pass0 != null || pass1 != null || pass2 != null)
             {
-                bool ver = BCrypt.Net.BCrypt.Verify(pass0, khachHang.MatKhau);
+                bool ver = false;
+                if (pass0 != null)
+                {
+                    ver = BCrypt.Net.BCrypt.Verify(pass0, khachHang.MatKhau);
+                }
 
                 if (pass1 != string.Empty && pass2 != string.Empty && pass2 != null && pass1 == pass2 && ver==true)
                 {
