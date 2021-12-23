@@ -6,15 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace PTHShopping.Controllers
 {
     public class CartController : Controller
     {
         private readonly PTHShoppingContext _context;
-
-        public CartController(PTHShoppingContext context)
+        public INotyfService _notifService { get; }
+ 
+        public CartController(PTHShoppingContext context, INotyfService notifService)
         {
+            _notifService = notifService;
             _context = context;
         }
         public List<CartItem> Carts
@@ -93,8 +96,9 @@ namespace PTHShopping.Controllers
                 item.SoLuong +=sl; //sl
                 item.TonKho -= sl;
             }
-
+           
             HttpContext.Session.Set("GioHang", myCart);
+            _notifService.Success("Đã thêm vào giỏ hàng!");
             return RedirectToAction("Index","ChiTietSP",new { id = current});
             //return Content(item.SoLuong.ToString());
         }

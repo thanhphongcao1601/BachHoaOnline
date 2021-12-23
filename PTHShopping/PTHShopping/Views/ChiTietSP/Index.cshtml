@@ -111,13 +111,13 @@
                                             <div class="product__details__quantity">
                                                 <input style="font-size:20px;" name="sl" type="number" value="1" min="1" max="@ViewBag.tonkho">
                                             </div>
+                                            <button class="primary-btn" style="border:none !important;">THÊM VÀO GIỎ HÀNG</button>
                                         }
                                         else
                                         {
                                             <h6 style="color:red;">Bạn đã mua số lượng tối đa</h6>
+                                            <button disabled class="primary-btn" style="border:none !important;">THÊM VÀO GIỎ HÀNG</button>
                                         }
-
-                                        <button class="primary-btn" style="border:none !important;">THÊM VÀO GIỎ HÀNG</button>
                                     }
                                     <div style="margin:20px; margin-left:0px;"><b>Thông tin thêm:</b></div>
                                     <div>@Model.ListSanpham[index].MoTa</div>

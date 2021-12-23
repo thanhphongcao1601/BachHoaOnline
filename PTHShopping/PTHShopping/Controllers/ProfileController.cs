@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PTHShopping.Helper;
 using PTHShopping.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
+
 
 namespace PTHShopping.Controllers
 {
@@ -20,11 +22,13 @@ namespace PTHShopping.Controllers
     {
         private readonly PTHShoppingContext _context;
         private readonly IHostingEnvironment _environment;
+        public INotyfService _notifService { get; }
 
-        public ProfileController(PTHShoppingContext context, IHostingEnvironment IHostingEnvironment)
+        public ProfileController(PTHShoppingContext context, IHostingEnvironment IHostingEnvironment, INotyfService notifService)
         {
             _context = context;
             _environment = IHostingEnvironment;
+            _notifService = notifService;
         }
 
         public List<CartItem> Carts
@@ -156,6 +160,7 @@ namespace PTHShopping.Controllers
 
 
                 _context.Update(khachHang);
+            _notifService.Success("Đã lưu thành công");
             await _context.SaveChangesAsync();
 
             if (id != khachHang.IdkhachHang)

@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 using PTHShopping.Models;
 using Microsoft.AspNetCore.Http;
 using PTHShopping.Helper;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace PTHShopping.Controllers
 {
     public class ChiTietSPController : Controller
     {
+        public INotyfService _notifService { get; }
+        public ChiTietSPController(INotyfService notifService)
+        {
+            _notifService = notifService;
+        }
         public List<CartItem> Carts
         {
             get
