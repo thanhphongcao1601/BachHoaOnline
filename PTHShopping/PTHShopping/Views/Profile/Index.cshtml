@@ -7,47 +7,48 @@
 @{
     var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();
 }
-    @{
-        var test = Model.Where(c => c.IdkhachHang == @idKH);
-    }
-    @foreach (var item in test)
-    {
-        <table>
-            <tr>
-                <td width="100px;">
-
-                </td>
-                <td>
-                    <img style="width: 400px; height: 400px; object-fit: cover; display:inline-block;" src="/@item.Avatar" />
-                </td>
-                <td width="50px;">
-                </td>
-                <td>
-                    <div style="font-size:50px;font-weight:bold;">@item.HoTen</div><br />
-                    <span style="font-size:20px;font-weight:bold;">Giới tính: </span>
-                    @if (item.Giotinh == false)
-                    {
-                        <span>Nữ</span>
-                    }
-                    else
-                    {
-                        <span>Nam</span>
-                    }
-                    <br />
-                    <span style="font-size:20px;font-weight:bold;">Sinh nhật: </span> @item.SinhNhat <br />
-                    <span style="font-size:20px;font-weight:bold;">Địa chỉ: </span> @item.DiaChi <br />
-                    <span style="font-size:20px;font-weight:bold;">Email: </span> @item.Email <br />
-                    <span style="font-size:20px;font-weight:bold;">Số điện thoại: </span> @item.Sdt <br />
-                    <span style="font-size:20px;font-weight:bold;">Ngày tạo: </span>@item.NgayTao <br />
-                    <div style="width:100px; background-color:aquamarine; border: 1px solid black; text-align:center; margin-top:20px;float:right;">
-                        <a style="font-size:20px;" asp-action="Edit" asp-route-id="@item.IdkhachHang">Sửa</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    }
+@{
+    var test = Model.Where(c => c.IdkhachHang == @idKH);
+}
+@foreach (var item in test)
+{
+    <table style="width:100%;">
+        <tr>
+            <td style="text-align: center; vertical-align: middle; background-color: #F3F6FA; height:180px;">
+                <img style="width: 150px; height: 150px; object-fit: cover; border-radius:50%" src="/@item.Avatar" />
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; vertical-align: middle;">
+                <div style="font-size:40px;font-weight:bold;">@item.HoTen</div>
+            </td>
+        </tr>
+        <tr style="text-align: center; vertical-align: middle;">
+            <td>
+                <span style="font-size:20px;font-weight:bold;">Giới tính: </span>
+                @if (item.Giotinh == false)
+                {
+                    <span>Nữ</span>
+                }
+                else
+                {
+                    <span>Nam</span>
+                }
+                <br />
+                <span style="font-size:20px;font-weight:bold;">Sinh nhật: </span> @item.SinhNhat <br />
+                <span style="font-size:20px;font-weight:bold;">Địa chỉ: </span> @item.DiaChi <br />
+                <span style="font-size:20px;font-weight:bold;">Email: </span> @item.Email <br />
+                <span style="font-size:20px;font-weight:bold;">Số điện thoại: </span> @item.Sdt <br />
+                <span style="font-size:20px;font-weight:bold;">Ngày tạo: </span>@item.NgayTao <br />
+                <div style="width: 100px; background-color: #7FAD39; border: none; text-align: center; margin-top: 20px; float: right;">
+                    <a style="color:white; font-weight:bold; font-size:20px;" asp-action="Edit" asp-route-id="@item.IdkhachHang">Sửa</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+}
 <br />
-    @section scripts{
+@section scripts{
     <script>
         $(document).ready(() => {
             $('#trangchu').removeClass('active');
