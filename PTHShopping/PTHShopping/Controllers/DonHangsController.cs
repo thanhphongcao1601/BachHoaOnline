@@ -65,7 +65,7 @@ namespace PTHShopping.Controllers
                 donHang.NgayDatHang = DateTime.Now;
                 _context.Add(donHang);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("TaoCT", "CtdonHangs",new { iddh=donHang.IddonHang, pt = phantram, dcm = diachimoi });
+                return Redirect("/CtdonHangs/TaoCT/"+donHang.IddonHang+"/"+phantram+"/"+diachimoi);
             }
             ViewData["IdkhachHang"] = new SelectList(_context.KhachHangs, "IdkhachHang", "IdkhachHang", donHang.IdkhachHang);
             ViewData["IdtrangThaiGiaoDich"] = new SelectList(_context.TrangThaiGiaoDiches, "IdtrangThaiGiaoDich", "IdtrangThaiGiaoDich", donHang.IdtrangThaiGiaoDich);

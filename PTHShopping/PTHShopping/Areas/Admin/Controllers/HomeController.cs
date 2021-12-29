@@ -48,7 +48,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             }
             var kh = _context.KhachHangs.Where(x => x.Active == true).ToList();
             var news = _context.Trangs.Where(x => x.Published == true).OrderByDescending(x=>x.NgayTao).ToList();
-            var sp = _context.SanPhams.AsNoTracking().Include(x => x.Cat).OrderByDescending(x => x.Slban).ToList();
+            var sp = _context.SanPhams.AsNoTracking().Include(x => x.Cat).Where(x=>x.Active==true).OrderByDescending(x => x.Slban).ToList();
             var khNew = _context.KhachHangs.Where(x => x.Active == true).OrderByDescending(x => x.NgayTao).ToList();
             ViewBag.SLKH = kh.Count;
             ViewBag.sp = sp;

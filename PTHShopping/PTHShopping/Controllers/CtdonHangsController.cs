@@ -42,7 +42,7 @@ namespace PTHShopping.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        [Route("/CtdonHangs/TaoCT/{iddh?}/{pt?}/{dcm?}")]
         public async Task<IActionResult> TaoCT(string iddh, int pt, string dcm)
         {
             var myCart = Carts;
@@ -67,11 +67,11 @@ namespace PTHShopping.Controllers
 
             myCart.Clear();
             HttpContext.Session.Set("GioHang", myCart);
-            return RedirectToAction("Index", new { dcm = dcm});
+            return Redirect("/CTDonHangs/"+ dcm);
         }
 
         // GET: CtdonHangs
-        //[Route("/CTDonHangs/{dcm?}")]
+        [Route("/CtdonHangs/{dcm?}")]
         public async Task<IActionResult> Index(string dcm)
         {
             var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();

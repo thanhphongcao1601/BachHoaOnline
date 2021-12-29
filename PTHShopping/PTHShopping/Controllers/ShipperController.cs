@@ -45,7 +45,7 @@ namespace PTHShopping.Controllers
                 .Where(x => x.Deleted == false)
                 .Where(x => x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã giao"));
             }
-            ViewBag.CurrentFiller = filter;
+            ViewBag.CurrentFilter = filter;
             PagedList<DonHang> models = new PagedList<DonHang>(pTHShoppingContext, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
             return View(models);

@@ -34,15 +34,16 @@
             <div class="row">
                 @foreach (var item in lstLoc)
                 {
+                    var iz = Model.ListSanpham.IndexOf(item);
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="/@item.Thumb">
                                 <ul class="product__item__pic__hover">
-                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = iz })"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
+                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = iz })">@item.TenSanPham</a></h6>
                                 @if (item.KhuyenMai != null)
                                 {
                                     <h5>@(item.Gia - item.Gia*item.KhuyenMai/100) VND</h5>
@@ -70,15 +71,16 @@
             <div class="row">
                 @foreach (var item in lstTimKiem)
                 {
+                    var iz = Model.ListSanpham.IndexOf(item);
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="/@item.Thumb">
                                 <ul class="product__item__pic__hover">
-                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = index })"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="@Url.Action("Index", "ChiTietSP", new { id = iz })"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = index })">@item.TenSanPham</a></h6>
+                                <h6><a href="@Url.Action("Index", "ChiTietSP", new { id = iz })">@item.TenSanPham</a></h6>
                                 @if (item.KhuyenMai != null)
                                 {
                                     <h5>@(item.Gia - item.Gia*item.KhuyenMai/100) VND</h5>

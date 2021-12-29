@@ -2,6 +2,7 @@
 @model PagedList.Core.IPagedList<PTHShopping.Models.DonHang>
 @{
     int CurrentPage = ViewBag.CurrentPage;
+    string CurrentFilter = ViewBag.CurrentFilter;
 
 }
 <html>
@@ -110,7 +111,7 @@
                 @{ 
                     var lstSort = Model.OrderByDescending(c => c.NgayDatHang);
                 }
-                @foreach (var item in lstSort)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -174,7 +175,7 @@
             </p>
             @if (CurrentPage > 1)
             {
-                <a href="/Shipper/@(CurrentPage - 1)/@ViewBag.CurrentFilter" class="btn btn-dark btn-sm">
+                <a href="/Shipper/@(CurrentPage - 1)/@CurrentFilter" class="btn btn-dark btn-sm">
                     &lt;
                 </a>
             }
@@ -182,13 +183,13 @@
 
             @for (int i = 1; i <= Model.PageCount; i++)
             {
-                <a href="/Shipper/@i/@ViewBag.CurrentFilter" class="btn btn-dark btn-sm" id="@i">
+                <a href="/Shipper/@i/@CurrentFilter" class="btn btn-dark btn-sm" id="@i">
                     @i
                 </a>
             }
             @if (CurrentPage < @Model.PageCount)
             {
-                <a href="/Shipper/@(CurrentPage+1)/@ViewBag.CurrentFilter" class="btn btn-dark btn-sm">
+                <a href="/Shipper/@(CurrentPage+1)/@CurrentFilter" class="btn btn-dark btn-sm">
                     &gt;
                 </a>
             }

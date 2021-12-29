@@ -1,7 +1,8 @@
-﻿
+﻿@using PTHShopping.Models;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<khachhangtiemnang> khtn = ViewBag.khtn;
 }
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
@@ -307,17 +308,17 @@
                 </thead>
                 <tbody>
 
-                    @if (ViewBag.khtn.Count > 0)
+                    @if (khtn.Count > 0)
                     {
                         var i = 1;
-                        @foreach (var item in ViewBag.khtn)
+                        @foreach (var item in khtn)
                         {
                             if (i <= 10)
                             {
                                 <tr>
                                     <th>@i</th>
                                     <td>
-                                        @if (@item.kh.Avatar != null && @item.kh.Avatar != string.Empty)
+                                        @if (item.kh.Avatar != null && item.kh.Avatar != string.Empty)
                                         {
                                             <img src="/@item.kh.Avatar" class="mr-2" alt="image"> @item.kh.HoTen
                                         }

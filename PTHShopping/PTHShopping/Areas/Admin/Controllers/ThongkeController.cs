@@ -59,6 +59,7 @@ namespace PTHShopping.Areas.Admin.Controllers
             var khtn = _context.DonHangs
                .Where(x => !x.IdtrangThaiGiaoDichNavigation.TrangThai.Contains("Đã hủy"))
                .AsEnumerable()
+               .Where(x=>x.IdkhachHangNavigation!=null)
                .GroupBy(x => x.IdkhachHangNavigation)
                .Select(x => new { kh = x.Key, count = x.Count()})
                .OrderByDescending(x => x.count)
@@ -69,7 +70,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                 newkhtn.Add(new khachhangtiemnang { kh = x.kh, count = x.count });
             }
             ViewBag.c = khtn.Count;
-            ViewBag.khtn = newkhtn;
+            ViewData["khtn"] = newkhtn;
 
             //khach hang moi
             var khNew = _context.KhachHangs.Where(x => x.Active == true).OrderByDescending(x => x.NgayTao).ToList();
