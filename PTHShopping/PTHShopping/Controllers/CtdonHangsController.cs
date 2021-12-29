@@ -36,6 +36,13 @@ namespace PTHShopping.Controllers
             }
         }
 
+        public async Task<IActionResult> HuyDH(string iddh)
+        {
+            _context.DonHangs.Where(c => c.IddonHang == iddh).FirstOrDefault().IdtrangThaiGiaoDich = "TTDAHUY";
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> TaoCT(string iddh, int pt, string dcm)
         {
             var myCart = Carts;
@@ -64,7 +71,7 @@ namespace PTHShopping.Controllers
         }
 
         // GET: CtdonHangs
-        [Route("/CTDonHang/{dcm?}")]
+        //[Route("/CTDonHangs/{dcm?}")]
         public async Task<IActionResult> Index(string dcm)
         {
             var idKH = User.Claims.First(c => c.Type == "IdKH").Value.Trim();

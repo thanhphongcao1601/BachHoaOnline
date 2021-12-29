@@ -9,7 +9,7 @@
 
 @{
     string saveavatar = string.Empty;
-    
+
 }
 
 
@@ -18,11 +18,11 @@
     <input type="hidden" asp-for="IdkhachHang" />
     <table width="80%%">
         <tr>
-            <td width="400px;">
-                <img style="width:300px;height:300px; object-fit:cover;" id="avatar" src="/@ViewBag.srcavatar" /> <br />
-            </td>
             <td>
-                <div class="form-group">
+
+                <div class="form-group" style="text-align: center; vertical-align: middle;">
+                    <img style="width:150px;height:150px; object-fit:cover; border-radius:50%;" id="avatar" src="/@ViewBag.srcavatar" /> <br />
+                    <br />
                     <label asp-for="Avatar" class="control-label"></label>
                     <input name="file" id="file" type="file" style="margin-left:20px;" onchange="readURL(this);" />
                 </div>
@@ -46,9 +46,10 @@
                 </div>
             </td>
         </tr>
-        <tr><tr/>
         <tr>
-            <td colspan="2">
+        <tr />
+        <tr>
+            <td>
                 <div class="form-group" hidden>
                     <label asp-for="Avatar" class="control-label"></label>
                     <input asp-for="Avatar" class="form-control" />
@@ -110,7 +111,7 @@
             </td>
         </tr>
     </table>
-            
+
     <div class="form-group">
         <input type="submit" value="Lưu" class="btn btn-primary" />
     </div>

@@ -107,7 +107,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @{ 
+                    var lstSort = Model.OrderByDescending(c => c.NgayDatHang);
+                }
+                @foreach (var item in lstSort)
                 {
                     <tr>
                         <td>

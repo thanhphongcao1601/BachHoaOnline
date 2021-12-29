@@ -47,12 +47,21 @@
                         @if (item.KhuyenMai > 0)
                         {
                             <span> | KM áp dụng: @item.KhuyenMai%</span>
+                            <span> | Thời gian: @item.IddonHangNavigation.NgayDatHang</span>
+                        }
+                        @if (item.IddonHangNavigation.IdtrangThaiGiaoDich.Trim() == "TTDAHUY")
+                        {
+                            <span style="color:red; font-weight:bold"> (Đơn hàng đã bị hủy)</span>
                         }
                     </td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        @if (item.NgayGiaoHang == null && item.IddonHangNavigation.IdtrangThaiGiaoDich == "TTCHUAGIAO")
+                        {
+                            <a style="color:red; font-weight:bold" href="@Url.Action("HuyDH", "CtdonHangs", new {iddh = item.IddonHang})">Hủy đơn</a>
+                        }
+                    </td>
                 </tr>
                 temp = item.IddonHang;
             }
