@@ -46,11 +46,16 @@ namespace PTHShopping.Areas.Admin.Controllers
             ViewBag.sosanpham = sp.Count;
             //
             //san pham ban chay
-            var spbc = _context.SanPhams.AsNoTracking().Include(x => x.Cat).OrderByDescending(x => x.Slban).ToList();
+            var spbc = _context.SanPhams
+                .AsNoTracking()
+                .Include(x => x.Cat)
+                .Where(x=>x.Active==true)
+                .OrderByDescending(x => x.Slban).ToList();
             ViewBag.sp = spbc;
             //san pham chay hang
             var sphethang = _context.SanPhams.AsNoTracking()
                 .Include(x => x.Cat)
+                .Where(x=>x.Active==true)
                 .Where(x=>x.UnitsInStock<10)
                 .OrderByDescending(x => x.UnitsInStock).ToList();
             ViewBag.sphh = sphethang;

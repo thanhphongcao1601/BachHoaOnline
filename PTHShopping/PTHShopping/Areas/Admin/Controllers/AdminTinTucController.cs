@@ -251,18 +251,25 @@ namespace PTHShopping.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var trang = await _context.Trangs.FindAsync(id);
-            if (trang.Thumb != string.Empty && trang.Thumb != null)
+            try
             {
-                if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, trang.Thumb.ToString())))
+                var trang = await _context.Trangs.FindAsync(id);
+                if (trang.Thumb != string.Empty && trang.Thumb != null)
                 {
-                    System.IO.File.Delete(Path.Combine(_environment.WebRootPath, trang.Thumb.ToString()));
+                    if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, trang.Thumb.ToString())))
+                    {
+                        System.IO.File.Delete(Path.Combine(_environment.WebRootPath, trang.Thumb.ToString()));
 
+                    }
                 }
+                _context.Trangs.Remove(trang);
+                await _context.SaveChangesAsync();
+                _notifService.Success("Xóa thành công!");
             }
-            _context.Trangs.Remove(trang);
-            await _context.SaveChangesAsync();
-            _notifService.Success("Xóa thành công!");
+            catch
+            {
+                _notifService.Error("Không thể xóa!");
+            }
             return RedirectToAction(nameof(Index));
         }
 

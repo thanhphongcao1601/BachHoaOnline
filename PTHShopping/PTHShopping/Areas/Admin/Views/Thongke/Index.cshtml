@@ -51,6 +51,11 @@
     td {
         vertical-align: middle !important;
     }
+    .over {
+        max-width: 150px;
+        text-overflow: ellipsis;
+        overflow:hidden
+    }
 </style>
 
 <h5 class="text-info">Thống kê Bách Hóa Online</h5>
@@ -230,7 +235,7 @@
                         @for (int i = 0; i < count; i++)
                         {
                             <tr>
-                                <td>
+                                <td class="over">
                                     <img src="/@ViewBag.sp[i].Thumb" class="mr-2" alt="image"> @ViewBag.sp[i].TenSanPham
                                 </td>
                                 <td> @ViewBag.sp[i].Cat.CatName </td>
@@ -270,7 +275,7 @@
                         @for (int i = 0; i < count; i++)
                         {
                             <tr>
-                                <td>
+                                <td class="over">
                                     <img src="/@ViewBag.sphh[i].Thumb" class="mr-2" alt="image"> @ViewBag.sphh[i].TenSanPham
                                 </td>
                                 <td> @ViewBag.sphh[i].Cat.CatName </td>

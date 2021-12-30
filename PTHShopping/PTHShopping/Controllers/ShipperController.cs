@@ -72,16 +72,16 @@ namespace PTHShopping.Controllers
         }
 
         [Route("Shipper/tienhanh/{id?}")]
-        public IActionResult tienhanh(string? id)
+        public async Task<IActionResult> tienhanh(string? id)
         {
             DonHang dh = _context.DonHangs.Where(x => x.IddonHang == id).ToList()[0];
             dh.IdtrangThaiGiaoDich = _context.TrangThaiGiaoDiches.Where(x => x.TrangThai.Contains("Đang giao")).Select(x => x.IdtrangThaiGiaoDich).ToList()[0];
             _context.Update(dh);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return Redirect("/Shipper");
         }
         [Route("Shipper/hoanthanh/{id?}")]
-        public IActionResult hoanthanh(string? id)
+        public async Task<IActionResult> hoanthanh(string? id)
         {
             DonHang dh = _context.DonHangs.Where(x => x.IddonHang == id).ToList()[0];
             dh.IdtrangThaiGiaoDich = _context.TrangThaiGiaoDiches.Where(x => x.TrangThai.Contains("Đã giao")).Select(x => x.IdtrangThaiGiaoDich).ToList()[0];
@@ -89,7 +89,7 @@ namespace PTHShopping.Controllers
             dh.NgayThanhToan = DateTime.Now;
             dh.DaThanhToan = true;
             _context.Update(dh);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return Redirect("/Shipper");
         }
     }

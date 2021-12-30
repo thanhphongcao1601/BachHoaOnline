@@ -170,6 +170,7 @@ namespace PTHShopping.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdsanPham,TenSanPham,ShortDesc,MoTa,CatId,Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe,Slban,MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
         {
+            ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatName");
             var newFileName = string.Empty;
             if (ModelState.IsValid)
             {
@@ -409,26 +410,33 @@ namespace PTHShopping.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var sanPham = await _context.SanPhams.FindAsync(id);
-            if (sanPham.Thumb != string.Empty && sanPham.Thumb!=null)
+            try
             {
-                if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, sanPham.Thumb.ToString())))
+                var sanPham = await _context.SanPhams.FindAsync(id);
+                if (sanPham.Thumb != string.Empty && sanPham.Thumb != null)
                 {
-                    System.IO.File.Delete(Path.Combine(_environment.WebRootPath, sanPham.Thumb.ToString()));
-      
-                }
-            }
-            if (sanPham.Video != string.Empty && sanPham.Video!=null)
-            {
-                if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, sanPham.Video.ToString())))
-                {
-                    System.IO.File.Delete(Path.Combine(_environment.WebRootPath, sanPham.Video.ToString()));
+                    if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, sanPham.Thumb.ToString())))
+                    {
+                        System.IO.File.Delete(Path.Combine(_environment.WebRootPath, sanPham.Thumb.ToString()));
 
+                    }
                 }
+                if (sanPham.Video != string.Empty && sanPham.Video != null)
+                {
+                    if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, sanPham.Video.ToString())))
+                    {
+                        System.IO.File.Delete(Path.Combine(_environment.WebRootPath, sanPham.Video.ToString()));
+
+                    }
+                }
+                _context.SanPhams.Remove(sanPham);
+                await _context.SaveChangesAsync();
+                _notifService.Success("Xóa thành công!");
             }
-            _context.SanPhams.Remove(sanPham);
-            await _context.SaveChangesAsync();
-            _notifService.Success("Xóa thành công!");
+            catch
+            {
+                _notifService.Error("Không thể xóa!");
+            }
             return RedirectToAction(nameof(Index));
         }
 

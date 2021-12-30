@@ -161,10 +161,17 @@ namespace PTHShopping.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            _context.Roles.Remove(role);
-            _notifService.Success("Xóa thành công!");
-            await _context.SaveChangesAsync();
+            try
+            {
+                var role = await _context.Roles.FindAsync(id);
+                _context.Roles.Remove(role);
+                _notifService.Success("Xóa thành công!");
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                _notifService.Error("Không thể xóa!");
+            }
             return RedirectToAction(nameof(Index));
         }
 
