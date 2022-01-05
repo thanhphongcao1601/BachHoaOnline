@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PTHShopping.Helper;
 using PTHShopping.Models;
@@ -48,7 +49,7 @@ namespace PTHShopping.Controllers
             ViewBag.cartNum = cartNum;
             ViewBag.totalprice = total;
 
-            var lstSanpham = objModel.SanPhams.Where(x => x.Active == true).ToList();
+            var lstSanpham = objModel.SanPhams.AsNoTracking().Include(x=>x.Cat).Where(x=>x.Cat.Published==true).Where(x => x.Active == true).ToList();
             var lstCategory = objModel.Categories.Where(x=>x.Published==true).ToList();
             var lsNew = objModel.Trangs.Where(x => x.Published == true).OrderByDescending(x=>x.NgayTao).ToList();
             ViewBag.news = lsNew;

@@ -34,16 +34,18 @@
 
                     }
 
+                    <div class="">
+                        <div style="font-size:13px;"><input style="border:none; background-color:white;color:blue" type="button" value="Quên mật khẩu?" data-toggle="modal" data-target="#exampleModal"></div>
+                    </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="nhomk">
-                        <label for="nhomk" class="">
-                           Nhớ mật khẩu
-                        </label>
-                        <br />
                         <button type="submit" class="btn btn-login float-right">Đăng nhập</button>
                     </div>
                 </form>
-                <div class="copy-text"><i class="fa fa-heart"></i><a href="Login/Home/SignUp"> Đăng ký ngay</a></div>
+                <div class="copy-text">
+                    <i class="fa fa-heart"></i>
+                    <a href="Login/Home/SignUp"> Đăng ký ngay</a>
+
+                </div>
             </div>
             <div class="col-md-8 banner-sec">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -86,6 +88,39 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Quên mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" asp-action="Reset">
+                        <div class="form-group">
+                            <label>
+                                Nhập số điện thoại đăng ký tài khoản của bạn
+                            </label>
+                            <input class="form-control" type="text" name="sdt" required />
+                            <br>
+                            <small class="font-italic text-primary">(Hệ thống sẽ reset lại mật khẩu và gửi về mail khôi phục của bạn, vui lòng kiểm tra mail đã đăng ký (chú ý hộp thư rác!) và vào hệ thống thay đổi mật khẩu mới để tăng tính bảo mật.)</small>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Khôi phục</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </section>
 
 

@@ -43,12 +43,13 @@ namespace PTHShopping.Controllers
             return RedirectToAction("Index");
         }
         [Route("/CtdonHangs/TaoCT/{iddh?}/{pt?}/{dcm?}")]
-        public async Task<IActionResult> TaoCT(string iddh, int pt, string dcm)
+        public async Task<IActionResult> TaoCT(string iddh, int pt, string dcm) //tạo chi tiết đơn hàng
         {
             var myCart = Carts;
             foreach (var item in myCart)
             {
                 var sanPham = _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp);
+                //Chi tiết
                 var ct = new CtdonHang
                 {
                     IdctdonHang = RandomID.generateID(),
@@ -59,12 +60,13 @@ namespace PTHShopping.Controllers
                     KhuyenMai = pt,
                     NgayGiaoHang = null
                 };
+                //Cập nhật lại logic số lượng sản phẩm
                 _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp).UnitsInStock -= ct.SoLuong;
                 _context.SanPhams.SingleOrDefault(p => p.IdsanPham == item.MaSp).Slban += ct.SoLuong;
                 _context.Add(ct);
                 await _context.SaveChangesAsync();
             }
-
+            //Update lại giỏ hàng
             myCart.Clear();
             HttpContext.Session.Set("GioHang", myCart);
             return Redirect("/CTDonHangs/"+ dcm);

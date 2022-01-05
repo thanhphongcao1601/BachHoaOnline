@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using System.Net.Mail;
+using System.Net;
 
 namespace PTHShopping.Areas.Login.Controllers
 {
@@ -18,11 +21,12 @@ namespace PTHShopping.Areas.Login.Controllers
     public class HomeController : Controller
     {
         private readonly PTHShoppingContext _context;
+        public INotyfService _notifService { get; }
 
-        public HomeController(PTHShoppingContext context)
+        public HomeController(PTHShoppingContext context, INotyfService notifService)
         {
             _context = context;
-
+            _notifService = notifService;
         }
 
         public ActionResult Index()
@@ -31,7 +35,7 @@ namespace PTHShopping.Areas.Login.Controllers
         }
   
         [HttpPost]
-        public async Task<IActionResult> Index(string sdt, string Password)
+        public async Task<IActionResult> Index(string sdt, string Password, Boolean nhomk)
         {
             
             ViewBag.sdt = sdt;
@@ -164,6 +168,11 @@ namespace PTHShopping.Areas.Login.Controllers
                     ViewBag.sdt = "ErrSdt";
                     err = 1;
                 }
+                if (mail == null || mail == string.Empty)
+                {
+                    ViewBag.errmail = "ErrMail";
+                    err = 1;
+                }
                 if (pass1 == null || pass1 == string.Empty || pass1 == null || pass1 == string.Empty)
                 {
                     ViewBag.passN = "ErrPassN";
@@ -205,6 +214,42 @@ namespace PTHShopping.Areas.Login.Controllers
             }
             return Redirect("/Login");
         }
-        
+        public async Task<IActionResult> Reset(string sdt)
+        {
+            //Sent mail
+            try {
+                var mail = "";
+                var newpass = "";
+                if (sdt != null)
+                {
+                    var kh = _context.KhachHangs.Where(x => x.Sdt == sdt).ToList();
+                    if (kh != null && kh.Count > 0)
+                    {
+                        mail = kh[0].Email;
+                        newpass = PTHShopping.Helper.RandomID.generateID();
+                        kh[0].MatKhau = BCrypt.Net.BCrypt.HashPassword(newpass, kh[0].Salt);
+                        _context.Update(kh[0]);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Port = 587,
+                    Credentials = new NetworkCredential("bachhoaonlinepth@gmail.com", "CTPctp123456"),
+                    EnableSsl = true,
+                };
+
+                smtpClient.Send("bachhoaonlinepth@gmail.com", mail, "[PTHShoppping] Reset Password", "Mật khẩu mới của bạn là: "+ newpass + "\nHãy đổi lại mật khẩu mới để tăng tính bảo mật! \n\n\nCửa hàng Bách Hóa Online - PTHShopping");
+                _notifService.Success("Đã reset lại mật khẩu, vui lòng kiểm tra mail!");
+
+                
+            }
+            catch (SmtpException e) { 
+                _notifService.Error("Đã xảy ra lỗi: "+e.ToString());
+            }
+            return Redirect("/Login");
+        }
     }
 }

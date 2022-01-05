@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using X.PagedList;
 using PagedList.Core.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace PTHShopping.Controllers
 {
@@ -58,7 +58,7 @@ namespace PTHShopping.Controllers
             ViewBag.totalprice = total;
 
             if (modelz == null) return Content("Errrrrrrrr");
-            var lstSanpham = modelz.SanPhams.Where(c=>c.Active==true).ToList();
+            var lstSanpham = modelz.SanPhams.AsNoTracking().Include(x => x.Cat).Where(x => x.Cat.Published == true).Where(c=>c.Active==true).ToList();
             var lstCategory = modelz.Categories.ToList();
 
             Sanpham_Danhmuc objSanpham_Danhmuc = new Sanpham_Danhmuc();

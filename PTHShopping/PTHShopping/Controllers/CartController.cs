@@ -100,7 +100,6 @@ namespace PTHShopping.Controllers
             HttpContext.Session.Set("GioHang", myCart);
             _notifService.Success("Đã thêm vào giỏ hàng!");
             return RedirectToAction("Index","ChiTietSP",new { id = current});
-            //return Content(item.SoLuong.ToString());
         }
 
         public IActionResult SetSL(string id, int num)

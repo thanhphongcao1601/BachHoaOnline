@@ -168,7 +168,9 @@ namespace PTHShopping.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdsanPham,TenSanPham,ShortDesc,MoTa,CatId,Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe,Slban,MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
+        public async Task<IActionResult> Create([Bind("IdsanPham,TenSanPham,ShortDesc,MoTa,CatId," +
+            "Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe,Slban," +
+            "MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
         {
             ViewData["CatId"] = new SelectList(_context.Categories, "CatId", "CatName");
             var newFileName = string.Empty;
@@ -304,7 +306,9 @@ namespace PTHShopping.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("IdsanPham,TenSanPham,ShortDesc,MoTa,CatId,Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe,Slban,MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
+        public async Task<IActionResult> Edit(string id, [Bind("IdsanPham,TenSanPham,ShortDesc," +
+            "MoTa,CatId,Gia,KhuyenMai,Thumb,Video,NgayTao,BestSellers,HomeFlag,Active,Tags,TieuDe," +
+            "Slban,MetaDesc,MetaKey,UnitsInStock")] SanPham sanPham, IFormFile file, IFormFile fileVideo)
         {
             if (id != sanPham.IdsanPham)
             {
@@ -337,7 +341,6 @@ namespace PTHShopping.Areas.Admin.Controllers
                     }
                     string thumbOld = sanPham.Thumb;
                     string videoOld = sanPham.Video;
-
                     string PathDB = string.Empty;
                     if (file != null) //Luu Anh
                     {
@@ -348,10 +351,8 @@ namespace PTHShopping.Areas.Admin.Controllers
                             if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, thumbOld)))
                             {
                                 System.IO.File.Delete(Path.Combine(_environment.WebRootPath, thumbOld));
-
                             }
                         }
-
                     }
                     string PathDBVD = string.Empty;
                     if (fileVideo != null) //Luu video
@@ -363,7 +364,6 @@ namespace PTHShopping.Areas.Admin.Controllers
                             if (System.IO.File.Exists(Path.Combine(_environment.WebRootPath, videoOld)))
                             {
                                 System.IO.File.Delete(Path.Combine(_environment.WebRootPath, videoOld));
-
                             }
                         }
                     }
