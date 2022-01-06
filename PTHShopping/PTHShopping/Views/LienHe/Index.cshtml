@@ -94,7 +94,7 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.024380583723!2d106.69728031474864!3d10.732602892351254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x33c1813055acb613!2sTon%20Duc%20Thang%20University!5e0!3m2!1sen!2s!4v1640856488357!5m2!1sen!2s"
                 height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
         <div class="map-inside">
-            <i class="fas fa-phone"></i>
+            <i class="fa fa-map-marker-alt"></i>
             <div class="inside-widget">
                 <h4>Bách Hóa Online</h4>
                 <ul>
@@ -115,16 +115,16 @@
                     </div>
                 </div>
             </div>
-            <form action="#">
+            <form asp-controller="LienHe" asp-action="Mail" method="post">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Nhập tên">
+                        <input type="text" placeholder="Nhập tên" name="ten" required>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Nhập email">
+                        <input type="text" placeholder="Nhập email" name="mail" required>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <textarea placeholder="Nhập lời nhắn"></textarea>
+                        <textarea placeholder="Nhập lời nhắn" name="loinhan" required></textarea>
                         <button type="submit" class="site-btn">GỬI</button>
                     </div>
                 </div>

@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Số điện thoại</label>
-                    <input asp-for="Sdt" class="form-control" />
+                    <input asp-for="Sdt" class="form-control" readonly />
                     <span asp-validation-for="Sdt" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -70,7 +70,7 @@
                     <input asp-for="DiaChi" class="form-control" />
                     <span asp-validation-for="DiaChi" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div hidden class="form-group">
                     <label class="control-label">Ngày tạo</label>
                     <input asp-for="NgayTao" class="form-control" />
                     <span asp-validation-for="NgayTao" class="text-danger"></span>
@@ -96,7 +96,7 @@
                     <span asp-validation-for="Active" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Đổi mật khẩu?</label> <br />
+                    <label class="control-label"><b>Đổi mật khẩu?</b></label> <br />
                     <label class="control-label">Nhập mật khẩu cũ</label>
                     <input class="form-control" style="margin-bottom:20px;" type="password" name="pass0" />
                     <label class="control-label">Nhập mật khẩu mới</label>
@@ -133,6 +133,6 @@
 
 
 <div>
-    <a asp-action="Index">Trở lại</a>
+    <a asp-action="Index"> &lt; Trở lại</a>
 </div>
 

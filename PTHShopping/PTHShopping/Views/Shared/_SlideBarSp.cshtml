@@ -23,7 +23,7 @@
                             int count = sortls.ToList().Count;
                             <a href="@Url.Action("Index", "ChiTietSP",new { id = indexRoot})" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img style="max-width:100px" src="/@item.Thumb" alt=""> @*thumb*@
+                                    <img style="width: 100px; height:100px; object-fit:cover;" src="/@item.Thumb" alt=""> @*thumb*@
                                 </div>
                                 <div class="latest-product__item__text">
                                     <h6>@item.TenSanPham</h6>

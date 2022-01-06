@@ -35,7 +35,7 @@ namespace PTHShopping.Controllers
                 return data;
             }
         }
-
+        [Route("/CtdonHangs/HuyDH/{iddh?}")]
         public async Task<IActionResult> HuyDH(string iddh)
         {
             _context.DonHangs.Where(c => c.IddonHang == iddh).FirstOrDefault().IdtrangThaiGiaoDich = "TTDAHUY";

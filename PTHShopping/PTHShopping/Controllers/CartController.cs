@@ -33,9 +33,21 @@ namespace PTHShopping.Controllers
             }
         }
 
-        [Route("/Cart/{phantram?}")]
-        public IActionResult Index(int phantram, int maxkho)
+        [Route("/Cart/{magg?}")]
+        public IActionResult Index(string magg, int maxkho)
         {
+            var phantram = 0;
+            var check = _context.MaGiamGia.Where(c => c.Magiamgia == magg).FirstOrDefault();
+            if (check != null)
+            {
+                var pt = check.Magiamgia.Substring(check.Magiamgia.Length - 2, 2);
+                phantram = Int32.Parse(pt);
+                ViewBag.makmap = pt;
+            }
+            else
+            {
+                phantram = 0;
+            }
             var myCart = Carts;
             double total = 0;
             int cartNum = 0;
@@ -55,7 +67,7 @@ namespace PTHShopping.Controllers
             {
                 if (phantram > 0)
                 {
-                    ViewBag.makmad = phantram;
+                    ViewBag.makmad = phantram +"%";
                 }
                 else
                 {
@@ -144,19 +156,7 @@ namespace PTHShopping.Controllers
         [Route("/Cart/AddMaKM/{magg?}")]
         public IActionResult AddMaKM(string magg)
         {
-            var phantram = 0;
-            var check = _context.MaGiamGia.Where(c => c.Magiamgia == magg).FirstOrDefault();
-            if (check != null)
-            {
-                var pt = check.Magiamgia.Substring(check.Magiamgia.Length - 2, 2);
-                phantram = Int32.Parse(pt);
-                ViewBag.makmap = pt;
-            }
-            else
-            {
-                phantram = -1;
-            }
-            return RedirectToAction("Index", new { phantram });
+            return RedirectToAction("Index", new { magg });
         }
     }
 }

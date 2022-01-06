@@ -134,7 +134,14 @@
                             <li>Giá gốc <span>@ViewBag.totalprice VND</span></li>
                             <li>Giá đã giảm <span>@(ViewBag.totalprice * (100 - ViewBag.phantram)/100) VND</span></li>
                         </ul>
-                        <a href="@Url.Action("Index", "ThanhToan", new {phantram = ViewBag.phantram})" class="primary-btn">THANH TOÁN</a>
+                        @if (Model.Count() > 0)
+                        {
+                            <a href="@Url.Action("Index", "ThanhToan", new { phantram = ViewBag.phantram })" class="primary-btn">ĐẶT HÀNG</a>
+                        }
+                        else
+                        {
+                            <a href="" class="primary-btn" onclick="return false;">ĐẶT HÀNG</a>
+                        }
                     </div>
                 </div>
             </div>

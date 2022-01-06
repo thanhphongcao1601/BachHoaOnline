@@ -59,7 +59,7 @@
                     <td>
                         @if (item.NgayGiaoHang == null && item.IddonHangNavigation.IdtrangThaiGiaoDich == "TTCHUAGIAO")
                         {
-                            <a style="color:red; font-weight:bold" href="@Url.Action("HuyDH", "CtdonHangs", new {iddh = item.IddonHang})">Hủy đơn</a>
+                            <a style="color:red; font-weight:bold" href="/CtdonHangs/HuyDH/@item.IddonHang">Hủy đơn</a>
                         }
                     </td>
                 </tr>

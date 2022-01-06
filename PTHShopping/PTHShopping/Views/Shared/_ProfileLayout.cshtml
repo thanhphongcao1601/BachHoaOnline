@@ -60,13 +60,12 @@
 <body>
     @await Html.PartialAsync("/Views/Shared/_HeaderPartialView.cshtml")
 
-    <div class="container-fluid">
-        <div style="width:20%;float:left; height:max-content; padding:20px;">
-            <div style="margin-bottom:10px;"><a class="abc" href="/Profile">Thông tin cá nhân</a></div>
-            <div style="margin-bottom:10px;"><a class="abc" href="/CtDonHangs">Lịch sử mua hàng</a></div>
-            <div style="margin-bottom:10px;"><a class="abc" href="#">Cài đặt</a></div>
+    <div class="container-fluid row d-flex">
+        <div height:max-content; padding:20px;" class="col-12 col-md-3">
+            <div style="margin-bottom:10px;"><a class="btn btn-success w-75" href="/Profile">Thông tin cá nhân</a></div>
+            <div style="margin-bottom:10px;"><a class="btn btn-success w-75" href="/CtDonHangs">Lịch sử mua hàng</a></div>
         </div>
-        <div style="width:80%;float:right;">
+        <div class="col-12 col-md-9">
             @RenderBody()
             @await RenderSectionAsync("Scripts", required: false)
         </div>
