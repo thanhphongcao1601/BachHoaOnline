@@ -231,6 +231,11 @@ namespace PTHShopping.Areas.Login.Controllers
                         _context.Update(kh[0]);
                         await _context.SaveChangesAsync();
                     }
+                    else
+                    {
+                        _notifService.Error("SĐT không có trong hệ thống hoặc mail khôi phục không chính xác");
+                        return Redirect("/Login");
+                    }
                 }
                 var smtpClient = new SmtpClient("smtp.gmail.com")
                 {

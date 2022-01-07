@@ -47,7 +47,7 @@
                         <ul>
                             @foreach (var item in Model.ListDanhmuc)
                             {
-                                <li><a href="@Url.Action("Index", "MuaSam",new { id = item.CatId.ToString() })">@item.CatName</a></li>
+                                <li><a href="@Url.Action("Index", "MuaSam",new { currentPage=1,id = item.CatId.ToString() })">@item.CatName</a></li>
                             }
                         </ul>
                     </div>

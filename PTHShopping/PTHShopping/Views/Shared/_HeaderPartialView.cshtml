@@ -9,36 +9,64 @@
     <div class="humberger__menu__logo">
         <a href="/"><img src="~/Userassets/img/lg.png" alt=""></a>
     </div>
-    <div class="humberger__menu__cart">
-        <ul>
-            <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.cartNum</span></a></li>
-        </ul>
-        <div class="header__cart__price">Tổng: <span>@ViewBag.totalprice VND</span></div>
-    </div>
-    
-    <nav class="humberger__menu__nav mobile-menu">
-        <ul>
-            <li class="active"><a href="/">Trang Chủ</a></li>
-            <li><a href="/MuaSam">Mua Sắm</a></li>
-            <li><a href="/TinTuc">Tin Tức</a></li>
-            <li><a href="/LienHe">Liên Hệ</a></li>
-        </ul>
-    </nav>
-    <div id="mobile-menu-wrap"></div>
-    <div class="header__top__right__social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-pinterest-p"></i></a>
-    </div>
-    <div class="humberger__menu__contact">
-        <ul>
-            <li><i class="fa fa-envelope"></i>bachhoaonlinepth@gmail.com</li>
+    <div class="header__top__right font-weight-bold">
+        <div class="header__top__right__auth d-flex float-right">
+            @if (User.Identity.IsAuthenticated)
+            {
 
-            <li>Bách hóa online - Giao hàng tận tay</li>
-        </ul>
+                var roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value).ToList()[0];
+                if (roles != "Admin" && roles != "Staff" && roles != "Shipper")
+                {
+                    <a class="mr-3" href="@Url.Action("Index", "Profile")"><i class="fa fa-user-circle-o"></i>@User.Identity.Name</a>
+                }
+                if (roles == "Admin" || roles == "Staff")
+                {
+                    <a class="mr-3" href="/Admin">| Vào trang quản trị </a>
+                }
+                if (roles == "Shipper")
+                {
+                    <a class="mr-3" href="/Shipper">| Vào trang giao hàng </a>
+                }
+                <a href="/Login/Home/Logout">| <i class="fa fa-sign-out"></i> Đăng xuất</a>
+            }
+            else
+            {
+                <a href="/Login"><i class="fa fa-user"></i> Đăng nhập</a>
+            }
+        </div>
     </div>
-</div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="/Cart"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.cartNum</span></a></li>
+            </ul>
+            <div class="header__cart__price">Tổng: <span>@ViewBag.totalprice VND</span></div>
+        </div>
+
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="/">Trang Chủ</a></li>
+                <li><a href="/MuaSam">Mua Sắm</a></li>
+                <li><a href="/TinTuc">Tin Tức</a></li>
+                <li><a href="/LienHe">Liên Hệ</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i>bachhoaonlinepth@gmail.com</li>
+
+                <li>Bách hóa online - Giao hàng tận tay</li>
+            </ul>
+        </div>
+    </div>
 <!-- Humberger End -->
 <!-- Header Section Begin -->
 <header class="header">

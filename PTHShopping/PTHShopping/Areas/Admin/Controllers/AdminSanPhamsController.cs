@@ -215,7 +215,7 @@ namespace PTHShopping.Areas.Admin.Controllers
                 string PathDBVD = string.Empty;
                 if (fileVideo != null) //Luu video
                 {
-                    PathDB = saveVideo(fileVideo);
+                    PathDBVD = saveVideo(fileVideo);
                     sanPham.Video = PathDBVD;
                 }
 
