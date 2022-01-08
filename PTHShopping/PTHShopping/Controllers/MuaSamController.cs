@@ -38,7 +38,7 @@ namespace PTHShopping.Controllers
             ViewBag.vmax = vmax;
 
             ViewBag.timkiem = timkiem;
-            ViewBag.pageSize = 3;
+            ViewBag.pageSize = 9;
             if (currentPage == null)
             {
                 currentPage = 1;

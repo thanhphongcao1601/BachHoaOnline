@@ -104,7 +104,7 @@
                             <div class="checkout__order__total">Giá đã giảm <span>@(ViewBag.totalprice * (100 - ViewBag.phantram)/100) VND</span></div>
                             <div>
                                 <div style="font-weight:bold; margin:10px;">Sử dụng địa chỉ mặc định hoặc đổi địa chỉ tại đây</div>
-                                <input type="text" style="width:70%" name="diachimoi" value="@diachi" required/>
+                                <input type="text" style="width:70%" name="diachimoi" value="@diachi.Replace('/','|')" required/>
                             </div>
                             <button type="submit" class="site-btn">XÁC NHẬN</button>
                         </div>
